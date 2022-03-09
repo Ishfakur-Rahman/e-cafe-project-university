@@ -1,13 +1,15 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/parser.dart';
 import 'package:iconsax/iconsax.dart';
+
 import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/Theme/mText.dart';
 
-class SignIn extends StatelessWidget {
-  const SignIn({Key? key}) : super(key: key);
+class LogInPages extends StatelessWidget {
+  const LogInPages({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,50 +33,41 @@ class _LogInCardState extends State<LogInCard> {
     var _showPass = true;
     return Center(
       child: Stack(
+        
         children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                colorFilter: ColorFilter.mode(
-                    Color.fromARGB(169, 14, 5, 4), BlendMode.overlay),
-                image: AssetImage(
-                  "lib/Asset/Image/Sign up.png",
+          AnimatedContainer(
+            alignment: Alignment.topCenter,
+            duration: Duration(milliseconds: 1000),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 50),
+                  child: SvgPicture.asset("lib/Asset/illustration/coffeesvg.svg"),
                 ),
-              ),
+              ],
             ),
+            // decoration: BoxDecoration(
+            //   image: DecorationImage(
+            //     colorFilter: ColorFilter.mode(
+            //         Color.fromARGB(169, 14, 5, 4), BlendMode.overlay),
+            //     image: AssetImage(
+            //       "lib/Asset/Image/Sign up.png",
+            //     ),
+            //   ),
+            // ),
           ),
           Padding(
-            padding: const EdgeInsets.all(50.0),
+            padding: const EdgeInsets.all(25.0),
             child: Container(
               alignment: Alignment.bottomCenter,
               child: Column(
                 children: [
                   Spacer(
-                    flex: 10,
+                    flex: 3,
                   ),
-                  MText("Sign In").heading1(),
-                  Spacer(),
-                  TextField(
-                    decoration: InputDecoration(
-                      filled: true,
-                      fillColor:
-                          Color.fromARGB(255, 199, 123, 24).withOpacity(0.7),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide.none,
-                      ),
-                      labelText: "Name",
-                      labelStyle: TextStyle(
-                          color: MColors.primaryColorDark,
-                          decorationColor: MColors.primaryColorLight),
-                      prefixIcon: Icon(
-                        Iconsax.user,
-                        color: MColors.primaryColorDark,
-                      ),
-                    ),
-                    cursorColor: MColors.primaryColorDark,
-                  ),
-                  SizedBox(
-                    height: 10,
+                  MText("Log In").heading1(),
+                  Divider(
+                    height: 100,
                   ),
                   TextField(
                     decoration: InputDecoration(

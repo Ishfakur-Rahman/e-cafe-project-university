@@ -37,6 +37,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: null
+  flutter_svg: ^1.0.3
   google_fonts: ^2.3.1
   iconsax: ^0.0.8
   path_provider: ^2.0.9
@@ -58,6 +59,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/Asset/Image/
+    - lib/Asset/illustration/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
   # For details regarding adding assets from package dependencies, see
