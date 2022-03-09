@@ -3,10 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/parser.dart';
+import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
 import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/Theme/mText.dart';
+import 'package:versity_project_coffee/features/userAccount/presentation/get/userAccountController.dart';
 
 class LogInPages extends StatelessWidget {
   const LogInPages({Key? key}) : super(key: key);
@@ -14,35 +16,32 @@ class LogInPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      backgroundColor: MColors.backgroundColor,
       body: LogInCard(),
     );
   }
 }
 
-class LogInCard extends StatefulWidget {
+class LogInCard extends StatelessWidget {
   const LogInCard({Key? key}) : super(key: key);
 
   @override
-  State<LogInCard> createState() => _LogInCardState();
-}
-
-class _LogInCardState extends State<LogInCard> {
-  @override
   Widget build(BuildContext context) {
-    var _showPass = true;
+    var _showPass = Get.put(UserAccountController());
+
     return Center(
       child: Stack(
-        
         children: [
-          AnimatedContainer(
+          Container(
             alignment: Alignment.topCenter,
-            duration: Duration(milliseconds: 1000),
             child: Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 50),
-                  child: SvgPicture.asset("lib/Asset/illustration/coffeesvg.svg"),
+                  child: SvgPicture.asset(
+                    "lib/Asset/illustration/coffeesvg.svg",
+                    width: 200,
+                  ),
                 ),
               ],
             ),
@@ -63,13 +62,16 @@ class _LogInCardState extends State<LogInCard> {
               child: Column(
                 children: [
                   Spacer(
-                    flex: 3,
+                    flex: 10,
                   ),
                   MText("Log In").heading1(),
                   Divider(
                     height: 100,
                   ),
+                  Container(child: MText("Email", color: MColors.primaryColorDark,).text(), alignment: Alignment.topLeft,),
+                  SizedBox(height: 10,),
                   TextField(
+                    style: TextStyle(color: MColors.primaryColorDark),
                     decoration: InputDecoration(
                       filled: true,
                       fillColor:
@@ -77,10 +79,6 @@ class _LogInCardState extends State<LogInCard> {
                       border: OutlineInputBorder(
                         borderSide: BorderSide.none,
                       ),
-                      labelText: "Email",
-                      labelStyle: TextStyle(
-                          color: MColors.primaryColorDark,
-                          decorationColor: MColors.primaryColorLight),
                       prefixIcon: Icon(
                         Iconsax.message,
                         color: MColors.primaryColorDark,
@@ -89,39 +87,38 @@ class _LogInCardState extends State<LogInCard> {
                     cursorColor: MColors.primaryColorDark,
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
-                  TextField(
-                    obscureText: _showPass,
+                  Container(child: MText("Password", color: MColors.primaryColorDark,).text(), alignment: Alignment.topLeft,),
+                  SizedBox(height: 10,),
+                  Obx(() => TextField(
+                    style: TextStyle(color: MColors.primaryColorDark),
+                    obscureText: _showPass.eyePressed.value,
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor:
-                          Color.fromARGB(255, 199, 123, 24).withOpacity(0.7),
+                      fillColor: Color.fromARGB(255, 199, 123, 24)
+                          .withOpacity(0.7),
                       border: OutlineInputBorder(
                         borderSide: BorderSide.none,
                       ),
-                      labelText: "Password",
-                      labelStyle: TextStyle(
-                          color: MColors.primaryColorDark,
-                          decorationColor: MColors.primaryColorLight),
+                      
                       prefixIcon: Icon(
                         Iconsax.lock,
                         color: MColors.primaryColorDark,
                       ),
                       suffix: IconButton(
-                        icon: Icon(_showPass == true
-                            ? Iconsax.eye
-                            : Iconsax.eye_slash),
-                        onPressed: () {
-                          setState(() {
-                            
-                            _showPass ? _showPass = false : _showPass = true;
-                          });
-                        },
-                      ),
-                    ),
-                    cursorColor: MColors.primaryColorDark,
-                  ),
+                          constraints: BoxConstraints(),
+                          splashRadius: 25,
+                          padding: EdgeInsets.zero,
+                          icon: Icon(_showPass == true
+                              ? Iconsax.eye
+                              : Iconsax.eye_slash),
+                          onPressed: () {
+                            _showPass.eyePressed.value =
+                                !_showPass.eyePressed.value;
+                          })),
+                  cursorColor: MColors.primaryColorDark,
+                      )),
                   Spacer()
                 ],
               ),

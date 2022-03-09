@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class MColors {
-  static const backgroundColor = Color(0xFFE9DDCB);
+  static const backgroundColor = Color.fromARGB(255, 253, 252, 251);
   static var secondaryBackgroundColor = primaryColorLight.withOpacity(0.3);
   static const primaryColorDark = Color(0xFF430C05);
   static const primaryColor = Color(0xFF8D3113);

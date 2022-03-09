@@ -28,16 +28,15 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   adobe_xd: ^2.0.1
-  bloc: ^8.0.3
+  animated_splash_screen: ^1.2.0
   cupertino_icons: ^1.0.2
-  equatable: ^2.0.3
   firebase: ^9.0.2
   firebase_auth: ^3.0.2
   firebase_core: ^1.5.0
   flutter:
     sdk: flutter
-  flutter_bloc: null
   flutter_svg: ^1.0.3
+  get: ^4.6.1
   google_fonts: ^2.3.1
   iconsax: ^0.0.8
   path_provider: ^2.0.9
