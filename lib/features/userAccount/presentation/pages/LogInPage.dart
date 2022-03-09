@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/parser.dart';
@@ -64,12 +63,12 @@ class LogInCard extends StatelessWidget {
                   Spacer(
                     flex: 10,
                   ),
-                  MText("Log In").heading1(),
+                  MText("E - Cafe").heading1(),
                   Divider(
-                    height: 100,
+                    height: 10,
                   ),
                   Container(child: MText("Email", color: MColors.primaryColorDark,).text(), alignment: Alignment.topLeft,),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 5,),
                   TextField(
                     style: TextStyle(color: MColors.primaryColorDark),
                     decoration: InputDecoration(
@@ -90,7 +89,7 @@ class LogInCard extends StatelessWidget {
                     height: 20,
                   ),
                   Container(child: MText("Password", color: MColors.primaryColorDark,).text(), alignment: Alignment.topLeft,),
-                  SizedBox(height: 10,),
+                  SizedBox(height: 5,),
                   Obx(() => TextField(
                     style: TextStyle(color: MColors.primaryColorDark),
                     obscureText: _showPass.eyePressed.value,
@@ -119,7 +118,24 @@ class LogInCard extends StatelessWidget {
                           })),
                   cursorColor: MColors.primaryColorDark,
                       )),
-                  Spacer()
+                  Spacer(),
+                  Row(
+                    children: [
+                      Spacer(),
+                      MText("don't have an account?").text(),
+                      SizedBox(width: 20,),
+                      InkWell(child: MText("Register now").text()),
+                      Spacer()
+                    ],
+                  ),
+                  Spacer(),
+                  OutlinedButton(
+                    // color: MColors.primaryColorLight.withOpacity(.2),
+                    // splashColor: MColors.primaryColorLight.withOpacity(.5),
+                    onPressed: (){}, child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 100),
+                    child: MText("Log In",fontSize: 20, fontWeight: FontWeight.bold,color: MColors.primaryColorDark,).text(),
+                  ))
                 ],
               ),
             ),
