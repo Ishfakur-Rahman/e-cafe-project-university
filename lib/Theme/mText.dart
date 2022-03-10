@@ -1,11 +1,12 @@
 // ignore_for_file: prefer_initializing_formals, overridden_fields, use_key_in_widget_constructors, must_be_immutable
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:versity_project_coffee/Theme/mColors.dart';
 
-class MText extends Text {
+class MText extends AutoSizeText {
   MText(this.data, {this.fontWeight, this.fontSize, this.color}) : super('');
 
   Color? color = MColors.black1;
@@ -15,8 +16,8 @@ class MText extends Text {
   @override
   final String data;
 
-  Text text() {
-    return Text(data, style: textThemePoppins(color, fontWeight, fontSize));
+  AutoSizeText text() {
+    return AutoSizeText(data, style: textThemePoppins(color, fontWeight, fontSize), maxLines: 2,overflow: TextOverflow.ellipsis,);
   }
 
   Text heading1() {
@@ -32,6 +33,7 @@ class MText extends Text {
       color: color,
       fontWeight: fontWeight,
       fontSize: fontSize,
+      overflow: TextOverflow.ellipsis
     ));
   }
 
@@ -42,6 +44,7 @@ class MText extends Text {
       color: color,
       fontWeight: fontWeight,
       fontSize: fontSize,
+      overflow: TextOverflow.ellipsis
     ));
   }
 
