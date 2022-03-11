@@ -30,6 +30,7 @@ dependencies:
   adobe_xd: ^2.0.1
   animated_splash_screen: ^1.2.0
   auto_size_text: ^3.0.0
+  badges: ^2.0.2
   cupertino_icons: ^1.0.2
   firebase: ^9.0.2
   firebase_auth: ^3.0.2
