@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:flutter/material.dart';
+// import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg/parser.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 
@@ -67,7 +67,68 @@ class RegisterRouter extends StatelessWidget {
 class LogInCard extends StatelessWidget {
   const LogInCard({Key? key}) : super(key: key);
 
-  Padding loginForm() {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Stack(
+        children: [
+          CoffeSvg(),
+          LogInForm(),
+        ],
+      ),
+    );
+  }
+}
+
+class PassWordField extends StatelessWidget {
+  var showPass = Get.put(UserAccountControllerService());
+  PassWordField({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(() => TextField(
+          controller: showPass.pwdController.value,
+          style: TextStyle(color: MColors.primaryColorDark),
+          obscureText: showPass.eyePressed.value,
+          decoration: InputDecoration(
+            // contentPadding: EdgeInsets.all(8),
+              labelText: "Password",
+              labelStyle:
+                  TextStyle(color: MColors.primaryColorDark.withOpacity(.7)),
+              filled: true,
+              fillColor: Color.fromARGB(255, 199, 123, 24).withOpacity(0.7),
+              border: UnderlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.all(Radius.circular(16)),
+                
+              ),
+              prefixIcon: Icon(
+                Iconsax.lock,
+                color: MColors.primaryColorDark,
+              ),
+              suffix: IconButton(
+                  
+                  constraints: BoxConstraints(),
+                  splashRadius: 25,
+                  padding: EdgeInsets.zero,
+                  icon: Icon(showPass.eyePressed.value
+                      ? Iconsax.eye
+                      : Iconsax.eye_slash),
+                  onPressed: () {
+                    showPass.eyePressed.value = !showPass.eyePressed.value;
+                  })),
+          cursorColor: MColors.primaryColorDark,
+        ));
+  }
+}
+
+class LogInForm extends StatelessWidget {
+  const LogInForm({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(25.0),
       child: Container(
@@ -84,7 +145,7 @@ class LogInCard extends StatelessWidget {
             SizedBox(
               height: 20,
             ),
-            emailField(),
+            EmailField(),
             SizedBox(
               height: 13,
             ),
@@ -92,25 +153,36 @@ class LogInCard extends StatelessWidget {
               height: 5,
             ),
             PassWordField(),
+            // FlutterPwValidator(width: MediaQuery.of(context).size.width, height: 100, minLength: 6, onSuccess: (){}, controller: PassWordField().showPass.pwdController.value),
             Spacer(),
             RegisterRouter(),
             SizedBox(
               height: 20,
             ),
-            logInButton()
+            LogInButton()
           ],
         ),
       ),
     );
   }
+}
 
-  Container logInButton() {
+class LogInButton extends StatelessWidget {
+  const LogInButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.all(10),
       child: ElevatedButton.icon(
         onPressed: () {
-          Get.to(() => HomePage());
+          print(GetUtils.isEmail(
+              EmailField().emailAccountController.text));
+          if (GetUtils.isEmail(
+              EmailField().emailAccountController.text)) {
+            Get.to(() => HomePage());
+          }
         },
         icon: Icon(Iconsax.login), //icon data for elevated button
         label: MText(
@@ -123,16 +195,29 @@ class LogInCard extends StatelessWidget {
       ),
     );
   }
+}
 
+<<<<<<< HEAD
   Widget registerRouter() {
     var width = Get.width;
+=======
+class RegisterRouter extends StatelessWidget {
+  const RegisterRouter({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+>>>>>>> 37a8c30
     if (width <= 316) {
       return Column(
         children: [
           MText("don't have an account?").text(),
+<<<<<<< HEAD
           SizedBox(
             width: 10,
           ),
+=======
+>>>>>>> 37a8c30
           InkWell(
             child: MText("Register now", color: MColors.primaryColor).text(),
             onTap: () {
@@ -159,16 +244,26 @@ class LogInCard extends StatelessWidget {
       ],
     );
   }
+}
 
-  TextField emailField() {
+class EmailField extends StatelessWidget {
+  var emailAccountController = Get.put(UserAccountControllerService().emailController.value);
+  EmailField({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return TextField(
+      controller: emailAccountController,
+      keyboardType: TextInputType.emailAddress,
       style: TextStyle(color: MColors.primaryColorDark),
       decoration: InputDecoration(
         labelText: "Email",
         labelStyle: TextStyle(color: MColors.primaryColorDark.withOpacity(.7)),
         filled: true,
         fillColor: Color.fromARGB(255, 199, 123, 24).withOpacity(0.7),
-        border: UnderlineInputBorder(borderSide: BorderSide.none),
+        border: UnderlineInputBorder(
+            borderSide: BorderSide.none,
+            borderRadius: BorderRadius.all(Radius.circular(16))),
         prefixIcon: Icon(
           Iconsax.message,
           color: MColors.primaryColorDark,
@@ -177,8 +272,13 @@ class LogInCard extends StatelessWidget {
       cursorColor: MColors.primaryColorDark,
     );
   }
+}
 
-  Container coffeeSvg() {
+class CoffeSvg extends StatelessWidget {
+  const CoffeSvg({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.topCenter,
       child: Column(
@@ -202,56 +302,5 @@ class LogInCard extends StatelessWidget {
       //   ),
       // ),
     );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Stack(
-        children: [
-          coffeeSvg(),
-          loginForm(),
-        ],
-      ),
-    );
-  }
-}
-
-class PassWordField extends StatelessWidget {
-  const PassWordField({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    var _showPass = Get.put(UserAccountController());
-    return Obx(() => TextField(
-          style: TextStyle(color: MColors.primaryColorDark),
-          obscureText: _showPass.eyePressed.value,
-          decoration: InputDecoration(
-              labelText: "Password",
-              labelStyle:
-                  TextStyle(color: MColors.primaryColorDark.withOpacity(.7)),
-              filled: true,
-              fillColor: Color.fromARGB(255, 199, 123, 24).withOpacity(0.7),
-              border: UnderlineInputBorder(
-                borderSide: BorderSide.none,
-              ),
-              prefixIcon: Icon(
-                Iconsax.lock,
-                color: MColors.primaryColorDark,
-              ),
-              suffix: IconButton(
-                  constraints: BoxConstraints(),
-                  splashRadius: 25,
-                  padding: EdgeInsets.zero,
-                  icon: Icon(_showPass.eyePressed.value
-                      ? Iconsax.eye
-                      : Iconsax.eye_slash),
-                  onPressed: () {
-                    _showPass.eyePressed.value = !_showPass.eyePressed.value;
-                  })),
-          cursorColor: MColors.primaryColorDark,
-        ));
   }
 }
