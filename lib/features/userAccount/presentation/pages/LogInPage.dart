@@ -9,16 +9,58 @@ import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/Theme/mText.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/homePage.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/get/userAccountController.dart';
+import 'package:versity_project_coffee/main.dart';
 
 class LogInPages extends StatelessWidget {
   const LogInPages({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var ctx = Get.put(context);
     return Scaffold(
       backgroundColor: MColors.backgroundColor,
       body: LogInCard(),
     );
+  }
+}
+class RegisterRouter extends StatelessWidget {
+  const RegisterRouter({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
+    if (width <= 316) {
+      return Column(
+        children: [
+          MText("don't have an account?").text(),
+          SizedBox(
+            width: 10,
+          ),
+          InkWell(
+            child: MText("Register now", color: MColors.primaryColor).text(),
+            onTap: () {
+              Get.to(() => HomePage());
+            },
+          ),
+        ],
+      );
+    }
+    return Row(
+      children: [
+        Spacer(),
+        MText("don't have an account?").text(),
+        SizedBox(
+          width: 10,
+        ),
+        InkWell(
+          child: MText("Register now", color: MColors.primaryColor).text(),
+          onTap: () {
+            Get.to(() => HomePage());
+          },
+        ),
+        Spacer()
+      ],
+    );;
   }
 }
 
@@ -51,7 +93,7 @@ class LogInCard extends StatelessWidget {
             ),
             PassWordField(),
             Spacer(),
-            registerRouter(),
+            RegisterRouter(),
             SizedBox(
               height: 20,
             ),
@@ -82,7 +124,24 @@ class LogInCard extends StatelessWidget {
     );
   }
 
-  Row registerRouter() {
+  Widget registerRouter() {
+    var width = Get.width;
+    if (width <= 316) {
+      return Column(
+        children: [
+          MText("don't have an account?").text(),
+          SizedBox(
+            width: 10,
+          ),
+          InkWell(
+            child: MText("Register now", color: MColors.primaryColor).text(),
+            onTap: () {
+              Get.to(() => HomePage());
+            },
+          ),
+        ],
+      );
+    }
     return Row(
       children: [
         Spacer(),
