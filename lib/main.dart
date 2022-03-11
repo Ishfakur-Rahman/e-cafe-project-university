@@ -15,11 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-<<<<<<< HEAD
       
-=======
-      // navigatorKey: NavigationService.navigatorKey,
->>>>>>> 37a8c30
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: MColors.colorThemeData,

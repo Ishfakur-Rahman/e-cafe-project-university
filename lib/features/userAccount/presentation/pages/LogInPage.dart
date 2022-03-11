@@ -23,46 +23,6 @@ class LogInPages extends StatelessWidget {
     );
   }
 }
-class RegisterRouter extends StatelessWidget {
-  const RegisterRouter({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    var width = MediaQuery.of(context).size.width;
-    if (width <= 316) {
-      return Column(
-        children: [
-          MText("don't have an account?").text(),
-          SizedBox(
-            width: 10,
-          ),
-          InkWell(
-            child: MText("Register now", color: MColors.primaryColor).text(),
-            onTap: () {
-              Get.to(() => HomePage());
-            },
-          ),
-        ],
-      );
-    }
-    return Row(
-      children: [
-        Spacer(),
-        MText("don't have an account?").text(),
-        SizedBox(
-          width: 10,
-        ),
-        InkWell(
-          child: MText("Register now", color: MColors.primaryColor).text(),
-          onTap: () {
-            Get.to(() => HomePage());
-          },
-        ),
-        Spacer()
-      ],
-    );;
-  }
-}
 
 class LogInCard extends StatelessWidget {
   const LogInCard({Key? key}) : super(key: key);
@@ -197,27 +157,16 @@ class LogInButton extends StatelessWidget {
   }
 }
 
-<<<<<<< HEAD
-  Widget registerRouter() {
-    var width = Get.width;
-=======
 class RegisterRouter extends StatelessWidget {
   const RegisterRouter({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
->>>>>>> 37a8c30
     if (width <= 316) {
       return Column(
         children: [
           MText("don't have an account?").text(),
-<<<<<<< HEAD
-          SizedBox(
-            width: 10,
-          ),
-=======
->>>>>>> 37a8c30
           InkWell(
             child: MText("Register now", color: MColors.primaryColor).text(),
             onTap: () {
