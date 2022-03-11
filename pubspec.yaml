@@ -42,6 +42,7 @@ dependencies:
   google_fonts: ^2.3.1
   iconsax: ^0.0.8
   path_provider: ^2.0.9
+  smooth_star_rating_null_safety: ^1.0.4+2
 
 dev_dependencies:
   flutter_lints: ^1.0.0
