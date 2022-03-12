@@ -1,8 +1,15 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:versity_project_coffee/features/userAccount/presentation/pages/LogInPage.dart';
 
-class UserAccountController extends GetxController {
+class UserAccountControllerService extends GetxController {
   var eyePressed = true.obs;
-  toggle() {
-    eyePressed.value != eyePressed.value;
+
+  toggleEye() {
+    return eyePressed.value != eyePressed.value;
   }
+
+  var pwdController = TextEditingController().obs;
+
+  var emailController = TextEditingController().obs;
 }
