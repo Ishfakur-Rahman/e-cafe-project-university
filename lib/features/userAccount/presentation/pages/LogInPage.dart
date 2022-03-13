@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, file_names, must_be_immutable
 import 'package:flutter/material.dart';
 // import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,14 +9,12 @@ import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/Theme/mText.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/homePage.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/get/userAccountController.dart';
-import 'package:versity_project_coffee/main.dart';
 
 class LogInPages extends StatelessWidget {
   const LogInPages({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var ctx = Get.put(context);
     return Scaffold(
       backgroundColor: MColors.backgroundColor,
       body: LogInCard(),
@@ -137,8 +135,6 @@ class LogInButton extends StatelessWidget {
       padding: EdgeInsets.all(10),
       child: ElevatedButton.icon(
         onPressed: () {
-          print(GetUtils.isEmail(
-              EmailField().emailAccountController.text));
           if (GetUtils.isEmail(
               EmailField().emailAccountController.text)) {
             Get.to(() => HomePage());

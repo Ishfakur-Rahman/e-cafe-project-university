@@ -4,16 +4,15 @@ import 'package:versity_project_coffee/features/homePage/presentation/pages/home
 class Splashscreen extends StatelessWidget {
   const Splashscreen({Key? key}) : super(key: key);
 
+  // ignore: unused_element
   _redirectToHome(BuildContext context){
-    Navigator.pushReplacement(context,MaterialPageRoute(builder:(_)=>HomePage()));
+    Navigator.pushReplacement(context,MaterialPageRoute(builder:(_)=>const HomePage()));
   }
 
   
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("SplashScreen"),
-    );
+    return const Text("SplashScreen");
   }
 }

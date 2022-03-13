@@ -1,6 +1,7 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:versity_project_coffee/features/userAccount/presentation/pages/LogInPage.dart';
 
 class UserAccountControllerService extends GetxController {
   var eyePressed = true.obs;

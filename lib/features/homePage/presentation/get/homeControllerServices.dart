@@ -1,10 +1,56 @@
+// ignore_for_file: file_names
+
 import 'package:get/get.dart';
+import 'package:versity_project_coffee/features/homePage/data/models/coffeeModel.dart';
 
 class HomeControllerService extends GetxController {
-  final _index = 0.obs;
-  set index(int value) =>_index.value = value;
-  int get index => _index.value;
-  final _rating = [for (double i = 1; i <= 10; i++) i].obs;
-  set rating(double value) => _rating[index] = value;
-  double get rating => _rating[index];
+  var coffee = <CoffeeModel>[].obs; //TODO: here fetch coffee
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchCoffees();
+  }
+
+  void fetchCoffees() async {
+    var coffeeResult = [
+      CoffeeModel(
+          name: "My Coffee",
+          type: "latte",
+          market: "market",
+          ratings: 0,
+          price: 50),
+      CoffeeModel(
+          name: "My Coffee",
+          type: "latte",
+          market: "market",
+          ratings: 0,
+          price: 50),
+      CoffeeModel(
+          name: "My Coffee",
+          type: "latte",
+          market: "market",
+          ratings: 0,
+          price: 50),
+      CoffeeModel(
+          name: "My Coffee",
+          type: "latte",
+          market: "market",
+          ratings: 0,
+          price: 50),
+      CoffeeModel(
+          name: "My Coffee",
+          type: "latte",
+          market: "market",
+          ratings: 0,
+          price: 50),
+      CoffeeModel(
+          name: "My Coffee",
+          type: "latte",
+          market: "market",
+          ratings: 0,
+          price: 50),
+    ];
+    coffee.value = coffeeResult;
+  }
 }

@@ -1,5 +1,6 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:versity_project_coffee/Theme/mText.dart';
 
 class HomePage extends StatelessWidget {
