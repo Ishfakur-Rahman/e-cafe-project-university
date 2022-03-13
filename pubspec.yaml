@@ -11,6 +11,7 @@ dependencies:
   adobe_xd: ^2.0.1
   animated_splash_screen: ^1.2.0
   auto_size_text: ^3.0.0
+  badges: ^2.0.2
   cupertino_icons: ^1.0.2
   firebase: ^9.0.2
   firebase_core: ^1.12.0
@@ -23,6 +24,8 @@ dependencies:
   google_fonts: ^2.3.1
   iconsax: ^0.0.8
   path_provider: ^2.0.9
+  font_awesome_flutter: ^9.2.0
+
 
 
 dev_dependencies:
@@ -33,8 +36,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - lib/Asset/Image/
-    - lib/Asset/illustration/
+    - lib/Asset/
 
   # fonts:
   #   - family: Schyler

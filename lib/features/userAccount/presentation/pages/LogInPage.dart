@@ -1,6 +1,3 @@
-//Importing package by ishfak
-import 'package:get/get_navigation/src/routes/default_transitions.dart';
-import 'package:versity_project_coffee/FirebaseHandling/RegistrationHandling.dart';
 import 'package:versity_project_coffee/FirebaseHandling/LoginAuthentication.dart';
 
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
@@ -14,7 +11,8 @@ import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/Theme/mText.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/homePage.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/get/userAccountController.dart';
-import 'package:versity_project_coffee/main.dart';
+import 'package:versity_project_coffee/features/userAccount/presentation/pages/RegisterPage.dart';
+
 
 late String email;
 late String password;
@@ -141,10 +139,15 @@ class LogInButton extends StatelessWidget {
   var _existUser;
   var message;
 
-  void loginAuthentication() async {
-    var _auth = Authentication(email: email, password: password);
-    _existUser = await _auth.loginAuthentication();
-    message = _auth.messages;
+  Future<bool> loginAuthentication() async {
+    try {
+      var _auth = Authentication(email: email, password: password);
+      _existUser = await _auth.loginAuthentication();
+      message = _auth.messages;
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   @override
@@ -165,7 +168,7 @@ class LogInButton extends StatelessWidget {
                 );
               });
           //TODO: till this 167 lines [From 157 Line] mone kore koris
-          loginAuthentication();
+          var done = await loginAuthentication();
           if (GetUtils.isEmail(EmailField().emailAccountController.text)) {
             //Ishfaks
             if (_existUser == true) {
@@ -203,7 +206,7 @@ class RegisterRouter extends StatelessWidget {
           InkWell(
             child: MText("Register now", color: MColors.primaryColor).text(),
             onTap: () {
-              Get.to(() => HomePage());
+              Get.to(() => RouteToRegister());
             },
           ),
         ],
@@ -219,7 +222,7 @@ class RegisterRouter extends StatelessWidget {
         InkWell(
           child: MText("Register now", color: MColors.primaryColor).text(),
           onTap: () {
-            Get.to(() => HomePage());
+            Get.to(() => RouteToRegister());
           },
         ),
         Spacer()
