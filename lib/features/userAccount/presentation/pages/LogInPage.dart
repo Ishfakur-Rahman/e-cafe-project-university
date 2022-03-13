@@ -1,3 +1,8 @@
+import 'package:versity_project_coffee/FirebaseHandling/RegistrationHandling.dart';
+//Importing package by ishfak
+import 'package:get/get_navigation/src/routes/default_transitions.dart';
+import 'package:versity_project_coffee/FirebaseHandling/LoginAuthentication.dart';
+
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:flutter/material.dart';
 // import 'package:flutter_pw_validator/flutter_pw_validator.dart';
@@ -10,6 +15,9 @@ import 'package:versity_project_coffee/Theme/mText.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/homePage.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/get/userAccountController.dart';
 import 'package:versity_project_coffee/main.dart';
+
+late String email;
+late String password;
 
 class LogInPages extends StatelessWidget {
   const LogInPages({Key? key}) : super(key: key);
@@ -53,7 +61,7 @@ class PassWordField extends StatelessWidget {
           style: TextStyle(color: MColors.primaryColorDark),
           obscureText: showPass.eyePressed.value,
           decoration: InputDecoration(
-            // contentPadding: EdgeInsets.all(8),
+              // contentPadding: EdgeInsets.all(8),
               labelText: "Password",
               labelStyle:
                   TextStyle(color: MColors.primaryColorDark.withOpacity(.7)),
@@ -62,14 +70,12 @@ class PassWordField extends StatelessWidget {
               border: UnderlineInputBorder(
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.all(Radius.circular(16)),
-                
               ),
               prefixIcon: Icon(
                 Iconsax.lock,
                 color: MColors.primaryColorDark,
               ),
               suffix: IconButton(
-                  
                   constraints: BoxConstraints(),
                   splashRadius: 25,
                   padding: EdgeInsets.zero,
@@ -80,6 +86,9 @@ class PassWordField extends StatelessWidget {
                     showPass.eyePressed.value = !showPass.eyePressed.value;
                   })),
           cursorColor: MColors.primaryColorDark,
+          onChanged: (value) {
+            password = value;
+          },
         ));
   }
 }
@@ -128,7 +137,20 @@ class LogInForm extends StatelessWidget {
 }
 
 class LogInButton extends StatelessWidget {
-  const LogInButton({Key? key}) : super(key: key);
+  // const LogInButton({Key? key}) : super(key: key);
+  var _existUser;
+  var message;
+
+  Future<bool> loginAuthentication() async {
+    try {
+      var _auth = Authentication(email: email, password: password);
+      _existUser = await _auth.loginAuthentication();
+      message = _auth.messages;
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,12 +158,28 @@ class LogInButton extends StatelessWidget {
       alignment: Alignment.center,
       padding: EdgeInsets.all(10),
       child: ElevatedButton.icon(
-        onPressed: () {
-          print(GetUtils.isEmail(
-              EmailField().emailAccountController.text));
-          if (GetUtils.isEmail(
-              EmailField().emailAccountController.text)) {
-            Get.to(() => HomePage());
+        onPressed: () async {
+          //TODO: shamama your work is to use animation for loading screen mines are for temporary
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3,
+                  ),
+                );
+              });
+          //TODO: till this 167 lines [From 157 Line] mone kore koris
+          var done = await loginAuthentication();
+          if (GetUtils.isEmail(EmailField().emailAccountController.text)) {
+            //Ishfaks
+            if (_existUser == true) {
+              Get.to(() => HomePage());
+            } else {
+              SnackBar(
+                content: Text(message),
+              );
+            }
           }
         },
         icon: Icon(Iconsax.login), //icon data for elevated button
@@ -196,7 +234,8 @@ class RegisterRouter extends StatelessWidget {
 }
 
 class EmailField extends StatelessWidget {
-  var emailAccountController = Get.put(UserAccountControllerService().emailController.value);
+  var emailAccountController =
+      Get.put(UserAccountControllerService().emailController.value);
   EmailField({Key? key}) : super(key: key);
 
   @override
@@ -219,6 +258,9 @@ class EmailField extends StatelessWidget {
         ),
       ),
       cursorColor: MColors.primaryColorDark,
+      onChanged: (value) {
+        email = value;
+      },
     );
   }
 }
