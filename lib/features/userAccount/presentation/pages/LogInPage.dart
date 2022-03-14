@@ -1,39 +1,26 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, file_names, must_be_immutable
+import 'package:get/get_state_manager/src/simple/list_notifier.dart';
+import 'package:versity_project_coffee/FirebaseHandling/LoginAuthentication.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-
 import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/Theme/mText.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/homePage.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/get/userAccountController.dart';
+import 'package:versity_project_coffee/features/userAccount/presentation/pages/RegisterPage.dart';
+
+late String email;
+late String password;
 
 class LogInPages extends StatelessWidget {
   const LogInPages({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: MColors.backgroundColor,
-      body: LogInCard(),
-    );
-  }
-}
-
-class LogInCard extends StatelessWidget {
-  const LogInCard({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Stack(
-        children: [
-          CoffeSvg(),
-          LogInForm(),
-        ],
-      ),
+      body: LogInForm(),
     );
   }
 }
@@ -51,7 +38,7 @@ class PassWordField extends StatelessWidget {
           style: TextStyle(color: MColors.primaryColorDark),
           obscureText: showPass.eyePressed.value,
           decoration: InputDecoration(
-            // contentPadding: EdgeInsets.all(8),
+              // contentPadding: EdgeInsets.all(8),
               labelText: "Password",
               labelStyle:
                   TextStyle(color: MColors.primaryColorDark.withOpacity(.7)),
@@ -60,14 +47,12 @@ class PassWordField extends StatelessWidget {
               border: UnderlineInputBorder(
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.all(Radius.circular(16)),
-                
               ),
               prefixIcon: Icon(
                 Iconsax.lock,
                 color: MColors.primaryColorDark,
               ),
               suffix: IconButton(
-                  
                   constraints: BoxConstraints(),
                   splashRadius: 25,
                   padding: EdgeInsets.zero,
@@ -78,6 +63,9 @@ class PassWordField extends StatelessWidget {
                     showPass.eyePressed.value = !showPass.eyePressed.value;
                   })),
           cursorColor: MColors.primaryColorDark,
+          onChanged: (value) {
+            password = value;
+          },
         ));
   }
 }
@@ -89,44 +77,54 @@ class LogInForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(25.0),
-      child: Container(
-        alignment: Alignment.bottomCenter,
-        child: Column(
-          children: [
-            Spacer(
-              flex: 10,
-            ),
-            MText("E - Cafe").heading1(),
-            Divider(
-              height: 10,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            EmailField(),
-            SizedBox(
-              height: 13,
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            PassWordField(),
-            // FlutterPwValidator(width: MediaQuery.of(context).size.width, height: 100, minLength: 6, onSuccess: (){}, controller: PassWordField().showPass.pwdController.value),
-            Spacer(),
-            RegisterRouter(),
-            SizedBox(
-              height: 20,
-            ),
-            LogInButton()
-          ],
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CoffeSvg(),
+          SizedBox(
+            height: 10,
+          ),
+          MText("E - Cafe").heading1(),
+          Divider(
+            height: 10,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          EmailField(),
+          SizedBox(
+            height: 17,
+          ),
+          PassWordField(),
+          // FlutterPwValidator(width: MediaQuery.of(context).size.width, height: 100, minLength: 6, onSuccess: (){}, controller: PassWordField().showPass.pwdController.value),
+          Spacer(),
+          RegisterRouter(),
+          SizedBox(
+            height: 20,
+          ),
+          LogInButton()
+        ],
       ),
     );
   }
 }
 
 class LogInButton extends StatelessWidget {
-  const LogInButton({Key? key}) : super(key: key);
+  // const LogInButton({Key? key}) : super(key: key);
+  var _existUser;
+  var message;
+
+  Future<bool> loginAuthentication() async {
+    try {
+      var _auth = Authentication(email: email, password: password);
+      _existUser = await _auth.loginAuthentication();
+      message = _auth.messages;
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,10 +132,28 @@ class LogInButton extends StatelessWidget {
       alignment: Alignment.center,
       padding: EdgeInsets.all(10),
       child: ElevatedButton.icon(
-        onPressed: () {
-          if (GetUtils.isEmail(
-              EmailField().emailAccountController.text)) {
-            Get.to(() => HomePage());
+        onPressed: () async {
+          //TODO: shamama your work is to use animation for loading screen mines are for temporary
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3,
+                  ),
+                );
+              });
+          //TODO: till this 167 lines [From 157 Line] mone kore koris
+          var done = await loginAuthentication();
+          if (GetUtils.isEmail(EmailField().emailAccountController.text)) {
+            //Ishfaks
+            if (_existUser == true) {
+              Get.to(() => HomePage());
+            } else {
+              SnackBar(
+                content: Text(message),
+              );
+            }
           }
         },
         icon: Icon(Iconsax.login), //icon data for elevated button
@@ -166,7 +182,7 @@ class RegisterRouter extends StatelessWidget {
           InkWell(
             child: MText("Register now", color: MColors.primaryColor).text(),
             onTap: () {
-              Get.to(() => HomePage());
+              Get.to(() => RouteToRegister());
             },
           ),
         ],
@@ -182,7 +198,7 @@ class RegisterRouter extends StatelessWidget {
         InkWell(
           child: MText("Register now", color: MColors.primaryColor).text(),
           onTap: () {
-            Get.to(() => HomePage());
+            Get.to(() => RouteToRegister());
           },
         ),
         Spacer()
@@ -192,7 +208,8 @@ class RegisterRouter extends StatelessWidget {
 }
 
 class EmailField extends StatelessWidget {
-  var emailAccountController = Get.put(UserAccountControllerService().emailController.value);
+  var emailAccountController =
+      Get.put(UserAccountControllerService().emailController.value);
   EmailField({Key? key}) : super(key: key);
 
   @override
@@ -215,6 +232,9 @@ class EmailField extends StatelessWidget {
         ),
       ),
       cursorColor: MColors.primaryColorDark,
+      onChanged: (value) {
+        email = value;
+      },
     );
   }
 }
@@ -224,28 +244,15 @@ class CoffeSvg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.topCenter,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 50),
-            child: SvgPicture.asset(
-              "lib/Asset/illustration/coffeesvg.svg",
-              width: 150,
-            ),
-          ),
-        ],
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets.bottom == 0
+          ? const EdgeInsets.only(top: 50)
+          : EdgeInsets.all(0),
+      child: SvgPicture.asset(
+        "lib/Asset/illustration/coffeesvg.svg",
+        alignment: Alignment.center,
+        width: 150,
       ),
-      // decoration: BoxDecoration(
-      //   image: DecorationImage(
-      //     colorFilter: ColorFilter.mode(
-      //         Color.fromARGB(169, 14, 5, 4), BlendMode.overlay),
-      //     image: AssetImage(
-      //       "lib/Asset/Image/Sign up.png",
-      //     ),
-      //   ),
-      // ),
     );
   }
 }
