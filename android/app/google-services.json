@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "684090258125",
+    "project_id": "e-cafe-d0cd2",
+    "storage_bucket": "e-cafe-d0cd2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:684090258125:android:3bff6a663ce3f7c908af84",
+        "android_client_info": {
+          "package_name": "com.example.versity_project_coffee"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "684090258125-hf2mdjakr295774qrm1972l2t7mc38ul.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC28FugbN3MSQssI7dmQ7dpzELfeCcQ38M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "684090258125-hf2mdjakr295774qrm1972l2t7mc38ul.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

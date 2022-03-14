@@ -1,5 +1,6 @@
-import 'package:get/get_state_manager/src/simple/list_notifier.dart';
 import 'package:versity_project_coffee/FirebaseHandling/LoginAuthentication.dart';
+
+// ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
