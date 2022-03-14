@@ -1,49 +1,33 @@
+<<<<<<< HEAD
 //Importing package by ishfak
 import 'package:get/get_navigation/src/routes/default_transitions.dart';
 import 'package:versity_project_coffee/FirebaseHandling/RegistrationHandling.dart';
+=======
+>>>>>>> 2eb0f424dd8632973e5ad685dd050b848bcf4766
 import 'package:versity_project_coffee/FirebaseHandling/LoginAuthentication.dart';
 
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:flutter/material.dart';
-// import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-
 import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/Theme/mText.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/homePage.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/get/userAccountController.dart';
-import 'package:versity_project_coffee/main.dart';
+import 'package:versity_project_coffee/features/userAccount/presentation/pages/RegisterPage.dart';
 
 late String email;
 late String password;
 
 class LogInPages extends StatelessWidget {
   const LogInPages({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    var ctx = Get.put(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: MColors.backgroundColor,
-      body: LogInCard(),
-    );
-  }
-}
-
-class LogInCard extends StatelessWidget {
-  const LogInCard({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Stack(
-        children: [
-          CoffeSvg(),
-          LogInForm(),
-        ],
-      ),
+      body: LogInForm(),
     );
   }
 }
@@ -100,37 +84,34 @@ class LogInForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(25.0),
-      child: Container(
-        alignment: Alignment.bottomCenter,
-        child: Column(
-          children: [
-            Spacer(
-              flex: 10,
-            ),
-            MText("E - Cafe").heading1(),
-            Divider(
-              height: 10,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            EmailField(),
-            SizedBox(
-              height: 13,
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            PassWordField(),
-            // FlutterPwValidator(width: MediaQuery.of(context).size.width, height: 100, minLength: 6, onSuccess: (){}, controller: PassWordField().showPass.pwdController.value),
-            Spacer(),
-            RegisterRouter(),
-            SizedBox(
-              height: 20,
-            ),
-            LogInButton()
-          ],
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CoffeSvg(),
+          SizedBox(
+            height: 10,
+          ),
+          MText("E - Cafe").heading1(),
+          Divider(
+            height: 10,
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          EmailField(),
+          SizedBox(
+            height: 17,
+          ),
+          PassWordField(),
+          // FlutterPwValidator(width: MediaQuery.of(context).size.width, height: 100, minLength: 6, onSuccess: (){}, controller: PassWordField().showPass.pwdController.value),
+          Spacer(),
+          RegisterRouter(),
+          SizedBox(
+            height: 20,
+          ),
+          LogInButton()
+        ],
       ),
     );
   }
@@ -141,10 +122,15 @@ class LogInButton extends StatelessWidget {
   var _existUser;
   var message;
 
-  void loginAuthentication() async {
-    var _auth = Authentication(email: email, password: password);
-    _existUser = await _auth.loginAuthentication();
-    message = _auth.messages;
+  Future<bool> loginAuthentication() async {
+    try {
+      var _auth = Authentication(email: email, password: password);
+      _existUser = await _auth.loginAuthentication();
+      message = _auth.messages;
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   @override
@@ -165,7 +151,7 @@ class LogInButton extends StatelessWidget {
                 );
               });
           //TODO: till this 167 lines [From 157 Line] mone kore koris
-          loginAuthentication();
+          var done = await loginAuthentication();
           if (GetUtils.isEmail(EmailField().emailAccountController.text)) {
             //Ishfaks
             if (_existUser == true) {
@@ -203,7 +189,7 @@ class RegisterRouter extends StatelessWidget {
           InkWell(
             child: MText("Register now", color: MColors.primaryColor).text(),
             onTap: () {
-              Get.to(() => HomePage());
+              Get.to(() => RouteToRegister());
             },
           ),
         ],
@@ -219,7 +205,7 @@ class RegisterRouter extends StatelessWidget {
         InkWell(
           child: MText("Register now", color: MColors.primaryColor).text(),
           onTap: () {
-            Get.to(() => HomePage());
+            Get.to(() => RouteToRegister());
           },
         ),
         Spacer()
@@ -265,28 +251,15 @@ class CoffeSvg extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.topCenter,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 50),
-            child: SvgPicture.asset(
-              "lib/Asset/illustration/coffeesvg.svg",
-              width: 150,
-            ),
-          ),
-        ],
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets.bottom == 0
+          ? const EdgeInsets.only(top: 50)
+          : EdgeInsets.all(0),
+      child: SvgPicture.asset(
+        "lib/Asset/illustration/coffeesvg.svg",
+        alignment: Alignment.center,
+        width: 150,
       ),
-      // decoration: BoxDecoration(
-      //   image: DecorationImage(
-      //     colorFilter: ColorFilter.mode(
-      //         Color.fromARGB(169, 14, 5, 4), BlendMode.overlay),
-      //     image: AssetImage(
-      //       "lib/Asset/Image/Sign up.png",
-      //     ),
-      //   ),
-      // ),
     );
   }
 }

@@ -24,7 +24,8 @@ dependencies:
   google_fonts: ^2.3.1
   iconsax: ^0.0.8
   path_provider: ^2.0.9
-  smooth_star_rating_null_safety: ^1.0.4+2
+  font_awesome_flutter: ^9.2.0
+
 
 
 dev_dependencies:
@@ -35,8 +36,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - lib/Asset/Image/
-    - lib/Asset/illustration/
+    - lib/Asset/
 
   # fonts:
   #   - family: Schyler

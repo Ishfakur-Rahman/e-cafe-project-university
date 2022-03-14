@@ -1,17 +1,25 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
-import 'package:versity_project_coffee/Theme/mText.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:versity_project_coffee/maha/screens/screens.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+class RouteToRegister extends StatelessWidget {
+  const RouteToRegister({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: MText("Register Page").heading1()
-      ),
-    );
+    return MaterialApp(
+        theme: ThemeData(
+          textTheme:
+              GoogleFonts.josefinSansTextTheme(Theme.of(context).textTheme),
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const SignUpScreen(),
+        });
   }
 }
