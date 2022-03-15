@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
           itemBuilder: (BuildContext context, int index) {
             return Hero(
               transitionOnUserGestures: true,
-              tag: CoffeSvg,
+              tag: CoffeeSvg,
               child: Container(
                 height: 100,
                 width: 200,
@@ -77,8 +77,10 @@ class HomePage extends StatelessWidget {
                         shape: BadgeShape.square,
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                         toAnimate: true,
-                        badgeContent:
-                            MText(coffe_types[Random().nextInt(coffe_types.length)], fontSize: 1,).text(),
+                        badgeContent: MText(
+                          coffe_types[Random().nextInt(coffe_types.length)],
+                          fontSize: 1,
+                        ).text(),
                       ),
                       MText(
                         "Market $index",

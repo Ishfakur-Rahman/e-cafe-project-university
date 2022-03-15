@@ -1,4 +1,4 @@
-import 'package:versity_project_coffee/FirebaseHandling/LoginAuthentication.dart';
+import 'package:versity_project_coffee/firebase_handling/loginauthentication.dart';
 
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:flutter/material.dart';
@@ -13,7 +13,6 @@ import 'package:versity_project_coffee/features/homePage/presentation/pages/home
 import 'package:versity_project_coffee/features/userAccount/presentation/get/userAccountController.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/pages/RegisterPage.dart';
 
-
 late String email;
 late String password;
 
@@ -24,27 +23,13 @@ class LogInPages extends StatelessWidget {
   Widget build(BuildContext context) {
     var ctx = Get.put(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: MColors.backgroundColor,
-      body: LogInCard(),
+      body: LogInForm(),
     );
   }
 }
 
-class LogInCard extends StatelessWidget {
-  const LogInCard({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Stack(
-        children: [
-          CoffeSvg(),
-          LogInForm(),
-        ],
-      ),
-    );
-  }
-}
 
 class PassWordField extends StatelessWidget {
   var showPass = Get.put(UserAccountControllerService());
@@ -102,8 +87,9 @@ class LogInForm extends StatelessWidget {
         alignment: Alignment.bottomCenter,
         child: Column(
           children: [
-            Spacer(
-              flex: 10,
+            CoffeeSvg(),
+            SizedBox(
+              height: 10,
             ),
             MText("E - Cafe").heading1(),
             Divider(
@@ -114,10 +100,7 @@ class LogInForm extends StatelessWidget {
             ),
             EmailField(),
             SizedBox(
-              height: 13,
-            ),
-            SizedBox(
-              height: 5,
+              height: 17,
             ),
             PassWordField(),
             // FlutterPwValidator(width: MediaQuery.of(context).size.width, height: 100, minLength: 6, onSuccess: (){}, controller: PassWordField().showPass.pwdController.value),
@@ -140,6 +123,7 @@ class LogInButton extends StatelessWidget {
   var message;
 
   Future<bool> loginAuthentication() async {
+    //ishfaks
     try {
       var _auth = Authentication(email: email, password: password);
       _existUser = await _auth.loginAuthentication();
@@ -158,25 +142,29 @@ class LogInButton extends StatelessWidget {
       child: ElevatedButton.icon(
         onPressed: () async {
           //TODO: shamama your work is to use animation for loading screen mines are for temporary
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return Center(
-                  child: CircularProgressIndicator(
-                    strokeWidth: 3,
-                  ),
+          if (email != null && password != null) {
+            showDialog(
+                //ishfaks
+                context: context,
+                builder: (BuildContext context) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      strokeWidth: 3,
+                    ),
+                  );
+                });
+
+            //TODO: till this lines [From 160 Line] mone kore koris
+            var done = await loginAuthentication(); //ishfaks
+            if (GetUtils.isEmail(EmailField().emailAccountController.text)) {
+              //Ishfaks
+              if (_existUser == true) {
+                Get.off(() => HomePage());
+              } else {
+                SnackBar(
+                  content: Text(message),
                 );
-              });
-          //TODO: till this 167 lines [From 157 Line] mone kore koris
-          var done = await loginAuthentication();
-          if (GetUtils.isEmail(EmailField().emailAccountController.text)) {
-            //Ishfaks
-            if (_existUser == true) {
-              Get.to(() => HomePage());
-            } else {
-              SnackBar(
-                content: Text(message),
-              );
+              }
             }
           }
         },
@@ -263,33 +251,19 @@ class EmailField extends StatelessWidget {
   }
 }
 
-class CoffeSvg extends StatelessWidget {
-  const CoffeSvg({Key? key}) : super(key: key);
+class CoffeeSvg extends StatelessWidget {
+  const CoffeeSvg({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.topCenter,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 50),
-            child: SvgPicture.asset(
-              "lib/Asset/illustration/coffeesvg.svg",
-              width: 150,
-            ),
-          ),
-        ],
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets.bottom == 0
+          ? const EdgeInsets.only(top: 50)
+          : EdgeInsets.all(0),
+      child: SvgPicture.asset(
+        "asset/coffeesvg.svg",
+        width: 150,
       ),
-      // decoration: BoxDecoration(
-      //   image: DecorationImage(
-      //     colorFilter: ColorFilter.mode(
-      //         Color.fromARGB(169, 14, 5, 4), BlendMode.overlay),
-      //     image: AssetImage(
-      //       "lib/Asset/Image/Sign up.png",
-      //     ),
-      //   ),
-      // ),
     );
   }
 }

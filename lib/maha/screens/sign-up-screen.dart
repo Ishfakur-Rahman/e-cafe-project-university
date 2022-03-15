@@ -13,7 +13,9 @@ class SignUpScreen extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
-        BackgroundImage(),
+        BackgroundImage(
+          image: AssetImage('asset/coffee_bg.png'),
+        ),
         Scaffold(
           backgroundColor: Colors.transparent,
           body: SingleChildScrollView(
@@ -62,12 +64,12 @@ class SignUpScreen extends StatelessWidget {
                       inputAction: TextInputAction.next,
                     ),
                     const UserTypes(),
-                    const PasswordInput(
+                    const TextInputField(
                       icon: FontAwesomeIcons.eye,
                       hint: 'Password',
                       inputAction: TextInputAction.next,
                     ),
-                    const PasswordInput(
+                    const TextInputField(
                       icon: FontAwesomeIcons.key,
                       hint: 'Confirm Password',
                       inputAction: TextInputAction.done,
@@ -157,17 +159,48 @@ class _UserTypesState extends State<UserTypes> {
           ),
           child: ListTile(
             leading: Icon(
-              Icons.person_outline_sharp,
+              Icons.group,
               color: kBrown,
             ),
-            title: PopupMenuButton(
+            horizontalTitleGap: 0.0,
+            title: Text(
+              'Select Category',
+              style: TextStyle(color: Colors.white),
+            ),
+            trailing: PopupMenuButton(
               color: Colors.grey[700],
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  _character == UserTypesSelect.Buyer ? 'Buyer' : 'Seller',
-                  style: kBodyText,
-                ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.white,
+                    size: 17.0,
+                  ),
+                  SizedBox(
+                    width: 15.0,
+                  ),
+                  Text(
+                    _character == UserTypesSelect.Buyer
+                        ? 'Shopping'
+                        : 'Selling',
+                    style: kBodyText,
+                  ),
+                  SizedBox(
+                    width: 5.0,
+                  ),
+                  Icon(
+                    _character == UserTypesSelect.Buyer
+                        ? Icons.shopping_cart
+                        : Icons.storefront,
+                    color: _character == UserTypesSelect.Buyer
+                        ? Colors.blue
+                        : Colors.teal,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                ],
               ),
               onSelected: (UserTypesSelect value) {
                 setState(() {
@@ -178,12 +211,13 @@ class _UserTypesState extends State<UserTypes> {
                   <PopupMenuEntry<UserTypesSelect>>[
                 PopupMenuItem<UserTypesSelect>(
                   value: UserTypesSelect.Buyer,
-                  child: listTile(Colors.black, 'Buyer', UserTypesSelect.Buyer),
+                  child:
+                      listTile(Colors.black, 'Shopping', UserTypesSelect.Buyer),
                 ),
                 PopupMenuItem<UserTypesSelect>(
                   value: UserTypesSelect.Seller,
                   child:
-                      listTile(Colors.black, 'Seller', UserTypesSelect.Seller),
+                      listTile(Colors.black, 'Selling', UserTypesSelect.Seller),
                 ),
               ],
             ),
