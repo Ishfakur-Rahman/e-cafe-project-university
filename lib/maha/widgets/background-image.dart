@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 
 class BackgroundImage extends StatelessWidget {
-  BackgroundImage({required this.boxDecoration});
-
-  final BoxDecoration boxDecoration;
+  BackgroundImage({required this.assetImage});
+  final AssetImage assetImage;
   @override
   Widget build(BuildContext context) {
     return ShaderMask(
@@ -14,7 +13,13 @@ class BackgroundImage extends StatelessWidget {
       ).createShader(rect),
       blendMode: BlendMode.lighten,
       child: Container(
-        decoration: boxDecoration,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: assetImage,
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(Colors.black54, BlendMode.lighten),
+          ),
+        ),
       ),
     );
   }

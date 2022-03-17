@@ -15,13 +15,7 @@ class SignUpScreen extends StatelessWidget {
     return Stack(
       children: [
         BackgroundImage(
-          boxDecoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('asset/coffee cup.png'),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
-            ),
-          ),
+              assetImage: AssetImage('asset/coffee_bg.png'),
         ),
         Scaffold(
           backgroundColor: Colors.transparent,

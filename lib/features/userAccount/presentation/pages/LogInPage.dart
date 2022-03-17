@@ -27,13 +27,7 @@ class LogInPages extends StatelessWidget {
     return Stack(
       children: [
         BackgroundImage(
-          boxDecoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('asset/login.png'),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
-            ),
-          ),
+          assetImage: AssetImage('asset/coffee cup.png'),
         ),
         Scaffold(
           resizeToAvoidBottomInset: false,
