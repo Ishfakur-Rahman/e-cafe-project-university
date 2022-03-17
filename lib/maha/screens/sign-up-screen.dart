@@ -6,16 +6,28 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:versity_project_coffee/maha/pallete.dart';
 import 'package:versity_project_coffee/maha/widgets/widgets.dart';
 
-class SignUpScreen extends StatelessWidget {
+late String selectedUser = 'n';
+
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  late String user = 'n';
+  late String email = 'n';
+  late String password = 'n';
+  late String confirmedPassword = 'n';
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
-        BackgroundImage(
-              assetImage: AssetImage('asset/coffee_bg.png'),
+        const BackgroundImage(
+          assetImage: AssetImage('asset/coffee_bg.png'),
+          blendMode: BlendMode.lighten,
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
@@ -54,31 +66,47 @@ class SignUpScreen extends StatelessWidget {
                   children: [
                     TextInputField(
                       icon: FontAwesomeIcons.user,
-                      hint: 'User',
+                      hint: 'User Name',
                       inputType: TextInputType.name,
-                      // inputAction: TextInputAction.next,
+                      onChanged: (value) {
+                        user = value;
+                      },
                     ),
                     TextInputField(
                       icon: FontAwesomeIcons.envelope,
                       hint: 'Email',
                       inputType: TextInputType.emailAddress,
-                      // inputAction: TextInputAction.next,
+                      onChanged: (value) {
+                        email = value;
+                      },
                     ),
                     const UserTypes(),
                     TextInputField(
                       icon: FontAwesomeIcons.eye,
                       hint: 'Password',
-                      // inputAction: TextInputAction.next,
+                      onChanged: (value) {
+                        password = value;
+                      },
                     ),
                     TextInputField(
                       icon: FontAwesomeIcons.key,
                       hint: 'Confirm Password',
-                      inputAction: TextInputAction.done,
+                      onChanged: (value) {
+                        confirmedPassword = value;
+                      },
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    const RoundedButton(buttonName: 'Register'),
+                    // buttonWidget(),
+                    RoundedButton(
+                      buttonName: 'Register',
+                      user: user,
+                      email: email,
+                      password: password,
+                      confirmPassword: confirmedPassword,
+                      userType: selectedUser,
+                    ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -121,7 +149,7 @@ class SignUpScreen extends StatelessWidget {
   }
 }
 
-enum UserTypesSelect { Buyer, Seller }
+enum UserTypesSelect { Buyer, Seller, Select }
 
 class UserTypes extends StatefulWidget {
   const UserTypes({Key? key}) : super(key: key);
@@ -131,7 +159,7 @@ class UserTypes extends StatefulWidget {
 }
 
 class _UserTypesState extends State<UserTypes> {
-  UserTypesSelect? _character = UserTypesSelect.Buyer;
+  UserTypesSelect? _character = UserTypesSelect.Select;
 
   Widget listTile(Color color, String text, UserTypesSelect user) {
     return ListTile(
@@ -174,19 +202,27 @@ class _UserTypesState extends State<UserTypes> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  _character == UserTypesSelect.Buyer ? 'Shopping' : 'Selling',
+                  _character == UserTypesSelect.Select
+                      ? 'Select...'
+                      : (_character == UserTypesSelect.Buyer
+                          ? 'Shopping'
+                          : 'Selling'),
                   style: kBodyText,
                 ),
                 SizedBox(
                   width: 10.0,
                 ),
                 Icon(
-                  _character == UserTypesSelect.Buyer
-                      ? Icons.shopping_cart
-                      : Icons.storefront,
-                  color: _character == UserTypesSelect.Buyer
-                      ? Colors.blue
-                      : Colors.teal,
+                  _character == UserTypesSelect.Select
+                      ? Icons.add
+                      : (_character == UserTypesSelect.Buyer
+                          ? Icons.shopping_cart
+                          : Icons.storefront),
+                  color: _character == UserTypesSelect.Seller
+                      ? Colors.teal
+                      : (_character == UserTypesSelect.Buyer
+                          ? Colors.blue
+                          : Colors.transparent),
                 ),
                 SizedBox(
                   width: 10,
@@ -194,6 +230,7 @@ class _UserTypesState extends State<UserTypes> {
               ],
             ),
             trailing: PopupMenuButton(
+              enabled: true,
               color: Colors.grey[700],
               child: Row(
                 mainAxisSize: MainAxisSize.min,
@@ -218,10 +255,20 @@ class _UserTypesState extends State<UserTypes> {
               onSelected: (UserTypesSelect value) {
                 setState(() {
                   _character = value;
+                  value == UserTypesSelect.Buyer
+                      ? selectedUser = 'Buyer'
+                      : (value == UserTypesSelect.Seller
+                          ? selectedUser = 'Seller'
+                          : selectedUser = 'none');
                 });
               },
               itemBuilder: (BuildContext context) =>
                   <PopupMenuEntry<UserTypesSelect>>[
+                PopupMenuItem<UserTypesSelect>(
+                  value: UserTypesSelect.Select,
+                  child: listTile(
+                      Colors.black, 'Select...', UserTypesSelect.Select),
+                ),
                 PopupMenuItem<UserTypesSelect>(
                   value: UserTypesSelect.Buyer,
                   child:

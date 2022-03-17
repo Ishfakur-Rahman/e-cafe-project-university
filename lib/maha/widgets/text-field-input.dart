@@ -6,14 +6,14 @@ class TextInputField extends StatelessWidget {
     Key? key,
     required this.icon,
     required this.hint,
+    required this.onChanged,
     this.inputType,
-    this.inputAction,
   }) : super(key: key);
 
   final IconData icon;
   final String hint;
   final TextInputType? inputType;
-  late TextInputAction? inputAction = TextInputAction.next;
+  final Function(String) onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,8 @@ class TextInputField extends StatelessWidget {
               ),
               style: kBodyText,
               keyboardType: inputType,
-              textInputAction: inputAction,
+              textInputAction: TextInputAction.next,
+              onChanged: onChanged,
             ),
           ),
         ),

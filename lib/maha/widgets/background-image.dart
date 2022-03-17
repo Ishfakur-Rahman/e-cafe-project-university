@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class BackgroundImage extends StatelessWidget {
-  BackgroundImage({required this.assetImage});
+  const BackgroundImage({required this.blendMode, required this.assetImage});
   final AssetImage assetImage;
+  final BlendMode blendMode;
   @override
   Widget build(BuildContext context) {
     return ShaderMask(
@@ -11,7 +12,7 @@ class BackgroundImage extends StatelessWidget {
         end: Alignment.center,
         colors: [Colors.black, Colors.transparent],
       ).createShader(rect),
-      blendMode: BlendMode.lighten,
+      blendMode: blendMode,
       child: Container(
         decoration: BoxDecoration(
           image: DecorationImage(

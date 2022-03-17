@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class RegistrationHelper {
@@ -15,10 +16,30 @@ class RegistrationHelper {
   final String userName;
   late final _newUser;
   late String messages;
+  final _firestore = FirebaseFirestore.instance;
 
-  Future<bool> RegistratingUser() async{
+  Future<bool> completeRegistration() async{
     try{
-      _newUser = _auth.createUserWithEmailAndPassword(email: email, password: password);
+      _firestore.collection(userTypes).add({
+        'UserName' : userName,
+        'UserEmail' : email,
+      });
+      return true;
+    }on FirebaseException catch(e){
+      messages = e.code;
+      return false;
+    }
+    catch(e){
+      return false;
+    }
+  }
+
+  Future<bool> registratingUser() async{
+    try{
+      _newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      if(_newUser!=null){
+        await completeRegistration();
+      }
       return true;
     }on FirebaseException catch (e){
       if (e.code == 'weak-password') {

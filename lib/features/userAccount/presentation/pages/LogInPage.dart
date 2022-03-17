@@ -26,8 +26,9 @@ class LogInPages extends StatelessWidget {
     var ctx = Get.put(context);
     return Stack(
       children: [
-        BackgroundImage(
+        const BackgroundImage(
           assetImage: AssetImage('asset/coffee cup.png'),
+          blendMode: BlendMode.darken,
         ),
         Scaffold(
           resizeToAvoidBottomInset: false,
@@ -221,7 +222,7 @@ class RegisterRouter extends StatelessWidget {
           InkWell(
             child: MText(
               "Register now",
-              color: Colors.orange,
+              color: Colors.blueAccent,
               decoration: TextDecoration.underline,
             ).heading2(),
             onTap: () {
