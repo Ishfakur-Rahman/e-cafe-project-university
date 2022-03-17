@@ -17,41 +17,47 @@ class RegistrationHelper {
   late final _newUser;
   late String messages;
   final _firestore = FirebaseFirestore.instance;
+  var _uid;
 
-  Future<bool> completeRegistration() async{
-    try{
-      _firestore.collection(userTypes).add({
-        'UserName' : userName,
-        'UserEmail' : email,
+  Future<bool> completeRegistration() async {
+    try {
+      _uid =  _auth.currentUser?.uid;
+      await _firestore.collection('userDetails').doc(userTypes).set({
+        'userDetails':{
+          'userName' : userName,
+          'userEmail' : email,
+          'phone' : '018-XXX-XXXXX',
+          'address' : 'add your location',
+        },
+        'userId' : _uid,
       });
       return true;
-    }on FirebaseException catch(e){
+    } on FirebaseException catch (e) {
       messages = e.code;
       return false;
-    }
-    catch(e){
+    } catch (e) {
       return false;
     }
   }
 
-  Future<bool> registratingUser() async{
-    try{
-      _newUser = await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      if(_newUser!=null){
+  Future<bool> registratingUser() async {
+    try {
+      _newUser = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      if (_newUser != null) {
         await completeRegistration();
       }
       return true;
-    }on FirebaseException catch (e){
+    } on FirebaseException catch (e) {
       if (e.code == 'weak-password') {
         messages = 'The password provided is too weak';
       } else if (e.code == 'email-already-in-use') {
         messages = 'The account already exist for that email';
       }
       return false;
-    }catch (e){
+    } catch (e) {
       messages = 'Valid Email Address are Required';
       return false;
     }
   }
-
 }

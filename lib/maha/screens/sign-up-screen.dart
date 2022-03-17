@@ -256,9 +256,9 @@ class _UserTypesState extends State<UserTypes> {
                 setState(() {
                   _character = value;
                   value == UserTypesSelect.Buyer
-                      ? selectedUser = 'Buyer'
+                      ? selectedUser = 'buyer'
                       : (value == UserTypesSelect.Seller
-                          ? selectedUser = 'Seller'
+                          ? selectedUser = 'seller'
                           : selectedUser = 'none');
                 });
               },
