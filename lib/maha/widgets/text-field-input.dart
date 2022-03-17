@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../pallete.dart';
 
 class TextInputField extends StatelessWidget {
-  const TextInputField({
+  TextInputField({
     Key? key,
     required this.icon,
     required this.hint,
@@ -13,7 +13,7 @@ class TextInputField extends StatelessWidget {
   final IconData icon;
   final String hint;
   final TextInputType? inputType;
-  final TextInputAction? inputAction;
+  late TextInputAction? inputAction = TextInputAction.next;
 
   @override
   Widget build(BuildContext context) {

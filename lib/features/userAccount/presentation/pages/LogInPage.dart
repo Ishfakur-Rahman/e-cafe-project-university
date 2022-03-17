@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:versity_project_coffee/firebase_handling/loginauthentication.dart';
 
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
@@ -12,6 +13,7 @@ import 'package:versity_project_coffee/Theme/mText.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/homePage.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/get/userAccountController.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/pages/RegisterPage.dart';
+import 'package:versity_project_coffee/maha/widgets/background-image.dart';
 
 late String email;
 late String password;
@@ -22,14 +24,83 @@ class LogInPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var ctx = Get.put(context);
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: MColors.backgroundColor,
-      body: LogInForm(),
+    return Stack(
+      children: [
+        BackgroundImage(
+          boxDecoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('asset/login.png'),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
+            ),
+          ),
+        ),
+        Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Colors.transparent,
+          body: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                LogInForm(),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
 
+class LogInForm extends StatelessWidget {
+  const LogInForm({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Padding(
+      padding:
+          EdgeInsets.symmetric(horizontal: 15.0, vertical: size.height * 0.17),
+      child: Container(
+        alignment: Alignment.center,
+        child: Column(
+          children: [
+            CoffeeSvg(),
+            SizedBox(
+              height: 10,
+            ),
+            MText(
+              "E - Cafe",
+              color: Colors.white,
+            ).heading1(),
+            Divider(
+              height: 10,
+              color: Colors.white,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            EmailField(),
+            SizedBox(
+              height: 17,
+            ),
+            PassWordField(),
+            // FlutterPwValidator(width: MediaQuery.of(context).size.width, height: 100, minLength: 6, onSuccess: (){}, controller: PassWordField().showPass.pwdController.value),
+            SizedBox(
+              height: 30,
+            ),
+            RegisterRouter(),
+            SizedBox(
+              height: 20,
+            ),
+            LogInButton()
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class PassWordField extends StatelessWidget {
   var showPass = Get.put(UserAccountControllerService());
@@ -73,47 +144,6 @@ class PassWordField extends StatelessWidget {
             password = value;
           },
         ));
-  }
-}
-
-class LogInForm extends StatelessWidget {
-  const LogInForm({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(25.0),
-      child: Container(
-        alignment: Alignment.bottomCenter,
-        child: Column(
-          children: [
-            CoffeeSvg(),
-            SizedBox(
-              height: 10,
-            ),
-            MText("E - Cafe").heading1(),
-            Divider(
-              height: 10,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            EmailField(),
-            SizedBox(
-              height: 17,
-            ),
-            PassWordField(),
-            // FlutterPwValidator(width: MediaQuery.of(context).size.width, height: 100, minLength: 6, onSuccess: (){}, controller: PassWordField().showPass.pwdController.value),
-            Spacer(),
-            RegisterRouter(),
-            SizedBox(
-              height: 20,
-            ),
-            LogInButton()
-          ],
-        ),
-      ),
-    );
   }
 }
 
@@ -190,9 +220,16 @@ class RegisterRouter extends StatelessWidget {
     if (width <= 316) {
       return Column(
         children: [
-          MText("don't have an account?").text(),
+          MText(
+            "don't have an account?",
+            color: Colors.white,
+          ).textline1(),
           InkWell(
-            child: MText("Register now", color: MColors.primaryColor).text(),
+            child: MText(
+              "Register now",
+              color: Colors.orange,
+              decoration: TextDecoration.underline,
+            ).heading2(),
             onTap: () {
               Get.to(() => RouteToRegister());
             },
@@ -203,12 +240,19 @@ class RegisterRouter extends StatelessWidget {
     return Row(
       children: [
         Spacer(),
-        MText("don't have an account?").text(),
+        MText(
+          "don't have an account?",
+          color: Colors.white,
+        ).textline1(),
         SizedBox(
           width: 10,
         ),
         InkWell(
-          child: MText("Register now", color: MColors.primaryColor).text(),
+          child: MText(
+            "Register now",
+            color: Colors.orange,
+            decoration: TextDecoration.underline,
+          ).heading2(),
           onTap: () {
             Get.to(() => RouteToRegister());
           },

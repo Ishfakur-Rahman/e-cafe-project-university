@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,7 +15,13 @@ class SignUpScreen extends StatelessWidget {
     return Stack(
       children: [
         BackgroundImage(
-          image: AssetImage('asset/coffee_bg.png'),
+          boxDecoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('asset/coffee cup.png'),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(Colors.black54, BlendMode.darken),
+            ),
+          ),
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
@@ -51,25 +58,25 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 Column(
                   children: [
-                    const TextInputField(
+                    TextInputField(
                       icon: FontAwesomeIcons.user,
                       hint: 'User',
                       inputType: TextInputType.name,
-                      inputAction: TextInputAction.next,
+                      // inputAction: TextInputAction.next,
                     ),
-                    const TextInputField(
+                    TextInputField(
                       icon: FontAwesomeIcons.envelope,
                       hint: 'Email',
                       inputType: TextInputType.emailAddress,
-                      inputAction: TextInputAction.next,
+                      // inputAction: TextInputAction.next,
                     ),
                     const UserTypes(),
-                    const TextInputField(
+                    TextInputField(
                       icon: FontAwesomeIcons.eye,
                       hint: 'Password',
-                      inputAction: TextInputAction.next,
+                      // inputAction: TextInputAction.next,
                     ),
-                    const TextInputField(
+                    TextInputField(
                       icon: FontAwesomeIcons.key,
                       hint: 'Confirm Password',
                       inputAction: TextInputAction.done,
@@ -88,6 +95,9 @@ class SignUpScreen extends StatelessWidget {
                           'Already have an account?',
                           style: kBodyText,
                         ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
                         GestureDetector(
                           onTap: () {
                             Get.back();
@@ -95,7 +105,10 @@ class SignUpScreen extends StatelessWidget {
                           child: Text(
                             'Login',
                             style: kBodyText.copyWith(
-                                color: kBrown, fontWeight: FontWeight.bold),
+                              color: Colors.orange,
+                              fontSize: 20.0,
+                              decoration: TextDecoration.underline,
+                            ),
                           ),
                         ),
                       ],
@@ -163,39 +176,45 @@ class _UserTypesState extends State<UserTypes> {
               color: kBrown,
             ),
             horizontalTitleGap: 0.0,
-            title: Text(
-              'Select Category',
-              style: TextStyle(color: Colors.white),
+            title: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  _character == UserTypesSelect.Buyer ? 'Shopping' : 'Selling',
+                  style: kBodyText,
+                ),
+                SizedBox(
+                  width: 10.0,
+                ),
+                Icon(
+                  _character == UserTypesSelect.Buyer
+                      ? Icons.shopping_cart
+                      : Icons.storefront,
+                  color: _character == UserTypesSelect.Buyer
+                      ? Colors.blue
+                      : Colors.teal,
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+              ],
             ),
             trailing: PopupMenuButton(
               color: Colors.grey[700],
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(
-                    Icons.arrow_drop_down_circle,
-                    color: Colors.white,
-                    size: 17.0,
+                  Text(
+                    'Select Category',
+                    style: TextStyle(color: Colors.white),
                   ),
                   SizedBox(
                     width: 15.0,
                   ),
-                  Text(
-                    _character == UserTypesSelect.Buyer
-                        ? 'Shopping'
-                        : 'Selling',
-                    style: kBodyText,
-                  ),
-                  SizedBox(
-                    width: 5.0,
-                  ),
                   Icon(
-                    _character == UserTypesSelect.Buyer
-                        ? Icons.shopping_cart
-                        : Icons.storefront,
-                    color: _character == UserTypesSelect.Buyer
-                        ? Colors.blue
-                        : Colors.teal,
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.white,
+                    size: 17.0,
                   ),
                   SizedBox(
                     width: 10,
@@ -227,38 +246,3 @@ class _UserTypesState extends State<UserTypes> {
     );
   }
 }
-
-// class UserTypesDropDown extends StatefulWidget {
-//   const UserTypesDropDown({Key? key}) : super(key: key);
-//
-//   @override
-//   _UserTypesDropDownState createState() => _UserTypesDropDownState();
-// }
-//
-// class _UserTypesDropDownState extends State<UserTypesDropDown> {
-//   late String userType = 'Buyer';
-//   DropdownButton<String> dropdownButton() {
-//     List<DropdownMenuItem<String>> dropdownItems = [];
-//
-//     dropdownItems.add(DropdownMenuItem(
-//       child: Text('Buyer'),
-//       value: 'Buyer',
-//     ));
-//     dropdownItems.add(DropdownMenuItem(
-//       child: Text('Seller'),
-//       value: 'Seller',
-//     ));
-//     return DropdownButton(
-//         items: dropdownItems,
-//         onChanged: (value) {
-//           setState(() {
-//             userType = value!;
-//           });
-//         });
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
