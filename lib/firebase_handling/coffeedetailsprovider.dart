@@ -8,6 +8,9 @@ class CoffeeDetailsProvide{
   static var coffeeData;
 
   void fetchCoffeeData(){
-    coffeeData = _firestore.doc('coffee').collection('coffeeDetails').orderBy('more').orderBy('times').snapshots();
+    try{
+      coffeeData = _firestore.doc('coffee').collection('coffeeDetails').orderBy('more').orderBy('times').snapshots();
+      print(coffeeData);
+    }catch(e){}
   }
 }

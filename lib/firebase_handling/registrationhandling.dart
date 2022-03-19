@@ -36,6 +36,7 @@ class RegistrationHelper {
       messages = e.code;
       return false;
     } catch (e) {
+      messages = e.toString();
       return false;
     }
   }

@@ -2,10 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:intl/intl.dart';
 
-
 class AddCoffee {
-  AddCoffee(
-    this.coffeeRating, {
+  AddCoffee({
     required this.coffeeType,
     required this.coffeeTaste,
     required this.coffeeName,
@@ -13,7 +11,7 @@ class AddCoffee {
     required this.coffeeShopName,
   });
 
-  String? coffeeRating;
+  //TODO:Planning on adding a unique id for each coffees
   final String coffeeType;
   final String coffeeTaste;
   final String coffeeName;
@@ -32,9 +30,8 @@ class AddCoffee {
         'type': coffeeType,
         'taste': coffeeTaste,
         'more': {
-          'rating': coffeeRating,
-          'times': DateFormat('dd-MM-yyyy KK:mm:ss')
-              .format(DateTime.now()),
+          'rating': 'No Ratings',
+          'times': DateFormat('dd-MM-yyyy KK:mm:ss').format(DateTime.now()),
         },
         'seller': {
           'shopName': coffeeShopName,
