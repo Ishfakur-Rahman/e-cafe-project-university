@@ -8,7 +8,7 @@ class UpdateRatings{
   final String updateRatings;
   final String coffeeId;
 
-  void updateFirebase() async{
+  Future<void> updateFirebase() async{
     try{
       await _firestore.collection('coffee').doc('coffeeDetails').update({
         'coffeeId': coffeeId,
