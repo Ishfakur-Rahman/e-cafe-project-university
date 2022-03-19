@@ -29,6 +29,7 @@ class AddCoffee {
         'name': coffeeName,
         'type': coffeeType,
         'taste': coffeeTaste,
+        'coffeeId': 'To be Added',
         'more': {
           'rating': 'No Ratings',
           'times': DateFormat('dd-MM-yyyy KK:mm:ss').format(DateTime.now()),

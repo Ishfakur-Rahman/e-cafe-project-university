@@ -1,3 +1,5 @@
+import 'package:versity_project_coffee/firebase_handling/ratingUpdate.dart';
+
 class UserRatings {
   UserRatings({
     required this.oldTotalUser,
@@ -11,15 +13,18 @@ class UserRatings {
   final double existingCoffeeRatingInTotal;
   final int oldTotalUser;
 
-  String ratings(double newUserRating, int newUser) {
+  String _ratings(double newUserRating, int newUser) {
     var result =
         ((existingCoffeeRatingInTotal * oldTotalUser) + newUserRating) /
             (oldTotalUser + newUser);
     return result.toStringAsFixed(1);
   }
 
-  // String newUserRatingsCoffeeId(){
+  // String _newUserRatingsCoffeeId(){
   //   return coffeeId;
   // }
-
+//TODO: Once Plans executes the above and below functions will be in action
+  // void updateRatings(double newUserRatings, int newUsers) async{
+  //   await UpdateRatings(updateRatings: _ratings(newUserRatings, newUsers), coffeeId: _newUserRatingsCoffeeId());
+  // }
 }
