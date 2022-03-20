@@ -26,7 +26,7 @@ class RegistrationHelper {
         'userDetails':{
           'userName' : userName,
           'userEmail' : email,
-          'phone' : '018-XXX-XXXXX',
+          'phone' : '01X-XXX-XXXXX',
           'address' : 'add your location',
         },
         'userId' : _uid,
