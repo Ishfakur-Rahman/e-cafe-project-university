@@ -19,9 +19,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: MColors.colorThemeData,
-      home: const SafeArea(
-        child: LogInPages(),
-        ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const LogInPages(),
+      },
     );
   }
 }
+

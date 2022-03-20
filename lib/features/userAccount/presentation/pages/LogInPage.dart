@@ -1,7 +1,5 @@
-//Importing package by ishfak
-import 'package:get/get_navigation/src/routes/default_transitions.dart';
-import 'package:versity_project_coffee/FirebaseHandling/RegistrationHandling.dart';
-import 'package:versity_project_coffee/FirebaseHandling/LoginAuthentication.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:versity_project_coffee/firebase_handling/loginauthentication.dart';
 
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:flutter/material.dart';
@@ -14,7 +12,8 @@ import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/Theme/mText.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/homePage.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/get/userAccountController.dart';
-import 'package:versity_project_coffee/main.dart';
+import 'package:versity_project_coffee/features/userAccount/presentation/pages/RegisterPage.dart';
+import 'package:versity_project_coffee/maha/widgets/background-image.dart';
 
 late String email;
 late String password;
@@ -25,24 +24,74 @@ class LogInPages extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var ctx = Get.put(context);
-    return Scaffold(
-      backgroundColor: MColors.backgroundColor,
-      body: LogInCard(),
+    return Stack(
+      children: [
+        const BackgroundImage(
+          assetImage: AssetImage('asset/coffee cup.png'),
+          blendMode: BlendMode.darken,
+        ),
+        Scaffold(
+          resizeToAvoidBottomInset: false,
+          backgroundColor: Colors.transparent,
+          body: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                LogInForm(),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
 
-class LogInCard extends StatelessWidget {
-  const LogInCard({Key? key}) : super(key: key);
+class LogInForm extends StatelessWidget {
+  const LogInForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Stack(
-        children: [
-          CoffeSvg(),
-          LogInForm(),
-        ],
+    Size size = MediaQuery.of(context).size;
+    return Padding(
+      padding:
+          EdgeInsets.symmetric(horizontal: 15.0, vertical: size.height * 0.17),
+      child: Container(
+        alignment: Alignment.center,
+        child: Column(
+          children: [
+            CoffeeSvg(),
+            SizedBox(
+              height: 10,
+            ),
+            MText(
+              "E - Cafe",
+              color: Colors.white,
+            ).heading1(),
+            Divider(
+              height: 10,
+              color: Colors.white,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            EmailField(),
+            SizedBox(
+              height: 17,
+            ),
+            PassWordField(),
+            // FlutterPwValidator(width: MediaQuery.of(context).size.width, height: 100, minLength: 6, onSuccess: (){}, controller: PassWordField().showPass.pwdController.value),
+            SizedBox(
+              height: 30,
+            ),
+            RegisterRouter(),
+            SizedBox(
+              height: 20,
+            ),
+            LogInButton()
+          ],
+        ),
       ),
     );
   }
@@ -93,58 +142,21 @@ class PassWordField extends StatelessWidget {
   }
 }
 
-class LogInForm extends StatelessWidget {
-  const LogInForm({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(25.0),
-      child: Container(
-        alignment: Alignment.bottomCenter,
-        child: Column(
-          children: [
-            Spacer(
-              flex: 10,
-            ),
-            MText("E - Cafe").heading1(),
-            Divider(
-              height: 10,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            EmailField(),
-            SizedBox(
-              height: 13,
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            PassWordField(),
-            // FlutterPwValidator(width: MediaQuery.of(context).size.width, height: 100, minLength: 6, onSuccess: (){}, controller: PassWordField().showPass.pwdController.value),
-            Spacer(),
-            RegisterRouter(),
-            SizedBox(
-              height: 20,
-            ),
-            LogInButton()
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 class LogInButton extends StatelessWidget {
   // const LogInButton({Key? key}) : super(key: key);
   var _existUser;
   var message;
 
-  void loginAuthentication() async {
-    var _auth = Authentication(email: email, password: password);
-    _existUser = await _auth.loginAuthentication();
-    message = _auth.messages;
+  Future<bool> loginAuthentication() async {
+    //ishfaks
+    try {
+      var _auth = Authentication(email: email, password: password);
+      _existUser = await _auth.loginAuthentication();
+      message = _auth.messages;
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 
   @override
@@ -155,25 +167,29 @@ class LogInButton extends StatelessWidget {
       child: ElevatedButton.icon(
         onPressed: () async {
           //TODO: shamama your work is to use animation for loading screen mines are for temporary
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return Center(
-                  child: CircularProgressIndicator(
-                    strokeWidth: 3,
-                  ),
+          if (email != null && password != null) {
+            showDialog(
+                //ishfaks
+                context: context,
+                builder: (BuildContext context) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      strokeWidth: 3,
+                    ),
+                  );
+                });
+
+            //TODO: till this lines [From 160 Line] mone kore koris
+            var done = await loginAuthentication(); //ishfaks
+            if (GetUtils.isEmail(EmailField().emailAccountController.text)) {
+              //Ishfaks
+              if (_existUser == true) {
+                Get.off(() => HomePage());
+              } else {
+                SnackBar(
+                  content: Text(message),
                 );
-              });
-          //TODO: till this 167 lines [From 157 Line] mone kore koris
-          loginAuthentication();
-          if (GetUtils.isEmail(EmailField().emailAccountController.text)) {
-            //Ishfaks
-            if (_existUser == true) {
-              Get.to(() => HomePage());
-            } else {
-              SnackBar(
-                content: Text(message),
-              );
+              }
             }
           }
         },
@@ -199,11 +215,18 @@ class RegisterRouter extends StatelessWidget {
     if (width <= 316) {
       return Column(
         children: [
-          MText("don't have an account?").text(),
+          MText(
+            "don't have an account?",
+            color: Colors.white,
+          ).textline1(),
           InkWell(
-            child: MText("Register now", color: MColors.primaryColor).text(),
+            child: MText(
+              "Register now",
+              color: Colors.blueAccent,
+              decoration: TextDecoration.underline,
+            ).heading2(),
             onTap: () {
-              Get.to(() => HomePage());
+              Get.to(() => RouteToRegister());
             },
           ),
         ],
@@ -212,14 +235,21 @@ class RegisterRouter extends StatelessWidget {
     return Row(
       children: [
         Spacer(),
-        MText("don't have an account?").text(),
+        MText(
+          "don't have an account?",
+          color: Colors.white,
+        ).textline1(),
         SizedBox(
           width: 10,
         ),
         InkWell(
-          child: MText("Register now", color: MColors.primaryColor).text(),
+          child: MText(
+            "Register now",
+            color: Colors.orange,
+            decoration: TextDecoration.underline,
+          ).heading2(),
           onTap: () {
-            Get.to(() => HomePage());
+            Get.to(() => RouteToRegister());
           },
         ),
         Spacer()
@@ -260,33 +290,19 @@ class EmailField extends StatelessWidget {
   }
 }
 
-class CoffeSvg extends StatelessWidget {
-  const CoffeSvg({Key? key}) : super(key: key);
+class CoffeeSvg extends StatelessWidget {
+  const CoffeeSvg({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.topCenter,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 50),
-            child: SvgPicture.asset(
-              "lib/Asset/illustration/coffeesvg.svg",
-              width: 150,
-            ),
-          ),
-        ],
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets.bottom == 0
+          ? const EdgeInsets.only(top: 50)
+          : EdgeInsets.all(0),
+      child: SvgPicture.asset(
+        "asset/coffeesvg.svg",
+        width: 150,
       ),
-      // decoration: BoxDecoration(
-      //   image: DecorationImage(
-      //     colorFilter: ColorFilter.mode(
-      //         Color.fromARGB(169, 14, 5, 4), BlendMode.overlay),
-      //     image: AssetImage(
-      //       "lib/Asset/Image/Sign up.png",
-      //     ),
-      //   ),
-      // ),
     );
   }
 }

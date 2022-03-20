@@ -7,11 +7,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:versity_project_coffee/Theme/mColors.dart';
 
 class MText extends AutoSizeText {
-  MText(this.data, {this.fontWeight, this.fontSize, this.color}) : super('');
+
+  MText(this.data, {this.decoration, this.fontWeight, this.fontSize, this.color}) : super('');
 
   Color? color = MColors.black1;
   double? fontSize = 16.0;
   FontWeight? fontWeight = FontWeight.normal;
+  TextDecoration? decoration;
 
   @override
   final String data;
@@ -25,15 +27,32 @@ class MText extends AutoSizeText {
     fontSize = 28;
     return Text(data, style: textThemePoppins(color, fontWeight, fontSize));
   }
+  Text heading2() {
+    fontWeight = FontWeight.w600;
+    fontSize = 20;
+    return Text(data, style: textThemePoppins(color, fontWeight, fontSize));
+  }
+  Text heading3() {
+    fontWeight = FontWeight.w600;
+    fontSize = 18;
+    return Text(data, style: textThemePoppins(color, fontWeight, fontSize));
+  }
+
+  Text textline1() {
+    fontWeight = FontWeight.w400;
+    fontSize = 20;
+    return Text(data, style: textThemePoppins(color, fontWeight, fontSize));
+  }
 
   TextStyle textThemePoppins(
       Color? color, FontWeight? fontWeight, double? fontSize) {
     return GoogleFonts.poppins(
-        textStyle: TextStyle(
-      color: color,
-      fontWeight: fontWeight,
-      fontSize: fontSize,
-      overflow: TextOverflow.ellipsis
+      textStyle: TextStyle(
+        color: color,
+        fontWeight: fontWeight,
+        fontSize: fontSize,
+        overflow: TextOverflow.ellipsis,
+        decoration: decoration,
     ));
   }
 
