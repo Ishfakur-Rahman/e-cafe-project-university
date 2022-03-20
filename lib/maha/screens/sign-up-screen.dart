@@ -1,19 +1,34 @@
 import 'dart:ui';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:versity_project_coffee/maha/pallete.dart';
 import 'package:versity_project_coffee/maha/widgets/widgets.dart';
 
-class SignUpScreen extends StatelessWidget {
+late String selectedUser = 'n';
+
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  late String user = 'n';
+  late String email = 'n';
+  late String password = 'n';
+  late String confirmedPassword = 'n';
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Stack(
       children: [
-        BackgroundImage(),
+        const BackgroundImage(
+          assetImage: AssetImage('asset/coffee_bg.png'),
+          blendMode: BlendMode.lighten,
+        ),
         Scaffold(
           backgroundColor: Colors.transparent,
           body: SingleChildScrollView(
@@ -49,33 +64,49 @@ class SignUpScreen extends StatelessWidget {
                 ),
                 Column(
                   children: [
-                    const TextInputField(
+                    TextInputField(
                       icon: FontAwesomeIcons.user,
-                      hint: 'User',
+                      hint: 'User Name',
                       inputType: TextInputType.name,
-                      inputAction: TextInputAction.next,
+                      onChanged: (value) {
+                        user = value;
+                      },
                     ),
-                    const TextInputField(
+                    TextInputField(
                       icon: FontAwesomeIcons.envelope,
                       hint: 'Email',
                       inputType: TextInputType.emailAddress,
-                      inputAction: TextInputAction.next,
+                      onChanged: (value) {
+                        email = value;
+                      },
                     ),
                     const UserTypes(),
-                    const PasswordInput(
+                    TextInputField(
                       icon: FontAwesomeIcons.eye,
                       hint: 'Password',
-                      inputAction: TextInputAction.next,
+                      onChanged: (value) {
+                        password = value;
+                      },
                     ),
-                    const PasswordInput(
+                    TextInputField(
                       icon: FontAwesomeIcons.key,
                       hint: 'Confirm Password',
-                      inputAction: TextInputAction.done,
+                      onChanged: (value) {
+                        confirmedPassword = value;
+                      },
                     ),
                     const SizedBox(
                       height: 20,
                     ),
-                    const RoundedButton(buttonName: 'Register'),
+                    // buttonWidget(),
+                    RoundedButton(
+                      buttonName: 'Register',
+                      user: user,
+                      email: email,
+                      password: password,
+                      confirmPassword: confirmedPassword,
+                      userType: selectedUser,
+                    ),
                     const SizedBox(
                       height: 30,
                     ),
@@ -86,6 +117,9 @@ class SignUpScreen extends StatelessWidget {
                           'Already have an account?',
                           style: kBodyText,
                         ),
+                        SizedBox(
+                          width: 10.0,
+                        ),
                         GestureDetector(
                           onTap: () {
                             Get.back();
@@ -93,7 +127,10 @@ class SignUpScreen extends StatelessWidget {
                           child: Text(
                             'Login',
                             style: kBodyText.copyWith(
-                                color: kBrown, fontWeight: FontWeight.bold),
+                              color: Colors.orange,
+                              fontSize: 20.0,
+                              decoration: TextDecoration.underline,
+                            ),
                           ),
                         ),
                       ],
@@ -112,7 +149,7 @@ class SignUpScreen extends StatelessWidget {
   }
 }
 
-enum UserTypesSelect { Buyer, Seller }
+enum UserTypesSelect { Buyer, Seller, Select }
 
 class UserTypes extends StatefulWidget {
   const UserTypes({Key? key}) : super(key: key);
@@ -122,7 +159,7 @@ class UserTypes extends StatefulWidget {
 }
 
 class _UserTypesState extends State<UserTypes> {
-  UserTypesSelect? _character = UserTypesSelect.Buyer;
+  UserTypesSelect? _character = UserTypesSelect.Select;
 
   Widget listTile(Color color, String text, UserTypesSelect user) {
     return ListTile(
@@ -157,33 +194,90 @@ class _UserTypesState extends State<UserTypes> {
           ),
           child: ListTile(
             leading: Icon(
-              Icons.person_outline_sharp,
+              Icons.group,
               color: kBrown,
             ),
-            title: PopupMenuButton(
-              color: Colors.grey[700],
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  _character == UserTypesSelect.Buyer ? 'Buyer' : 'Seller',
+            horizontalTitleGap: 0.0,
+            title: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  _character == UserTypesSelect.Select
+                      ? 'Select...'
+                      : (_character == UserTypesSelect.Buyer
+                          ? 'Shopping'
+                          : 'Selling'),
                   style: kBodyText,
                 ),
+                SizedBox(
+                  width: 10.0,
+                ),
+                Icon(
+                  _character == UserTypesSelect.Select
+                      ? Icons.add
+                      : (_character == UserTypesSelect.Buyer
+                          ? Icons.shopping_cart
+                          : Icons.storefront),
+                  color: _character == UserTypesSelect.Seller
+                      ? Colors.teal
+                      : (_character == UserTypesSelect.Buyer
+                          ? Colors.blue
+                          : Colors.transparent),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+              ],
+            ),
+            trailing: PopupMenuButton(
+              enabled: true,
+              color: Colors.grey[700],
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Select Category',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  SizedBox(
+                    width: 15.0,
+                  ),
+                  Icon(
+                    Icons.arrow_drop_down_circle,
+                    color: Colors.white,
+                    size: 17.0,
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                ],
               ),
               onSelected: (UserTypesSelect value) {
                 setState(() {
                   _character = value;
+                  value == UserTypesSelect.Buyer
+                      ? selectedUser = 'buyer'
+                      : (value == UserTypesSelect.Seller
+                          ? selectedUser = 'seller'
+                          : selectedUser = 'none');
                 });
               },
               itemBuilder: (BuildContext context) =>
                   <PopupMenuEntry<UserTypesSelect>>[
                 PopupMenuItem<UserTypesSelect>(
+                  value: UserTypesSelect.Select,
+                  child: listTile(
+                      Colors.black, 'Select...', UserTypesSelect.Select),
+                ),
+                PopupMenuItem<UserTypesSelect>(
                   value: UserTypesSelect.Buyer,
-                  child: listTile(Colors.black, 'Buyer', UserTypesSelect.Buyer),
+                  child:
+                      listTile(Colors.black, 'Shopping', UserTypesSelect.Buyer),
                 ),
                 PopupMenuItem<UserTypesSelect>(
                   value: UserTypesSelect.Seller,
                   child:
-                      listTile(Colors.black, 'Seller', UserTypesSelect.Seller),
+                      listTile(Colors.black, 'Selling', UserTypesSelect.Seller),
                 ),
               ],
             ),
@@ -193,38 +287,3 @@ class _UserTypesState extends State<UserTypes> {
     );
   }
 }
-
-// class UserTypesDropDown extends StatefulWidget {
-//   const UserTypesDropDown({Key? key}) : super(key: key);
-//
-//   @override
-//   _UserTypesDropDownState createState() => _UserTypesDropDownState();
-// }
-//
-// class _UserTypesDropDownState extends State<UserTypesDropDown> {
-//   late String userType = 'Buyer';
-//   DropdownButton<String> dropdownButton() {
-//     List<DropdownMenuItem<String>> dropdownItems = [];
-//
-//     dropdownItems.add(DropdownMenuItem(
-//       child: Text('Buyer'),
-//       value: 'Buyer',
-//     ));
-//     dropdownItems.add(DropdownMenuItem(
-//       child: Text('Seller'),
-//       value: 'Seller',
-//     ));
-//     return DropdownButton(
-//         items: dropdownItems,
-//         onChanged: (value) {
-//           setState(() {
-//             userType = value!;
-//           });
-//         });
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container();
-//   }
-// }
