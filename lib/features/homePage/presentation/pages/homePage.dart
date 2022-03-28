@@ -31,14 +31,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    // var homeController = Get.put(HomeControllerService());
-    return const Scaffold(
-        body: SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.all(10),
-        child: RecomendedCoffeeLists(),
-=======
     return Scaffold(
         body: Padding(
       padding: EdgeInsets.all(10),
@@ -53,55 +45,50 @@ class HomePage extends StatelessWidget {
             );
           },
           itemBuilder: (BuildContext context, int index) {
-            return Hero(
-              transitionOnUserGestures: true,
-              tag: CoffeeSvg,
-              child: Container(
-                height: 100,
-                width: 200,
-                alignment: Alignment.topLeft,
-                // color: MColors.backgroundColor,
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: MColors.yellow,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Iconsax.image,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      MText("coffee $index").heading3(),
-                      Badge(
-                        padding: EdgeInsets.all(2),
-                        badgeColor: MColors.pink,
-                        shape: BadgeShape.square,
-                        borderRadius: BorderRadius.all(Radius.circular(5)),
-                        toAnimate: true,
-                        badgeContent: MText(
-                          coffe_types[Random().nextInt(coffe_types.length)],
-                          fontSize: 1,
-                        ).text(),
-                      ),
-                      MText(
-                        "Market $index",
-                        fontSize: 12,
+            return Container(
+              height: 100,
+              width: 200,
+              alignment: Alignment.topLeft,
+              // color: MColors.backgroundColor,
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: MColors.yellow,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Iconsax.image,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    MText("coffee $index").heading3(),
+                    Badge(
+                      padding: EdgeInsets.all(2),
+                      badgeColor: MColors.pink,
+                      shape: BadgeShape.square,
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      toAnimate: true,
+                      badgeContent: MText(
+                        coffe_types[0],
+                        fontSize: 1,
                       ).text(),
-                    ],
-                  ),
+                    ),
+                    MText(
+                      "Market $index",
+                      fontSize: 12,
+                    ).text(),
+                  ],
                 ),
               ),
             );
           },
         ),
->>>>>>> ishfakur
       ),
     ));
   }
@@ -118,7 +105,7 @@ class RecomendedCoffeeLists extends StatelessWidget {
       height: 300,
       child: GetX<HomeControllerService>(builder: (controller) {
         return ListView.separated(
-          scrollDirection: Axis.horizontal,
+          scrollDirection: Axis.vertical,
           itemCount: controller.coffee.length,
           separatorBuilder: (BuildContext context, int index) {
             return const SizedBox(

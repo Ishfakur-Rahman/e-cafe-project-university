@@ -1,14 +1,13 @@
-
-//Importing package by ishfak
-import 'package:get/get_navigation/src/routes/default_transitions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:versity_project_coffee/firebase_handling/loginauthentication.dart';
 
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:flutter/material.dart';
+// import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+
 import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/Theme/mText.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/homePage.dart';
@@ -21,13 +20,9 @@ late String password;
 
 class LogInPages extends StatelessWidget {
   const LogInPages({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      backgroundColor: MColors.backgroundColor,
-      body: LogInForm(),
-=======
     var ctx = Get.put(context);
     return Stack(
       children: [
@@ -50,7 +45,7 @@ class LogInPages extends StatelessWidget {
         ),
       ],
     );
-  );
+  }
 }
 
 class LogInForm extends StatelessWidget {
@@ -146,7 +141,6 @@ class PassWordField extends StatelessWidget {
         ));
   }
 }
-
 
 class LogInButton extends StatelessWidget {
   // const LogInButton({Key? key}) : super(key: key);
@@ -307,7 +301,6 @@ class CoffeeSvg extends StatelessWidget {
           : EdgeInsets.all(0),
       child: SvgPicture.asset(
         "asset/coffeesvg.svg",
-        alignment: Alignment.center,
         width: 150,
       ),
     );
