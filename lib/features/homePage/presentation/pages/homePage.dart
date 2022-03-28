@@ -1,6 +1,4 @@
 // ignore_for_file: file_names, constant_identifier_names
-
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
@@ -68,17 +66,6 @@ class HomePage extends StatelessWidget {
                       height: 10,
                     ),
                     MText("coffee $index").heading3(),
-                    Badge(
-                      padding: EdgeInsets.all(2),
-                      badgeColor: MColors.pink,
-                      shape: BadgeShape.square,
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      toAnimate: true,
-                      badgeContent: MText(
-                        coffe_types[0],
-                        fontSize: 1,
-                      ).text(),
-                    ),
                     MText(
                       "Market $index",
                       fontSize: 12,
@@ -136,17 +123,6 @@ class RecomendedCoffeeLists extends StatelessWidget {
                       height: 10,
                     ),
                     MText(controller.coffee[index].name).heading3(),
-                    Badge(
-                      padding: const EdgeInsets.all(2),
-                      badgeColor: MColors.pink,
-                      shape: BadgeShape.square,
-                      borderRadius: const BorderRadius.all(Radius.circular(5)),
-                      toAnimate: true,
-                      badgeContent: MText(
-                        controller.coffee[index].type,
-                        fontSize: 1,
-                      ).text(),
-                    ),
                     MText(
                       controller.coffee[index].market,
                       fontSize: 12,
