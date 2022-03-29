@@ -19,7 +19,7 @@ class _BottomPageState extends State<BottomPage> {
       style: optionStyle,
     ),
     Text(
-      "Page3",
+      "favorites",
       style: optionStyle,
     ),
     Text(
@@ -99,3 +99,7 @@ class _BottomPageState extends State<BottomPage> {
     );
   }
 }
+
+
+
+

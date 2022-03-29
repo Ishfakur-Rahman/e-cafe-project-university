@@ -5,7 +5,7 @@ import 'bottom_page.dart';
 
 void main() {
   runApp(MyApp());
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     systemNavigationBarColor: Color(0xff0c0f14),
     statusBarColor: Color(0xff0c0f14),
   ));
