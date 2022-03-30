@@ -30,6 +30,7 @@ class RegistrationHelper {
           'address' : 'add your location',
         },
         'userId' : _uid,
+        'userType': userTypes,
       });
       return true;
     } on FirebaseException catch (e) {
