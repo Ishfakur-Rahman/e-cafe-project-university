@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'detail_page.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
   static var screenHeight;
@@ -372,7 +371,7 @@ class HomePage extends StatelessWidget {
                 padding: EdgeInsets.only(left: 5),
                 child:  ListTile(
                   leading: Text(
-                    "Special for you...",
+                    "Coffee's you must try once!...",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20.0,
@@ -395,6 +394,26 @@ class HomePage extends StatelessWidget {
                     ),
                     child: Row(
                       children: [
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                              boxShadow: const [
+                                BoxShadow(
+                                  blurRadius: 2.0,
+                                  spreadRadius: 1.0,
+                                  color: Color(0xff30221f),
+                                ),
+                              ],
+                              image: const DecorationImage(
+                                fit: BoxFit.cover,
+                                image: AssetImage(
+                                  "images/coffee3.jpeg",
+                                ),
+                              ),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                          ),
+                        ),
                         const SizedBox(
                           width: 20.0,
                         ),
@@ -405,42 +424,93 @@ class HomePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                "Coffee's you must try once!",
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w400,
+                              "Jamaican Blue Mountain",
+                            style: TextStyle(
+                            fontSize: 17,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                            const Text(
+                          "Blue Mountain coffee",
+                          style:  TextStyle(
+                            color: Color(0xffaeaeae),
+                          ),
+                        ),
+                          Row(
+                          mainAxisAlignment:
+                          MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: const [
+                                Text(
+                                  "\$\t",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xffd17842),
+                                  ),
                                 ),
+                                Text(
+                                  "4.20",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: const Color(0xffd17842),
+                                borderRadius: BorderRadius.circular(10.0),
                               ),
-                              const Text(
-                                "We have brought for you the best coffee website if you are that much coffee lover. You can know more about the coffees you must try at least once in your lifetime.....",
-                                style: TextStyle(
-                                  color: Color(0xffaeaeae),
-                                ),
-                              ),
-                              Center(
-                                child:  InkWell(
-                                    child:  const Text(
-                                        'Click if you want to know more...',
-                                        style: TextStyle(
-                                        color: Color(0xff018786),
-                                ),
-                                    ),
-                                    onTap: () => launch('https://www.bestcoffee.guide/blogs/brewing-coffee')
-                                ),
-                  ),
-                ],
-                    ),
+                              child: const Icon(Icons.add,
+                                  size: 30, color: Colors.white),
+                            )
+                          ],
                         )
                       ],
+                    ),
+                  )
+                ],
+              ),
+        ),
+               Container(
+          margin: const EdgeInsets.only(right: 15),
+          height: 25.0,
+          width: 50.0,
+          decoration: const BoxDecoration(
+            color:  Color(0xff231715),
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(20.0),
+              bottomLeft:  Radius.circular(20.0),
+            ),
+          ),
+                child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: const [
+                 Icon(
+                Icons.star,
+                size: 15,
+                color: Color(0xffd17842),
+              ),
+              Text(
+                "4.5",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            ],
           ),
         ),
-      ]
+        ],
+      )
+      ],
     ),
-    ]
-    )
-        )
-    )
+    ),
+    ),
     );
   }
 }

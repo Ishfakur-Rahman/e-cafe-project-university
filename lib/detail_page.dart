@@ -13,7 +13,7 @@ class DetailPage extends StatelessWidget {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Color(0xff0c0f14),
+      backgroundColor: const Color(0xff0c0f14),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -26,7 +26,7 @@ class DetailPage extends StatelessWidget {
                     Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        image: DecorationImage(
+                        image: const DecorationImage(
                           fit: BoxFit.cover,
                           image: AssetImage(
                             "images/coffee1.jpeg",
@@ -45,11 +45,11 @@ class DetailPage extends StatelessWidget {
                                 sigmaY: 10.0,
                               ),
                               child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 20.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                                 width: double.infinity,
                                 height: screenHeight * 0.2 - 20,
                                 decoration: BoxDecoration(
-                                  color: Color(0xff311d18).withOpacity(0.6),
+                                  color: const Color(0xff311d18).withOpacity(0.6),
                                 ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,10 +65,10 @@ class DetailPage extends StatelessWidget {
                                               Column(
                                                 crossAxisAlignment:
                                                 CrossAxisAlignment.start,
-                                                children: [
+                                                children: const [
                                                   Text(
                                                     "Cappuccino",
-                                                    style: TextStyle(
+                                                    style:  TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 20.0,
                                                       fontWeight:
@@ -87,21 +87,21 @@ class DetailPage extends StatelessWidget {
                                                   ),
                                                 ],
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 3,
                                               ),
                                               Row(
-                                                children: [
+                                                children: const [
                                                   Icon(
                                                     Icons.star,
-                                                    color: Color(
+                                                    color:  Color(
                                                       0xffd17842,
                                                     ),
                                                   ),
                                                   Text(
                                                     "\t4.5\t",
                                                     textAlign: TextAlign.center,
-                                                    style: TextStyle(
+                                                    style:  TextStyle(
                                                       color: Colors.white,
                                                       fontWeight:
                                                       FontWeight.bold,
@@ -116,15 +116,13 @@ class DetailPage extends StatelessWidget {
                                           child: Column(
                                             children: [
                                               Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceEvenly,
+                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                                 children: [
                                                   Container(
                                                     height: 40.0,
                                                     width: 40.0,
                                                     decoration: BoxDecoration(
-                                                      color: Color(0xff141921),
+                                                      color: const Color(0xff141921),
                                                       borderRadius:
                                                       BorderRadius.circular(
                                                         10.0,
@@ -139,9 +137,9 @@ class DetailPage extends StatelessWidget {
                                                           'images/coffeeicon.svg',
                                                           height: 20,
                                                           color:
-                                                          Color(0xffd17842),
+                                                          const Color(0xffd17842),
                                                         ),
-                                                        Text(
+                                                        const Text(
                                                           "Coffee",
                                                           style: TextStyle(
                                                             fontSize: 10,
@@ -156,7 +154,7 @@ class DetailPage extends StatelessWidget {
                                                     height: 40.0,
                                                     width: 40.0,
                                                     decoration: BoxDecoration(
-                                                      color: Color(0xff141921),
+                                                      color: const Color(0xff141921),
                                                       borderRadius:
                                                       BorderRadius.circular(
                                                         10.0,
@@ -171,9 +169,9 @@ class DetailPage extends StatelessWidget {
                                                           'images/milkicon.svg',
                                                           height: 20,
                                                           color:
-                                                          Color(0xffd17842),
+                                                          const Color(0xffd17842),
                                                         ),
-                                                        Text(
+                                                        const Text(
                                                           "Milk",
                                                           style: TextStyle(
                                                             fontSize: 10,
@@ -186,22 +184,22 @@ class DetailPage extends StatelessWidget {
                                                   ),
                                                 ],
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 10,
                                               ),
                                               MaterialButton(
                                                 minWidth: 120,
                                                 onPressed: () {},
-                                                color: Color(0xff101419),
+                                                color: const Color(0xff101419),
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                   BorderRadius.circular(
                                                     10.0,
                                                   ),
                                                 ),
-                                                child: Text(
+                                                child: const Text(
                                                   "Medicum Roasted",
-                                                  style: TextStyle(
+                                                  style:  TextStyle(
                                                     fontSize: 10,
                                                     color: Color(0xffaeaeae),
                                                   ),
@@ -230,11 +228,11 @@ class DetailPage extends StatelessWidget {
                             height: 40.0,
                             width: 40.0,
                             decoration: BoxDecoration(
-                              color: Color(0xff141921),
+                              color: const Color(0xff141921),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             child: IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.arrow_back_ios_new,
                                 size: 20,
                                 color: Color(0xffaeaeae),
@@ -249,11 +247,11 @@ class DetailPage extends StatelessWidget {
                             height: 40.0,
                             width: 40.0,
                             decoration: BoxDecoration(
-                              color: Color(0xff141921),
+                              color: const Color(0xff141921),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             child: IconButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.favorite,
                                 size: 20,
                                 color: Color(0xffaeaeae),
@@ -274,7 +272,7 @@ class DetailPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(
+                      const Text(
                         "Description",
                         style: TextStyle(
                           fontSize: 20.0,
@@ -283,26 +281,26 @@ class DetailPage extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                          Text(
-                            "A cappuccino is a coffee -bassed drink made",
+                          const Text(
+                            "A cappuccino is a coffee -based drink made",
                             style: TextStyle(
                               color: Colors.white,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10.0,
                           ),
                           Row(
-                            children: [
+                            children: const [
                               Text(
-                                "primrily from espresso and milk",
+                                "primarily from espresso and milk",
                                 style: TextStyle(
                                   color: Colors.white,
                                 ),
                               ),
                               Text(
                                 "...Read more",
-                                style: TextStyle(
+                                style:  TextStyle(
                                   color: Color(0xffb25e2b),
                                 ),
                               ),
@@ -310,9 +308,9 @@ class DetailPage extends StatelessWidget {
                           )
                         ],
                       ),
-                      Text(
+                      const Text(
                         "Size",
-                        style: TextStyle(
+                        style:  TextStyle(
                           fontSize: 20.0,
                           color: Color(0xffaeaeae),
                         ),
@@ -324,40 +322,40 @@ class DetailPage extends StatelessWidget {
                             onPressed: () {},
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
-                              side: BorderSide(
-                                color: Color(0xffb25e2b),
+                              side: const BorderSide(
+                                color:  Color(0xffb25e2b),
                               ),
                             ),
-                            child: Text(
+                            child: const Text(
                               "S",
                               style: TextStyle(
-                                color: Color(0xffb86b3c),
+                                color:  Color(0xffb86b3c),
                               ),
                             ),
                           ),
                           MaterialButton(
                             onPressed: () {},
-                            color: Color(0xff141921),
+                            color: const Color(0xff141921),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
-                            child: Text(
+                            child: const Text(
                               "M",
-                              style: TextStyle(
+                              style:  TextStyle(
                                 color: Color(0xffb86b3c),
                               ),
                             ),
                           ),
                           MaterialButton(
                             onPressed: () {},
-                            color: Color(0xff141921),
+                            color: const Color(0xff141921),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10.0),
                             ),
-                            child: Text(
+                            child: const Text(
                               "L",
                               style: TextStyle(
-                                color: Color(0xffb86b3c),
+                                color:  Color(0xffb86b3c),
                               ),
                             ),
                           )
@@ -368,20 +366,20 @@ class DetailPage extends StatelessWidget {
                         children: [
                           Column(
                             children: [
-                              Text(
+                              const Text(
                                 "Price",
-                                style: TextStyle(
+                                style:  TextStyle(
                                   color: Color(0xffaeaeae),
                                 ),
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 3,
                               ),
                               Row(
-                                children: [
+                                children: const [
                                   Text(
                                     "\$\t",
-                                    style: TextStyle(
+                                    style:  TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Color(0xffd17842),
                                     ),
@@ -401,13 +399,13 @@ class DetailPage extends StatelessWidget {
                             onPressed: () {},
                             height: 55,
                             minWidth: 200,
-                            color: Color(0xffd17842),
+                            color: const Color(0xffd17842),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20.0),
                             ),
-                            child: Text(
-                              "Added to cart",
-                              style: TextStyle(
+                            child: const Text(
+                              "Add to cart now",
+                              style:  TextStyle(
                                 color: Colors.white,
                               ),
                             ),
@@ -425,3 +423,7 @@ class DetailPage extends StatelessWidget {
     );
   }
 }
+
+
+
+
