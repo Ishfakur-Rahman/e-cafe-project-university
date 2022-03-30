@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:versity_project_coffee/firebase_handling/addcoffeedetails.dart';
+import 'package:versity_project_coffee/firebase_handling/coffeedetailsprovider.dart';
 import 'package:versity_project_coffee/firebase_handling/loginauthentication.dart';
 
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
@@ -14,6 +16,7 @@ import 'package:versity_project_coffee/features/homePage/presentation/pages/home
 import 'package:versity_project_coffee/features/userAccount/presentation/get/userAccountController.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/pages/RegisterPage.dart';
 import 'package:versity_project_coffee/maha/widgets/background-image.dart';
+import 'package:versity_project_coffee/firebase_handling/update_coffee.dart';
 
 late String email;
 late String password;
@@ -152,6 +155,15 @@ class LogInButton extends StatelessWidget {
     try {
       var _auth = Authentication(email: email, password: password);
       _existUser = await _auth.loginAuthentication();
+      AddCoffee(coffeeShopLocation: 'saf',coffeeName: 'saf',coffeeShopName: 'asf',
+      coffeeTaste: 'asf',coffeeType: 'casfa').addCoffee();
+      AddCoffee(coffeeShopLocation: 'saf',coffeeName: 'saf',coffeeShopName: 'asf',
+          coffeeTaste: 'asf',coffeeType: 'casfa').addCoffee();
+      AddCoffee(coffeeShopLocation: 'saf',coffeeName: 'saf',coffeeShopName: 'asf',
+          coffeeTaste: 'asf',coffeeType: 'casfa').addCoffee();
+      AddCoffee(coffeeShopLocation: 'saf',coffeeName: 'saf',coffeeShopName: 'asf',
+          coffeeTaste: 'asf',coffeeType: 'casfa').addCoffee();
+      CoffeeDetailsProvider().fetchCoffeeData();
       message = _auth.messages;
       return true;
     } catch (e) {

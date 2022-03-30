@@ -25,15 +25,18 @@ class AddCoffee {
   Future<bool> addCoffee() async {
     try {
       coffeeShopUid = _auth.currentUser?.uid;
-      await _firestore.collection('coffee').doc('coffeeDetails').set({
-        'name': coffeeName,
-        'type': coffeeType,
-        'taste': coffeeTaste,
-        'coffeeId': 'To be Added',
-        'more': {
-          'rating': 'No Ratings',
-          'times': DateFormat('dd-MM-yyyy KK:mm:ss').format(DateTime.now()),
+      await _firestore.collection('coffee').doc().set({
+
+        'coffeeDetails' : {
+          'name': coffeeName,
+          'type': coffeeType,
+          'taste': coffeeTaste,
+          'more': {
+            'rating': 'No Ratings',
+            'times': DateFormat('dd-MM-yyyy KK:mm:ss').format(DateTime.now()),
+          },
         },
+        'coffeeId': 'To be Added',
         'seller': {
           'shopName': coffeeShopName,
           'coffeeShopId': coffeeShopUid,

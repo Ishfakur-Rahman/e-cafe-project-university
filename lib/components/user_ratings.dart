@@ -1,4 +1,4 @@
-import 'package:versity_project_coffee/firebase_handling/updateRating.dart';
+import 'package:versity_project_coffee/firebase_handling/update_coffee.dart';
 
 class UserRatings {
   UserRatings(
