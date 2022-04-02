@@ -1,39 +1,40 @@
-import 'package:versity_project_coffee/firebase_handling/update_coffee.dart';
+import 'package:versity_project_coffee/firebase_handling/coffeedata.dart';
 
 class UserRatings {
-  UserRatings(
-      {required this.oldTotalUser,
-      required this.existingCoffeeRatingInTotal /*,
-    required this.coffeeId,*/
-      //TODO: convert oldTotalUser and existingCoffeeRatingInTotal to their respective data types
-      });
+  UserRatings({
+    required this.oldTotalUser,
+    required this.existingCoffeeRatingInTotal,
+    required this.coffeeId,
+    required this.coffeeType,
+  });
 
-  //TODO: will be added if the plans for coffeeId is accepted
-  // final String coffeeId;
+  final String coffeeId;
   final double existingCoffeeRatingInTotal;
   final int oldTotalUser;
+  final String coffeeType;
 
   String _ratings(double userOldRatings, double newUserRating, int newUser) {
     var result =
         (((existingCoffeeRatingInTotal * oldTotalUser) - userOldRatings) +
                 newUserRating) /
-            (oldTotalUser + newUser);
-    return result.toStringAsFixed(1);
+            (oldTotalUser + userOldRatings == 0 ? newUser : 0);
+    return result.toString();
   }
 
-  // String _newUserRatingsCoffeeId(){
-  //   return coffeeId;
-  // }
-//TODO: Once Plans executes the above and below functions will be in action
-//   Future<String> updateRatings(
-//     double usersOldRatings,
-//     double newUsersRating,
-//     int newUsers,
-//   ) async {
-//     var results = _ratings(usersOldRatings, newUsersRating, newUsers);
-//     await UpdateRatings(
-//             updateRatings: results, coffeeId: _newUserRatingsCoffeeId())
-//         .updateFirebase();
-//     return results;
-//   }
+  String _newUserRatingsCoffeeId(){
+    return coffeeId;
+  }
+  Future<String> updateRatings(
+    double usersOldRatings,
+    double newUsersRating,
+    int newUsers,
+  ) async {
+    var results = _ratings(usersOldRatings, newUsersRating, newUsers);
+    await CoffeeData().updateRatings(
+      dataBaseId: _newUserRatingsCoffeeId(),
+      ratings: results,
+      coffeeType: coffeeType,
+    );
+    return results;
+  }
 }
