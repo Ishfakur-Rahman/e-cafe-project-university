@@ -16,7 +16,6 @@ import 'package:versity_project_coffee/features/homePage/presentation/pages/home
 import 'package:versity_project_coffee/features/userAccount/presentation/get/userAccountController.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/pages/RegisterPage.dart';
 import 'package:versity_project_coffee/maha/widgets/background-image.dart';
-import 'package:versity_project_coffee/firebase_handling/update_coffee.dart';
 
 late String email;
 late String password;
@@ -155,15 +154,6 @@ class LogInButton extends StatelessWidget {
     try {
       var _auth = Authentication(email: email, password: password);
       _existUser = await _auth.loginAuthentication();
-      await CoffeeData().addCoffee(coffeeShopLocation: 'saf',coffeeName: 'saf',coffeeShopName: 'asf',
-      coffeeTaste: 'asf',coffeeType: 'cappucino');
-      await CoffeeData().addCoffee(coffeeShopLocation: 'saf',coffeeName: 'saf',coffeeShopName: 'asf',
-          coffeeTaste: 'asf',coffeeType: 'americano');
-      await CoffeeData().addCoffee(coffeeShopLocation: 'saf',coffeeName: 'saf',coffeeShopName: 'asf',
-          coffeeTaste: 'asf',coffeeType: 'italian latte');
-      await CoffeeData().addCoffee(coffeeShopLocation: 'saf',coffeeName: 'saf',coffeeShopName: 'asf',
-          coffeeTaste: 'asf',coffeeType: 'Iced Latte');
-      CoffeeDetailsProvider().fetchCoffeeData();
       message = _auth.messages;
       return true;
     } catch (e) {
