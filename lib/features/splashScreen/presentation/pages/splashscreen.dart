@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:versity_project_coffee/features/homePage/presentation/pages/homePage.dart';
+import 'package:versity_project_coffee/features/homePage/presentation/pages/sellerPage.dart';
 
 class Splashscreen extends StatelessWidget {
   const Splashscreen({Key? key}) : super(key: key);

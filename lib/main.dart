@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:versity_project_coffee/Theme/mColors.dart';
-import 'package:versity_project_coffee/features/homePage/presentation/pages/homePage.dart';
+import 'package:versity_project_coffee/features/homePage/presentation/pages/sellerPage.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/pages/LogInPage.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -20,10 +20,11 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: MColors.colorThemeData,
+      themeMode: ThemeMode.dark,
+      theme: MColors.homeThemeData,
       initialRoute: '/',
       routes: {
-        '/': (context) => const HomePage(),
+        '/': (context) => const LogInPages(),
       },
     );
   }

@@ -10,7 +10,7 @@ import 'package:iconsax/iconsax.dart';
 
 import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/Theme/mText.dart';
-import 'package:versity_project_coffee/features/homePage/presentation/pages/homePage.dart';
+import 'package:versity_project_coffee/features/homePage/presentation/pages/sellerPage.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/get/userAccountController.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/pages/RegisterPage.dart';
 import 'package:versity_project_coffee/maha/widgets/background-image.dart';

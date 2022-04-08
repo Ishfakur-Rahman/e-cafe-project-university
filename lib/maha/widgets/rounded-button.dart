@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:versity_project_coffee/firebase_handling/registrationhandling.dart';
 import '../pallete.dart';
 import 'package:get/get.dart';
-import 'package:versity_project_coffee/features/homePage/presentation/pages/homePage.dart';
+import 'package:versity_project_coffee/features/homePage/presentation/pages/sellerPage.dart';
 
 class RoundedButton extends StatelessWidget {
   RoundedButton({

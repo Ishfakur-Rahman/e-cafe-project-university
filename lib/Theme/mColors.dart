@@ -23,4 +23,17 @@ class MColors {
     shadowColor: MColors.shadowColor,
     dividerColor: MColors.dividerColor,
   );
+
+  static ThemeData homeThemeData = ThemeData(
+    appBarTheme: AppBarTheme(
+      color: Color.fromARGB(255, 22, 27, 35),
+    ),
+    bottomNavigationBarTheme:  BottomNavigationBarThemeData(
+      backgroundColor: MColors.shadowColor,
+      unselectedItemColor: MColors.primaryColor,
+      selectedItemColor: MColors.primaryColorLight,
+    ),
+    scaffoldBackgroundColor: Color(0xff0c0f14),
+    primaryColor: MColors.primaryColor,
+  );
 }
