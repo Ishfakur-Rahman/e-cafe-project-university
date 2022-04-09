@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:versity_project_coffee/Theme/mColors.dart';
+import 'package:versity_project_coffee/bottom_page.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/sellerPage.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/pages/LogInPage.dart';
 import 'package:get/get.dart';
@@ -24,8 +25,9 @@ class MyApp extends StatelessWidget {
       theme: MColors.homeThemeData,
       initialRoute: '/',
       routes: {
-        '/': (context) => const LogInPages(),
+        '/': (context) => BottomPage(),
       },
     );
   }
 }
+ 

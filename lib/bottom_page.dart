@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:versity_project_coffee/profile_page.dart';
+import 'cart_page.dart';
+import 'favourite_page.dart';
 import 'home_page.dart';
 
 class BottomPage extends StatefulWidget {
@@ -14,22 +17,9 @@ class _BottomPageState extends State<BottomPage> {
 
   static List<Widget> _widgetOption = <Widget>[
     HomePage(),
-    Text(
-      "Page2",
-      style: optionStyle,
-    ),
-    Text(
-      "favorites",
-      style: optionStyle,
-    ),
-    Text(
-      "Page4",
-      style: optionStyle,
-    ),
-    Text(
-      "Page5",
-      style: optionStyle,
-    ),
+    CartPage(),
+    FavouritePage(),
+    ProfilePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -47,7 +37,8 @@ class _BottomPageState extends State<BottomPage> {
       ),
       bottomNavigationBar: SizedBox(
         height: 70,
-        child: BottomNavigationBar(
+
+          child: BottomNavigationBar(
           elevation: 0.0,
           backgroundColor: Color(0xff0c0f14),
           type: BottomNavigationBarType.fixed,
@@ -81,13 +72,6 @@ class _BottomPageState extends State<BottomPage> {
                 size: 30,
               ),
               label: "My Account",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.notifications,
-                size: 30,
-              ),
-              label: "Notifications",
             ),
           ],
           currentIndex: _selectedIndex,

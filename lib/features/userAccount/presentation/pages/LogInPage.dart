@@ -107,15 +107,15 @@ class PassWordField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Obx(() => TextField(
           controller: showPass.pwdController.value,
-          style: TextStyle(color: MColors.primaryColorDark),
+          style: TextStyle(color: MColors.primaryColorDark, fontSize: 20),
           obscureText: showPass.eyePressed.value,
           decoration: InputDecoration(
               // contentPadding: EdgeInsets.all(8),
               labelText: "Password",
               labelStyle:
-                  TextStyle(color: MColors.primaryColorDark.withOpacity(.7)),
+                  TextStyle(color: MColors.primaryColorDark),
               filled: true,
-              fillColor: Color.fromARGB(255, 199, 123, 24).withOpacity(0.7),
+              fillColor: Color.fromARGB(255, 253, 175, 96).withOpacity(0.7),
               border: UnderlineInputBorder(
                 borderSide: BorderSide.none,
                 borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -174,6 +174,8 @@ class LogInButton extends StatelessWidget {
                 builder: (BuildContext context) {
                   return Center(
                     child: CircularProgressIndicator(
+                      backgroundColor: MColors.primaryColorDark,
+                      color: MColors.primaryColorLight,
                       strokeWidth: 3,
                     ),
                   );
@@ -268,17 +270,17 @@ class EmailField extends StatelessWidget {
     return TextField(
       controller: emailAccountController,
       keyboardType: TextInputType.emailAddress,
-      style: TextStyle(color: MColors.primaryColorDark),
+      style: TextStyle(color: MColors.primaryColorDark,fontSize: 20),
       decoration: InputDecoration(
         labelText: "Email",
-        labelStyle: TextStyle(color: MColors.primaryColorDark.withOpacity(.7)),
+        labelStyle: TextStyle(color: MColors.primaryColorDark,),
         filled: true,
-        fillColor: Color.fromARGB(255, 199, 123, 24).withOpacity(0.7),
+        fillColor: Color.fromARGB(255, 253, 175, 96).withOpacity(0.7),
         border: UnderlineInputBorder(
             borderSide: BorderSide.none,
             borderRadius: BorderRadius.all(Radius.circular(16))),
         prefixIcon: Icon(
-          Iconsax.message,
+          Iconsax.send_14,
           color: MColors.primaryColorDark,
         ),
       ),
