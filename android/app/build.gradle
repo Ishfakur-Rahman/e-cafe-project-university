@@ -5,6 +5,10 @@ if (localPropertiesFile.exists()) {
         localProperties.load(reader)
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> maha
 def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
     throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
@@ -23,7 +27,10 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
+<<<<<<< HEAD
 apply plugin: 'com.google.gms.google-services'
+=======
+>>>>>>> maha
 
 android {
     compileSdkVersion flutter.compileSdkVersion
@@ -67,7 +74,10 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+<<<<<<< HEAD
     implementation platform('com.google.firebase:firebase-bom:29.2.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.android.support:multidex:1.0.3'
+=======
+>>>>>>> maha
 }

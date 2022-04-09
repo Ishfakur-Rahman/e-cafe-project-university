@@ -10,14 +10,15 @@ environment:
 dependencies:
   adobe_xd: ^2.0.1
   animated_splash_screen: ^1.2.0
+  flutter:
+    sdk: flutter
   cupertino_icons: ^1.0.2
+  flutter_svg: ^1.0.3
+  url_launcher: ^6.0.20
   firebase: ^9.0.2
   firebase_core: ^1.12.0
   firebase_auth: ^3.3.7
   cloud_firestore: ^3.1.8
-  flutter:
-    sdk: flutter
-  flutter_svg: ^1.0.3
   get: ^4.6.1
   google_fonts: ^2.3.1
   iconsax: ^0.0.8
@@ -34,6 +35,7 @@ flutter:
   uses-material-design: true
   assets:
     - asset/
+    - images/
 
   # fonts:
   #   - family: Schyler
@@ -46,3 +48,4 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+
