@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:versity_project_coffee/bottom_page.dart';
 import 'home_page.dart';
 import 'dart:ui';
 
@@ -239,7 +240,7 @@ class DetailPage extends StatelessWidget {
                               ),
                               onPressed: () {
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => HomePage()));
+                                    builder: (context) => BottomPage()));
                               },
                             ),
                           ),

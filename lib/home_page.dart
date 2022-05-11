@@ -242,6 +242,7 @@ class HomePage extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
+                    SizedBox(height: 10,),
                     Text(
                       "Not anymore! Say hi to your personal coffee tasting journal 👋",
                       style:  TextStyle(
@@ -476,7 +477,7 @@ class HomePage extends StatelessWidget {
                 ],
               ),
         ),
-               Container(
+                Container(
           margin: const EdgeInsets.only(right: 15),
           height: 25.0,
           width: 50.0,
@@ -490,7 +491,7 @@ class HomePage extends StatelessWidget {
                 child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: const [
-                 Icon(
+                Icon(
                 Icons.star,
                 size: 15,
                 color: Color(0xffd17842),
