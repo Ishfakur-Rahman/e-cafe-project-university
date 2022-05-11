@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Theme/mText.dart';
 import 'detail_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -236,7 +237,7 @@ class HomePage extends StatelessWidget {
                     Text(
                       "Have you ever made a fantastic cup of coffee and forgot the exact brewing process?",
                       style: TextStyle(
-                        fontSize: 25,
+                        fontSize: 20,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
                       ),
@@ -244,9 +245,9 @@ class HomePage extends StatelessWidget {
                     Text(
                       "Not anymore! Say hi to your personal coffee tasting journal 👋",
                       style:  TextStyle(
-                        fontSize: 20,
+                        fontSize: 16,
                         fontWeight: FontWeight.w600,
-                        color: Colors.white,
+                        color: Color.fromARGB(255, 197, 198, 201),
                       ),
                     )
                   ],

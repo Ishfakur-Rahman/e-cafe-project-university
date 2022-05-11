@@ -24,14 +24,13 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height - 150,
-            child: ListView.separated(
-                itemBuilder: (build, context) => ItemViewer(),
-                separatorBuilder: (build, context) =>
-                    Divider(color: Color.fromARGB(181, 50, 49, 49)),
-                itemCount: 10),
-          ),
+          ListView.separated(
+              shrinkWrap: true,
+              primary: false,
+              itemBuilder: (build, context) => ItemViewer(),
+              separatorBuilder: (build, context) =>
+                  Divider(color: Color.fromARGB(181, 50, 49, 49)),
+              itemCount: 10),
         ],
       ),
     );
