@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:versity_project_coffee/firebase_handling/coffeedata.dart';
+import 'package:versity_project_coffee/firebase_handling/coffeedetailsprovider.dart';
 import 'package:versity_project_coffee/firebase_handling/loginauthentication.dart';
 
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
@@ -147,7 +149,7 @@ class LogInButton extends StatelessWidget {
   var _existUser;
   var message;
 
-  Future<bool> loginAuthentication() async {
+  Future<bool> loginAuthentications() async {
     //ishfaks
     try {
       var _auth = Authentication(email: email, password: password);
@@ -182,7 +184,7 @@ class LogInButton extends StatelessWidget {
                 });
 
             //TODO: till this lines [From 160 Line] mone kore koris
-            var done = await loginAuthentication(); //ishfaks
+            var done = await loginAuthentications(); //ishfaks
             if (GetUtils.isEmail(EmailField().emailAccountController.text)) {
               //Ishfaks
               if (_existUser == true) {

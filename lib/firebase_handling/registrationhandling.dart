@@ -22,7 +22,7 @@ class RegistrationHelper {
   Future<bool> completeRegistration() async {
     try {
       _uid =  _auth.currentUser?.uid;
-      await _firestore.collection('userDetails').doc(userTypes).set({
+      await _firestore.collection(userTypes).doc(_uid).set({
         'userDetails':{
           'userName' : userName,
           'userEmail' : email,
@@ -30,6 +30,7 @@ class RegistrationHelper {
           'address' : 'add your location',
         },
         'userId' : _uid,
+        'userType': userTypes,
       });
       return true;
     } on FirebaseException catch (e) {
