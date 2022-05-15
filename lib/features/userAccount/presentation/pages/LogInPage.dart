@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:versity_project_coffee/firebase_handling/coffeedata.dart';
-import 'package:versity_project_coffee/firebase_handling/coffeedetailsprovider.dart';
 import 'package:versity_project_coffee/firebase_handling/loginauthentication.dart';
 
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
