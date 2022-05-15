@@ -17,6 +17,8 @@ import 'package:versity_project_coffee/features/userAccount/presentation/get/use
 import 'package:versity_project_coffee/features/userAccount/presentation/pages/RegisterPage.dart';
 import 'package:versity_project_coffee/maha/widgets/background-image.dart';
 
+import '../../../../bottom_page.dart';
+
 late String email;
 late String password;
 
@@ -188,7 +190,7 @@ class LogInButton extends StatelessWidget {
             if (GetUtils.isEmail(EmailField().emailAccountController.text)) {
               //Ishfaks
               if (_existUser == true) {
-                Get.off(() => HomePage());
+                Get.off(() => BottomPage());
               } else {
                 SnackBar(
                   content: Text(message),

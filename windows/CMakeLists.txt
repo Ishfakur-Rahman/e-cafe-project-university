@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-cmake_minimum_required(VERSION 3.14)
-project(versity_project_coffee LANGUAGES CXX)
-
-set(BINARY_NAME "versity_project_coffee")
-
-cmake_policy(SET CMP0063 NEW)
-
-set(CMAKE_INSTALL_RPATH "$ORIGIN/lib")
-
-# Configure build options.
-=======
 # Project-level configuration.
 cmake_minimum_required(VERSION 3.14)
 project(versity_project_coffee LANGUAGES CXX)
@@ -23,7 +11,6 @@ set(BINARY_NAME "versity_project_coffee")
 cmake_policy(SET CMP0063 NEW)
 
 # Define build configuration option.
->>>>>>> maha
 get_property(IS_MULTICONFIG GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
 if(IS_MULTICONFIG)
   set(CMAKE_CONFIGURATION_TYPES "Debug;Profile;Release"
@@ -36,11 +23,7 @@ else()
       "Debug" "Profile" "Release")
   endif()
 endif()
-<<<<<<< HEAD
-
-=======
 # Define settings for the Profile build mode.
->>>>>>> maha
 set(CMAKE_EXE_LINKER_FLAGS_PROFILE "${CMAKE_EXE_LINKER_FLAGS_RELEASE}")
 set(CMAKE_SHARED_LINKER_FLAGS_PROFILE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE}")
 set(CMAKE_C_FLAGS_PROFILE "${CMAKE_C_FLAGS_RELEASE}")
@@ -50,13 +33,10 @@ set(CMAKE_CXX_FLAGS_PROFILE "${CMAKE_CXX_FLAGS_RELEASE}")
 add_definitions(-DUNICODE -D_UNICODE)
 
 # Compilation settings that should be applied to most targets.
-<<<<<<< HEAD
-=======
 #
 # Be cautious about adding new options here, as plugins use this function by
 # default. In most cases, you should add new options to specific targets instead
 # of modifying this function.
->>>>>>> maha
 function(APPLY_STANDARD_SETTINGS TARGET)
   target_compile_features(${TARGET} PUBLIC cxx_std_17)
   target_compile_options(${TARGET} PRIVATE /W4 /WX /wd"4100")
@@ -65,20 +45,11 @@ function(APPLY_STANDARD_SETTINGS TARGET)
   target_compile_definitions(${TARGET} PRIVATE "$<$<CONFIG:Debug>:_DEBUG>")
 endfunction()
 
-<<<<<<< HEAD
-set(FLUTTER_MANAGED_DIR "${CMAKE_CURRENT_SOURCE_DIR}/flutter")
-
-# Flutter library and tool build rules.
-add_subdirectory(${FLUTTER_MANAGED_DIR})
-
-# Application build
-=======
 # Flutter library and tool build rules.
 set(FLUTTER_MANAGED_DIR "${CMAKE_CURRENT_SOURCE_DIR}/flutter")
 add_subdirectory(${FLUTTER_MANAGED_DIR})
 
 # Application build; see runner/CMakeLists.txt.
->>>>>>> maha
 add_subdirectory("runner")
 
 # Generated plugin build rules, which manage building the plugins and adding

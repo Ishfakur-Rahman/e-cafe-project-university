@@ -129,26 +129,15 @@ class DetailPage extends StatelessWidget {
                                                         10.0,
                                                       ),
                                                     ),
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                      children: [
-                                                        SvgPicture.asset(
-                                                          'images/coffeeicon.svg',
-                                                          height: 20,
-                                                          color:
-                                                          const Color(0xffd17842),
+                                                    child: Center(
+                                                      child: const Text(
+                                                        "Coffee",
+                                                        style: TextStyle(
+                                                          fontSize: 10,
+                                                          color: Color(
+                                                              0xffaeaeae),
                                                         ),
-                                                        const Text(
-                                                          "Coffee",
-                                                          style: TextStyle(
-                                                            fontSize: 10,
-                                                            color: Color(
-                                                                0xffaeaeae),
-                                                          ),
-                                                        )
-                                                      ],
+                                                      ),
                                                     ),
                                                   ),
                                                   Container(
@@ -161,26 +150,15 @@ class DetailPage extends StatelessWidget {
                                                         10.0,
                                                       ),
                                                     ),
-                                                    child: Column(
-                                                      mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                      children: [
-                                                        SvgPicture.asset(
-                                                          'images/milkicon.svg',
-                                                          height: 20,
-                                                          color:
-                                                          const Color(0xffd17842),
+                                                    child: Center(
+                                                      child: const Text(
+                                                        "Milk",
+                                                        style: TextStyle(
+                                                          fontSize: 10,
+                                                          color: Color(
+                                                              0xffaeaeae),
                                                         ),
-                                                        const Text(
-                                                          "Milk",
-                                                          style: TextStyle(
-                                                            fontSize: 10,
-                                                            color: Color(
-                                                                0xffaeaeae),
-                                                          ),
-                                                        )
-                                                      ],
+                                                      ),
                                                     ),
                                                   ),
                                                 ],
