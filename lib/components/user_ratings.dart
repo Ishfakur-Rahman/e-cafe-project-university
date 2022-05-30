@@ -1,40 +1,36 @@
-import 'package:versity_project_coffee/firebase_handling/coffeedata.dart';
+import 'package:versity_project_coffee/backend_api/coffeedata.dart';
 
 class UserRatings {
-  UserRatings({
-    required this.oldTotalUser,
-    required this.existingCoffeeRatingInTotal,
-    required this.coffeeId,
-    required this.coffeeType,
-  });
-
-  final String coffeeId;
-  final double existingCoffeeRatingInTotal;
-  final int oldTotalUser;
-  final String coffeeType;
-
-  String _ratings(double userOldRatings, double newUserRating, int newUser) {
-    var result =
-        (((existingCoffeeRatingInTotal * oldTotalUser) - userOldRatings) +
-                newUserRating) /
-            (oldTotalUser + userOldRatings == 0 ? newUser : 0);
+  String _ratings({
+    required double existingCoffeeRatingInTotal,
+    required double newUserRating,
+    required int oldTotalUser,
+    required int newUser,
+  }) {
+    var result = (((existingCoffeeRatingInTotal * oldTotalUser) -
+                existingCoffeeRatingInTotal) +
+            newUserRating) /
+        (oldTotalUser + (existingCoffeeRatingInTotal == 0 ? newUser : 0));
     return result.toString();
   }
 
-  String _newUserRatingsCoffeeId(){
-    return coffeeId;
-  }
-  Future<String> updateRatings(
-    double usersOldRatings,
+  Future<void> updateRatings(
+    double existingCoffeeRatingInTotal,
     double newUsersRating,
     int newUsers,
+    int oldTotalUser,
+    int coffeeId,
   ) async {
-    var results = _ratings(usersOldRatings, newUsersRating, newUsers);
-    await CoffeeData().updateRatings(
-      dataBaseId: _newUserRatingsCoffeeId(),
-      ratings: results,
-      coffeeType: coffeeType,
+    var results = _ratings(
+      existingCoffeeRatingInTotal: existingCoffeeRatingInTotal,
+      newUserRating: newUsersRating,
+      newUser: newUsers,
+      oldTotalUser: oldTotalUser,
     );
-    return results;
+    await CoffeeData().getacoffee(
+      coffee_id: coffeeId,
+      ratings: results,
+      total_users: (oldTotalUser + 1).toString(),
+    );
   }
 }

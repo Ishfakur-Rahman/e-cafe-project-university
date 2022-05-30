@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:versity_project_coffee/Theme/mText.dart';
 import 'package:path/path.dart';
+import 'package:versity_project_coffee/backend_api/coffeedata.dart';
 import 'package:versity_project_coffee/home_page.dart';
 import 'package:get/get.dart';
 
@@ -111,7 +112,8 @@ class _ImagePickerHelperState extends State<ImagePickerHelper> {
                 title: 'Submit',
                 icon: Icons.cloud_upload_outlined,
                 onClicked: () async {
-                  await uploadFiles(imagepurposes);
+                  var imageurls = await uploadFiles(imagepurposes);
+                  // CoffeeData().addCoffee(coffeeType: 'coffeeType', coffeeTaste: 'coffeeTaste', coffeeName: 'coffeeName', coffeeShopLocation: 'coffeeShopLocation', coffeeShopName: 'coffeeShopName', price: 4.2, imageUrl: imageurls);
                   Get.off(() => HomePage());
                 }),
             Spacer(),
