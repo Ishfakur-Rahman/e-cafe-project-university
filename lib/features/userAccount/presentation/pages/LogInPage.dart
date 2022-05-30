@@ -151,7 +151,7 @@ class LogInButton extends StatelessWidget {
   Future<bool> loginAuthentications() async {
     //ishfaks
     try {
-      token = Authentication().login_auth(email: email, password: password);
+      token = await Authentication().login_auth(email: email, password: password);
       //TODO: save this token in shared preferences.
       //TODO: shama korle janais
       return true;
@@ -188,11 +188,11 @@ class LogInButton extends StatelessWidget {
             if (GetUtils.isEmail(EmailField().emailAccountController.text)) {
               //Ishfaks
               if (_existUser == true) {
-                var role = Authentication().user_role(token: token);
+                var role = await Authentication().user_role(token: token);
                 if (role == 'buyer') {
-                  Get.off(() => HomePage());
-                } else {
                   Get.off(() => BottomPage());
+                } else {
+                  Get.off(() => HomePage());
                 }
               } else {
                 SnackBar(
