@@ -7,12 +7,19 @@ import 'package:versity_project_coffee/backend_api/imagepicker.dart';
 import '../../../../Theme/mText.dart';
 
 class AddFormPage extends StatefulWidget {
-
   @override
   State<AddFormPage> createState() => _AddFormPageState();
 }
 
 class _AddFormPageState extends State<AddFormPage> {
+  late String imagepurposes;
+  late String coffeeTypes;
+  late String coffeeTastes;
+  late String coffeeNames;
+  late String coffeeShopLocations;
+  late String coffeeShopNames;
+  late String prices;
+  late String imageUrls;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -133,7 +140,16 @@ class _AddFormPageState extends State<AddFormPage> {
                   SizedBox(height: 20),
                   ElevatedButton.icon(
                       onPressed: () {
-                        Get.to (() => ImagePickerHelper(imagepurpose: 'coffeeImages',));
+                        Get.to(
+                          () => ImagePickerHelper(
+                              imagepurpose: 'coffeeImages',
+                              coffeeType: coffeeTypes,
+                              coffeeTaste: coffeeTastes,
+                              coffeeName: coffeeNames,
+                              coffeeShopLocation: coffeeShopLocations,
+                              coffeeShopName: coffeeShopNames,
+                              price: prices),
+                        );
                       },
                       icon: Icon(Iconsax.send),
                       label: Padding(

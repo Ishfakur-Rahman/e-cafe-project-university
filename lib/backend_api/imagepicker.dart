@@ -10,8 +10,23 @@ import 'package:versity_project_coffee/home_page.dart';
 import 'package:get/get.dart';
 
 class ImagePickerHelper extends StatefulWidget {
-  ImagePickerHelper({required this.imagepurpose});
+  ImagePickerHelper(
+      {required this.imagepurpose,
+      required String coffeeType,
+      required String coffeeTaste,
+      required String coffeeName,
+      required String coffeeShopLocation,
+      required String coffeeShopName,
+      required String price});
+
   late String imagepurpose;
+  late String coffeeType;
+  late String coffeeTaste;
+  late String coffeeName;
+  late String coffeeShopLocation;
+  late String coffeeShopName;
+  late String price;
+
   @override
   _ImagePickerHelperState createState() => _ImagePickerHelperState();
 }
@@ -19,6 +34,12 @@ class ImagePickerHelper extends StatefulWidget {
 class _ImagePickerHelperState extends State<ImagePickerHelper> {
   File? image;
   late String imagepurposes = widget.imagepurpose;
+  late String coffeeTypes = widget.coffeeType;
+  late String coffeeTastes = widget.coffeeTaste;
+  late String coffeeNames = widget.coffeeName;
+  late String coffeeShopLocations = widget.coffeeShopLocation;
+  late String coffeeShopNames = widget.coffeeShopName;
+  late String prices = widget.price;
 
   Future pick_image(ImageSource source) async {
     try {
@@ -26,7 +47,7 @@ class _ImagePickerHelperState extends State<ImagePickerHelper> {
       if (image == null) return;
       final imageTemporary = File(image.path);
       setState(() => this.image = imageTemporary);
-    } on PlatformException catch (e){}
+    } on PlatformException catch (e) {}
   }
 
   Future uploadFiles(String imagepurpose) async {
@@ -113,7 +134,14 @@ class _ImagePickerHelperState extends State<ImagePickerHelper> {
                 icon: Icons.cloud_upload_outlined,
                 onClicked: () async {
                   var imageurls = await uploadFiles(imagepurposes);
-                  // CoffeeData().addCoffee(coffeeType: 'coffeeType', coffeeTaste: 'coffeeTaste', coffeeName: 'coffeeName', coffeeShopLocation: 'coffeeShopLocation', coffeeShopName: 'coffeeShopName', price: 4.2, imageUrl: imageurls);
+                  await CoffeeData().addCoffee(
+                      coffeeType: coffeeTypes,
+                      coffeeTaste: coffeeTastes,
+                      coffeeName: coffeeNames,
+                      coffeeShopLocation: coffeeShopLocations,
+                      coffeeShopName: coffeeShopNames,
+                      price: prices,
+                      imageUrl: imageurls);
                   Get.off(() => HomePage());
                 }),
             Spacer(),
