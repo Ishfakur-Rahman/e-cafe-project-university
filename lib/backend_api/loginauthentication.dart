@@ -10,6 +10,8 @@ class Authentication {
     if (response.statusCode == 200) {
       var token = Token.fromJson(jsonDecode(response.body)).token;
       return token;
+    }else{
+      return "empty";
     }
   }
 
@@ -24,7 +26,8 @@ class Authentication {
     if(response.statusCode == 200){
       var roles = UserTypeRoleModel.fromJson(jsonDecode(response.body));
       return roles.role;
-
+    }else{
+      return "Super";
     }
   }
 }
