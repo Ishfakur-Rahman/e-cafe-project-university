@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:versity_project_coffee/backend_api/registrationhandling.dart';
+import 'package:versity_project_coffee/bottom_page.dart';
 import '../pallete.dart';
 import 'package:get/get.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/sellerPage.dart';
@@ -23,17 +24,18 @@ class RoundedButton extends StatelessWidget {
   final String userType;
   late String messages = ' ';
 
-  Future<bool> registrationInFirebase() async {
+  Future<bool> registrationInAPI() async {
     try {
-      var canbe = await RegistrationHelper().registrating(
+      var token = await RegistrationHelper().registrating(
         userName: user,
         password: password,
         userTypes: userType,
         email: email,
       );
-      return canbe;
+      //TODO: take the token to shared preferences
+      return true;
     } catch (e) {
-      messages = 'Cound\'t registered';
+      messages = 'Couldn\'t registered';
       return false;
     }
   }
@@ -61,9 +63,13 @@ class RoundedButton extends StatelessWidget {
                       ),
                     );
                   });
-              var status = await registrationInFirebase();
+              var status = await registrationInAPI();
               if (status == true) {
-                Get.off(() => HomePage());
+                if (userType == 'buyer') {
+                  Get.off(() => BottomPage());
+                } else {
+                  Get.off(() => HomePage());
+                }
               }
             } else {
               messages = 'Your password doesn\'t matched';
