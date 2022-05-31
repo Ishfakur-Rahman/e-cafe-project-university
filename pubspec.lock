@@ -756,16 +756,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.9"
-<<<<<<< HEAD
-  timing:
-    dependency: transitive
-    description:
-      name: timing
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
-=======
->>>>>>> 2a4f67f50fa2cbecd837c472aa8ff2a2e1152f24
   typed_data:
     dependency: transitive
     description:
@@ -835,25 +825,7 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-    version: "2.1.1"
-  watcher:
-    dependency: transitive
-    description:
-      name: watcher
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.1"
-  web_socket_channel:
-    dependency: transitive
-    description:
-      name: web_socket_channel
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.0"
-=======
     version: "2.1.2"
->>>>>>> 2a4f67f50fa2cbecd837c472aa8ff2a2e1152f24
   win32:
     dependency: transitive
     description:
