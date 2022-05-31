@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class FavouritePage extends StatelessWidget {
-  const FavouritePage({Key? key}) : super(key: key);
+class PurchaseHistoryPage extends StatelessWidget {
+  const PurchaseHistoryPage({ Key? key }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,19 +12,19 @@ class FavouritePage extends StatelessWidget {
         backgroundColor: Colors.black12,
         centerTitle: true,
         title: Text(
-          'Favourite Page',
+          'Purchase History',
           style: TextStyle(
             color: Colors.white70,
           ),
         ),
       ),
       body: ListView.separated(
-        itemCount: 5,
+        itemCount: 1,
         separatorBuilder: (BuildContext context, int index) {
           return SizedBox(height: 20.0);
         },
         itemBuilder: (BuildContext context, int index) {
-          return FavouriteWidget(
+          return PurchaseHistoryWidget(
             image : "images/coffee3.jpeg",
             coffeeName: "Jamaican Mountain Coffee",
             coffeeShop: "Marwa Cafe",
@@ -36,14 +36,14 @@ class FavouritePage extends StatelessWidget {
   }
 }
 
-class FavouriteWidget extends StatelessWidget {
+class PurchaseHistoryWidget extends StatelessWidget {
 
   final String image;
   final String coffeeName;
   final String coffeeShop;
   final String price;
 
-  const FavouriteWidget({Key? key, required this.image, required this.coffeeName, required this.coffeeShop, required this.price}) : super(key: key);
+  const PurchaseHistoryWidget({Key? key, required this.image, required this.coffeeName, required this.coffeeShop, required this.price}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -75,12 +75,12 @@ class FavouriteWidget extends StatelessWidget {
                   children: [
                     priceDisplay(),
                     Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       decoration: BoxDecoration(
                         color: const Color(0xffd17842),
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(100.0),
                       ),
-                      child: const Icon(Icons.delete,
-                          size: 30, color: Colors.white),
+                      child: const Text('1',style: TextStyle(color: Colors.white, fontSize: 15)),
                     ),
                   ],
                 )

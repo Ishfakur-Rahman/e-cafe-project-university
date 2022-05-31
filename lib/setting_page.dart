@@ -17,7 +17,7 @@ class SettingsScreen extends StatelessWidget {
                   children: [
                     Card(
                       shadowColor: Color(0xffd17842),
-                      margin: const EdgeInsets.fromLTRB(32, 8, 32, 16),
+                      margin: const EdgeInsets.fromLTRB(32, 40, 32, 16),
                       elevation: 5,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10)),
@@ -47,39 +47,6 @@ class SettingsScreen extends StatelessWidget {
                       color: Color(0xFF63554b),
                       child: Column(
                         children: [
-                          ListTile(
-                            leading:
-                                const Icon(Icons.security, color: Colors.white),
-                            title: const Text(
-                              'Privacy',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            trailing: const Icon(
-                              Icons.keyboard_arrow_right,
-                              color: Colors.white,
-                            ),
-                            onTap: () {},
-                          ),
-                          _buildDivider(),
-                          ListTile(
-                            leading:
-                                const Icon(Icons.history, color: Colors.white),
-                            title: const Text(
-                              'Purchase History',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            trailing: const Icon(
-                              Icons.keyboard_arrow_right,
-                              color: Colors.white,
-                            ),
-                            onTap: () {},
-                          ),
                           ListTile(
                             leading: const Icon(Icons.help_outline,
                                 color: Colors.white),

@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:versity_project_coffee/database/cartBoxController.dart';
+import 'package:versity_project_coffee/database/cartModel.dart';
+import 'package:versity_project_coffee/database/coffeeData.dart';
 import 'Theme/mText.dart';
+import 'database/coffeeModel.dart';
 import 'detail_page.dart';
 
 class HomePage extends StatelessWidget {
-  //coffeeShop
-// coffeeDetails
-  var fire = FirebaseFirestore.instance;
   static var screenHeight;
   static var screenWidth;
   HomePageController ctrl = Get.put(HomePageController());
@@ -45,6 +46,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget buildSingleItem({
+    id,
     images,
     title,
     subTitle,
@@ -142,10 +144,22 @@ class HomePage extends StatelessWidget {
                               color: const Color(0xffd17842),
                               borderRadius: BorderRadius.circular(7),
                             ),
-                            child: const Icon(
-                              Icons.add,
-                              size: 25,
-                              color: Colors.white,
+                            child: GestureDetector(
+                              onTap: () {
+                                ctrl.addCart(
+                                  id: id,
+                                  images: images,
+                                  title: title,
+                                  subTitle: subTitle,
+                                  price: price,
+                                  rating: rating,
+                                );
+                              },
+                              child: const Icon(
+                                Icons.add,
+                                size: 25,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ],
@@ -252,46 +266,46 @@ class HomePage extends StatelessWidget {
                 ),
                 SizedBox(
                   height: 40,
-                  child: StreamBuilder<QuerySnapshot>(
-                      stream: fire.collection("coffeeCategories").snapshots(),
-                      builder: (context, snapshot) {
-                        if(snapshot.hasData){
-                          final stream = snapshot.requireData.docs;
-                          print(stream);
-                        }
-                        return ListView.builder(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            itemCount: ctrl.categories.length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
-                                  child: Obx(
-                                    () => buildCoffeeCategory(
-                                        categoryName: ctrl.categories[index],
-                                        isSelected: ctrl
-                                            .selectedCategories.value
-                                            .contains(ctrl.categories[index])),
-                                  ));
-                            });
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: ctrl.observableCatagoryList.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10),
+                            child: Obx(
+                              () => buildCoffeeCategory(
+                                  categoryName:
+                                      ctrl.observableCatagoryList[index],
+                                  isSelected: ctrl.selectedCategories.value
+                                      .contains(
+                                          ctrl.observableCatagoryList[index])),
+                            ));
                       }),
                 ),
                 SizedBox(
                   height: HomePage.screenHeight * 0.3,
-                  child: ListView.builder(
+                  child: Obx(() => ListView.builder(
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
-                      itemCount: 5,
+                      itemCount: ctrl.recommendedCoffeeList.length,
                       itemBuilder: (BuildContext context, int index) {
+                        int id = ctrl.getRecomendedCoffeeId(index).value;
+                        String images = CoffeeData().coffeeList[id].image;
+                        String title = CoffeeData().coffeeList[id].title;
+                        String subTitle = CoffeeData().coffeeList[id].subTitle;
+                        String price =CoffeeData().coffeeList[id].price;
+                        String rating = CoffeeData().coffeeList[id].rating;
                         return buildSingleItem(
                           context: context,
-                          images: "images/coffee1.jpeg",
-                          title: "Cappuccino",
-                          subTitle: "With Oat Milk",
-                          price: 4.20,
-                          rating: 4.5,
+                          id: index,
+                          images: images,
+                          title: title,
+                          subTitle: subTitle,
+                          price: price,
+                          rating: rating,
                         );
-                      }),
+                      })),
                 ),
                 const Padding(
                   padding: EdgeInsets.only(left: 5),
@@ -309,13 +323,20 @@ class HomePage extends StatelessWidget {
                 ListView.separated(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: 5,
+                    itemCount: ctrl.coffeeList.length,
                     separatorBuilder: (context, index) {
-                      return SizedBox(
+                      return const SizedBox(
                         height: 20,
                       );
                     },
                     itemBuilder: (context, index) {
+                      int id = ctrl.getCoffeeId(index).value;
+                      String images = CoffeeData().coffeeList[id].image;
+                      String title = CoffeeData().coffeeList[id].title;
+                      String subTitle = CoffeeData().coffeeList[id].subTitle;
+                      String price =CoffeeData().coffeeList[id].price;
+                      String rating =CoffeeData().coffeeList[id].rating;
+
                       return Container(
                         padding: const EdgeInsets.all(12.0),
                         margin: const EdgeInsets.symmetric(horizontal: 15),
@@ -337,10 +358,10 @@ class HomePage extends StatelessWidget {
                                       color: Color(0xff30221f),
                                     ),
                                   ],
-                                  image: const DecorationImage(
+                                  image: DecorationImage(
                                     fit: BoxFit.cover,
                                     image: AssetImage(
-                                      "images/coffee3.jpeg",
+                                      images,
                                     ),
                                   ),
                                   borderRadius: BorderRadius.circular(20.0),
@@ -357,16 +378,16 @@ class HomePage extends StatelessWidget {
                                     MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Text(
-                                    "Jamaican Blue Mountain",
+                                  Text(
+                                    title,
                                     style: TextStyle(
                                       fontSize: 17,
                                       color: Colors.white,
                                       fontWeight: FontWeight.w400,
                                     ),
                                   ),
-                                  const Text(
-                                    "Blue Mountain coffee",
+                                  Text(
+                                    subTitle,
                                     style: TextStyle(
                                       color: Color(0xffaeaeae),
                                     ),
@@ -376,7 +397,7 @@ class HomePage extends StatelessWidget {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Row(
-                                        children: const [
+                                        children: [
                                           Text(
                                             "\$\t",
                                             style: TextStyle(
@@ -385,7 +406,7 @@ class HomePage extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            "4.20",
+                                            price,
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white,
@@ -399,8 +420,20 @@ class HomePage extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(10.0),
                                         ),
-                                        child: const Icon(Icons.add,
-                                            size: 30, color: Colors.white),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            ctrl.addCart(
+                                              id: id,
+                                              images: images,
+                                              title: title,
+                                              subTitle: subTitle,
+                                              price: price,
+                                              rating: rating,
+                                            );
+                                          },
+                                          child: const Icon(Icons.add,
+                                              size: 30, color: Colors.white),
+                                        ),
                                       )
                                     ],
                                   )
@@ -449,18 +482,82 @@ class HomePage extends StatelessWidget {
 }
 
 class HomePageController extends GetxController {
+  static List<String> getCatagoryList() {
+    List<String> list = CoffeeData().catagoryList;
+    list.insertAll(0, ["All"]);
+    return list;
+  }
 
-  RxMap<String, bool> item =
-      {"All": false, "Cuppuchino": false, "Lato": false, "Expresso": false}.obs;
+  RxList<String> observableCatagoryList = getCatagoryList().obs;
 
-  var selectedCategories = ["All"].obs;
+  var selectedCategories = "All".obs;
+  RxList<CoffeeModel> get recommendedCoffeeList => CoffeeData()
+                          .coffeeList
+                          .where((coffee) => (coffee.isRecommended == true &&
+                              (selectedCategories.value != "All"
+                                  ? coffee.catagory
+                                      .contains(selectedCategories.value)
+                                  : true))).toList().obs;
 
-  get categories => item.entries.map((e) => e.key).toList().obs;
 
-  void toggle(String item) {
-    selectedCategories.value = [item];
+  RxList<CoffeeModel> get coffeeList => CoffeeData()
+                          .coffeeList
+                          .where((coffee) => ((selectedCategories.value != "All"
+                                  ? coffee.catagory
+                                      .contains(selectedCategories.value)
+                                  : true))).toList().obs;
+
+  void toggle(String catagory) {
+    selectedCategories.value = catagory;
+  }
+
+  void addCart({
+    required id,
+    required images,
+    required title,
+    required subTitle,
+    required price,
+    required rating,
+  }) {
+    final cart = CartModel(
+      id: id,
+      name: title,
+      shopName: subTitle,
+      size: "M",
+      price: price.toString(),
+      ratings: rating.toString(),
+      image: images,
+    );
+    CartBoxController().addCart(cart);
+  }
+
+  Rx<int> getRecomendedCoffeeId(int index) {
+    return recommendedCoffeeList[index].id.obs;
+  }
+  Rx<int> getCoffeeId(int index) {
+    return recommendedCoffeeList[index].id.obs;
   }
 }
+
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home:  OfferPage(),
+    );
+  }
+}
+
 
 class OfferPage extends StatelessWidget {
   const OfferPage({Key? key}) : super(key: key);
@@ -469,26 +566,26 @@ class OfferPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF212121),
-      body: Column(
-        children: [
-          Container(
-              //   width: double.infinity,
-              height: 400,
-              child: Stack(
-                children: [
-                  Image.asset(
-                    'images/image.png',
-                    height: 400,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+   //   width: double.infinity,
+            height: 400,
+            child: Stack(
+              children: [
+                Image.asset('images/coffee.jpg',
+                  height: 400,
                     width: double.infinity,
                     fit: BoxFit.cover,
                   ),
-                  Positioned(
+                 Positioned(
                     left: 30,
-                    top: 60,
+                  top: 60,
                     child: GestureDetector(
                       onTap: () {
-                        Navigator.pop(context);
-                      },
+                 Navigator.pop(context);
+                  },
                       child: Container(
                         padding: const EdgeInsets.all(4),
                         decoration: BoxDecoration(
@@ -498,120 +595,198 @@ class OfferPage extends StatelessWidget {
                         ),
                       ),
                     ),
+                 ),
+                Positioned(
+                  right: 16,
+                  bottom: 16,
+                  child: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Colors.black12,
+                        borderRadius: BorderRadius.circular(36)
+                    ),
+                    child: const Icon(
+                    Icons.favorite,
+                      color: Colors.red,
                   ),
-                  Positioned(
-                      right: 16,
-                      bottom: 16,
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                            color: Colors.black12,
-                            borderRadius: BorderRadius.circular(36)),
-                        child: const Icon(
-                          Icons.favorite,
-                          color: Colors.red,
+                )
+                 )
+              ],
+            )
+            ),
+            const SizedBox(
+             height: 20,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                children: [
+                  const Text(
+                    'Offers and Discounts',
+                    style:  TextStyle(
+                      fontSize: 27,
+                   //   fontWeight:   FontWeight.bold,
+                       color: Colors.white60,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      children: [
+                       Container(
+                         width: 100,
+                         height: 100,
+                         child: DecoratedBox(
+                              decoration:  BoxDecoration(
+                                 borderRadius: BorderRadius.circular(10),
+                                 image: const DecorationImage(
+                                   image:  AssetImage('images/coffee22.jpg'),
+                                   fit: BoxFit.fill,
+                                 ),
+                               ),
+                             ),
+                       ),
+                        const SizedBox(
+                          width: 40,
                         ),
-                      ))
-                ],
-              )),
-          const SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              children: [
-                const Text(
-                  'Offers and Discounts',
-                  style: TextStyle(
-                    fontSize: 27,
-                    //   fontWeight:   FontWeight.bold,
-                    color: Colors.white60,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 100,
-                        height: 100,
-                        child: DecoratedBox(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: const DecorationImage(
-                              image: AssetImage('images/coffee22.png'),
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 40,
-                      ),
-                      Expanded(
+                        Expanded(
                           child: RichText(
-                              text: TextSpan(
-                        style: TextStyle(color: Colors.white70),
-                        children: [
-                          TextSpan(
+                          text: const TextSpan(
+                            style: const TextStyle(
+                              color: Colors.white70),
+                            children: [
+                               TextSpan(
                             text: 'Get Discount of \n',
-                            style: TextStyle(
+                            style:  TextStyle(
                               fontSize: 18,
                             ),
                           ),
-                          TextSpan(
-                            text: '30% \n',
-                            style: TextStyle(
-                              fontSize: 35,
+                             TextSpan(
+                              text:  '30% \n',
+                              style:  TextStyle(
+                                fontSize: 35,
+                              ),
                             ),
-                          ),
-                          TextSpan(
-                            text:
-                                'A brewed drink prepared from roasted coffee beans, the seeds of berries from certain Coffea species.',
-                            style: TextStyle(
-                              fontSize: 10,
+                            TextSpan(
+                              text:  'A brewed drink prepared from roasted coffee beans, the seeds of berries from certain Coffea species.',
+                              style: const TextStyle(
+                               fontSize: 10,
+                              ),
                             ),
+                            ],
+
+                        )
+                        )
+                        )
+                      ],
                           ),
-                        ],
-                      )))
-                    ],
+                        ),
+                  SizedBox(
+                    height: 30,
                   ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Container(
-                  height: 30,
-                  width: 30,
-                  padding: EdgeInsets.all(7),
-                  decoration: BoxDecoration(
-                    color: Colors.white54,
-                    borderRadius: BorderRadius.circular(8),
+                  Container(
+                    width: double.infinity,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 40,
+                        ),
+                        Expanded(
+                            child: RichText(
+                                text: const TextSpan(
+                                  style: TextStyle(
+                                      color: Colors.white70),
+                                  children: [
+                                      TextSpan(
+                                      text: 'Try these 3 delicious things and collect Top Customer Badge!  \n',
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text:  'Come in and try these menu items in any order you \n',
+                                      style: TextStyle(
+                                        height: 2,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text:  'want-or all at the same time \n',
+                                      style:  TextStyle(
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text:  '~ any Frappuccino * Blended Beverage \n',
+                                      style:  TextStyle(
+                                        height: 2,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text:  '~ a Caffe Mocha \n',
+                                      style:  TextStyle(
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text:  '~ any Iced Mocha \n',
+                                      style:  TextStyle(
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ],
+                                )
+                            )
+                        )
+                      ],
+                    ),
                   ),
-                  child: Icon(
-                    Icons.bookmark_border,
-                    size: 15,
+
+                ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          )
-        ],
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    height: 30,
+                    width: 30,
+                      padding: const EdgeInsets.all(7),
+                    decoration: BoxDecoration(
+                      color: Colors.white54,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Icon(
+                      Icons.bookmark_border,
+                      size: 15,
+                    ),
+                  ),
+
+                ],
+              ),
+            )
+
+                ],
+              ),
       ),
-    );
+          );
+
   }
 }

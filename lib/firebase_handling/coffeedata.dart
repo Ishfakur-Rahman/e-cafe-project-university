@@ -14,6 +14,7 @@ class CoffeeData {
     required String coffeeName,
     required String coffeeShopLocation,
     required String coffeeShopName,
+    required double price,
   }) async {
     try {
       await _firestore
@@ -22,20 +23,21 @@ class CoffeeData {
         coffeeId = value.id;
         var coffeeShopUid = _auth.currentUser?.uid;
         await _firestore
-            .collection('coffeeShop')
-            .doc('coffeeDetails')
-            .collection(coffeeType)
-            .doc((coffeeType + coffeeId))
+            .collection('coffeeCategories')
+            .doc(coffeeType)
+            .collection((coffeeType + coffeeId))
+            .doc()
             .set({
           'databaseId': (coffeeType + coffeeId),
+          'Uploaded time':
+              DateFormat('dd-MM-yyyy KK:mm:ss').format(DateTime.now()),
           'coffeeImageId': coffeeId, //TODO: use it for network image
           'coffeeDetails': {
             'name': coffeeName,
-            'taste': coffeeTaste,
             'more': {
               'rating': 'No Ratings',
-              'Uploaded time':
-                  DateFormat('dd-MM-yyyy KK:mm:ss').format(DateTime.now()),
+              'taste': coffeeTaste,
+              'price': price,
             },
           },
           'seller': {
@@ -61,9 +63,9 @@ class CoffeeData {
   }) async {
     try {
       await _firestore
-          .collection('coffeeShop')
-          .doc('coffeeDetails')
-          .collection(coffeeType)
+          .collection('coffeeCategories')
+          .doc(coffeeType)
+          .collection((coffeeType + coffeeId))
           .doc(dataBaseId)
           .update({
         'coffeeDetails': {
@@ -88,9 +90,9 @@ class CoffeeData {
       required String coffeeType}) async {
     try {
       await _firestore
-          .collection('coffeeShop')
-          .doc('coffeeDetails')
-          .collection(coffeeType)
+          .collection('coffeeCategories')
+          .doc(coffeeType)
+          .collection((coffeeType + coffeeId))
           .doc(dataBaseId)
           .set({
         'coffeeDetails': {
