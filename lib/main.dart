@@ -12,6 +12,9 @@ import 'package:versity_project_coffee/features/userAccount/presentation/pages/L
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'features/userAccount/presentation/pages/LogInPage.dart';
+import 'package:versity_project_coffee/features/userAccount/presentation/pages/LogInPage.dart';
+import 'package:get/get.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +29,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    CoffeeDetails().coffeeProvider();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

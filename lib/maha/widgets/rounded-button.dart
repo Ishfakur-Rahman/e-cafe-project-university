@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:versity_project_coffee/firebase_handling/registrationhandling.dart';
+import 'package:versity_project_coffee/backend_api/registrationhandling.dart';
 import '../pallete.dart';
 import 'package:get/get.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/sellerPage.dart';
@@ -25,12 +25,12 @@ class RoundedButton extends StatelessWidget {
 
   Future<bool> registrationInFirebase() async {
     try {
-      var canbe = await RegistrationHelper(
+      var canbe = await RegistrationHelper().registrating(
         userName: user,
         password: password,
         userTypes: userType,
         email: email,
-      ).registratingUser();
+      );
       return canbe;
     } catch (e) {
       messages = 'Cound\'t registered';
@@ -52,13 +52,17 @@ class RoundedButton extends StatelessWidget {
           height: size.height * 0.06,
           onPressed: () async {
             if (password == confirmPassword && password != 'n') {
-              showDialog(context: context, builder: (BuildContext context){
-                return Center(child: CircularProgressIndicator(
-                  strokeWidth: 2,
-                ),);
-              });
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                      ),
+                    );
+                  });
               var status = await registrationInFirebase();
-              if(status==true){
+              if (status == true) {
                 Get.off(() => HomePage());
               }
             } else {

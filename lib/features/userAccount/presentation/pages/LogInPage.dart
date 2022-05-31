@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:versity_project_coffee/firebase_handling/coffeedata.dart';
-import 'package:versity_project_coffee/firebase_handling/loginauthentication.dart';
+import 'package:versity_project_coffee/backend_api/coffeedata.dart';
+import 'package:versity_project_coffee/backend_api/loginauthentication.dart';
 
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 import 'package:flutter/material.dart';
@@ -11,6 +11,7 @@ import 'package:iconsax/iconsax.dart';
 
 import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/Theme/mText.dart';
+import 'package:versity_project_coffee/bottom_page.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/sellerPage.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/get/userAccountController.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/pages/RegisterPage.dart';
@@ -115,8 +116,7 @@ class PassWordField extends StatelessWidget {
           decoration: InputDecoration(
               // contentPadding: EdgeInsets.all(8),
               labelText: "Password",
-              labelStyle:
-                  TextStyle(color: MColors.primaryColorDark),
+              labelStyle: TextStyle(color: MColors.primaryColorDark),
               filled: true,
               fillColor: Color.fromARGB(255, 253, 175, 96).withOpacity(0.7),
               border: UnderlineInputBorder(
@@ -146,18 +146,19 @@ class PassWordField extends StatelessWidget {
 }
 
 class LogInButton extends StatelessWidget {
-  // const LogInButton({Key? key}) : super(key: key);
   var _existUser;
   var message;
+  var token;
 
   Future<bool> loginAuthentications() async {
     //ishfaks
     try {
-      var _auth = Authentication(email: email, password: password);
-      _existUser = await _auth.loginAuthentication();
-      message = _auth.messages;
+      token = await Authentication().login_auth(email: email, password: password);
+      //TODO: save this token in shared preferences.
+      //TODO: shama korle janais
       return true;
     } catch (e) {
+      message = "Failed to log in";
       return false;
     }
   }
@@ -185,11 +186,16 @@ class LogInButton extends StatelessWidget {
                 });
 
             //TODO: till this lines [From 160 Line] mone kore koris
-            var done = await loginAuthentications(); //ishfaks
+            _existUser = await loginAuthentications(); //ishfaks
             if (GetUtils.isEmail(EmailField().emailAccountController.text)) {
               //Ishfaks
               if (_existUser == true) {
-                Get.off(() => BottomPage());
+                var role = await Authentication().user_role(token: token);
+                if (role == 'buyer') {
+                  Get.off(() => BottomPage());
+                } else {
+                  Get.off(() => HomePage());
+                }
               } else {
                 SnackBar(
                   content: Text(message),
@@ -273,10 +279,12 @@ class EmailField extends StatelessWidget {
     return TextField(
       controller: emailAccountController,
       keyboardType: TextInputType.emailAddress,
-      style: TextStyle(color: MColors.primaryColorDark,fontSize: 20),
+      style: TextStyle(color: MColors.primaryColorDark, fontSize: 20),
       decoration: InputDecoration(
         labelText: "Email",
-        labelStyle: TextStyle(color: MColors.primaryColorDark,),
+        labelStyle: TextStyle(
+          color: MColors.primaryColorDark,
+        ),
         filled: true,
         fillColor: Color.fromARGB(255, 253, 175, 96).withOpacity(0.7),
         border: UnderlineInputBorder(

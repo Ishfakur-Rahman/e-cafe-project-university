@@ -168,6 +168,7 @@ packages:
       name: collection
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.15.0"
   convert:
     dependency: transitive
@@ -176,6 +177,9 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+=======
+    version: "1.16.0"
+>>>>>>> 2a4f67f50fa2cbecd837c472aa8ff2a2e1152f24
   cross_file:
     dependency: transitive
     description:
@@ -210,7 +214,7 @@ packages:
       name: fake_async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "1.3.0"
   ffi:
     dependency: transitive
     description:
@@ -485,6 +489,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.4"
+<<<<<<< HEAD
   json_annotation:
     dependency: transitive
     description:
@@ -492,6 +497,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.5.0"
+=======
+>>>>>>> 2a4f67f50fa2cbecd837c472aa8ff2a2e1152f24
   lints:
     dependency: transitive
     description:
@@ -519,7 +526,7 @@ packages:
       name: material_color_utilities
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.3"
+    version: "0.1.4"
   meta:
     dependency: transitive
     description:
@@ -706,7 +713,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.1"
+    version: "1.8.2"
   stack_trace:
     dependency: transitive
     description:
@@ -749,6 +756,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.4.9"
+<<<<<<< HEAD
   timing:
     dependency: transitive
     description:
@@ -756,6 +764,8 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.0"
+=======
+>>>>>>> 2a4f67f50fa2cbecd837c472aa8ff2a2e1152f24
   typed_data:
     dependency: transitive
     description:
@@ -825,6 +835,7 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "2.1.1"
   watcher:
     dependency: transitive
@@ -840,6 +851,9 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.0"
+=======
+    version: "2.1.2"
+>>>>>>> 2a4f67f50fa2cbecd837c472aa8ff2a2e1152f24
   win32:
     dependency: transitive
     description:
@@ -869,5 +883,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.16.1 <3.0.0"
+  dart: ">=2.17.0-0 <3.0.0"
   flutter: ">=2.10.0"
