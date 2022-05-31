@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:versity_project_coffee/Theme/mColors.dart';
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
       theme: MColors.homeThemeData,
       initialRoute: '/',
       routes: {
-        '/': (context) => BottomPage(),
+        '/': (context) => LogInPages(),
       },
     );
   }
