@@ -5,6 +5,7 @@ import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/backend_api/imagepicker.dart';
 
 import '../../../../Theme/mText.dart';
+import '../../../../backend_api/coffeedata.dart';
 
 class AddFormPage extends StatefulWidget {
   @override
@@ -139,22 +140,36 @@ class _AddFormPageState extends State<AddFormPage> {
                   ),
                   SizedBox(height: 20),
                   ElevatedButton.icon(
-                      onPressed: () {
-                        Get.to(
-                          () => ImagePickerHelper(
+                      onPressed: () async {
+                        var imageUrls = Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ImagePickerHelper(
                               imagepurpose: 'coffeeImages',
-                              coffeeType: coffeeTypes,
-                              coffeeTaste: coffeeTastes,
-                              coffeeName: coffeeNames,
-                              coffeeShopLocation: coffeeShopLocations,
-                              coffeeShopName: coffeeShopNames,
-                              price: prices),
+                            ),
+                          ),
                         );
                       },
-                      icon: Icon(Iconsax.send),
+                      icon: Icon(Icons.image),
                       label: Padding(
                           padding: EdgeInsets.all(8),
-                          child: MText("Next").heading2())),
+                          child: MText("Upload Image").heading2())),
+                  SizedBox(height: 20),
+                  ElevatedButton.icon(
+                      onPressed: () async {
+                        await CoffeeData().addCoffee(
+                            coffeeType: coffeeTypes,
+                            coffeeTaste: coffeeTastes,
+                            coffeeName: coffeeNames,
+                            coffeeShopLocation: coffeeShopLocations,
+                            coffeeShopName: coffeeShopNames,
+                            price: prices,
+                            imageUrl: imageUrls.toString());
+                      },
+                      icon: Icon(Icons.send),
+                      label: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: MText("Upload Image").heading2())),
                   SizedBox(height: 20),
                 ],
               ),
