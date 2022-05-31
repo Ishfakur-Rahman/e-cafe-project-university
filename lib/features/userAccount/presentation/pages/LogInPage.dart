@@ -156,6 +156,9 @@ class LogInButton extends StatelessWidget {
       token = await Authentication().login_auth(email: email, password: password);
       //TODO: save this token in shared preferences.
       //TODO: shama korle janais
+      if(token == "empty"){
+        return false;
+      }
       return true;
     } catch (e) {
       message = "Failed to log in";
