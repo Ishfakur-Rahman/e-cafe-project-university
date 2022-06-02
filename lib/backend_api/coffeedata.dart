@@ -73,7 +73,7 @@ class CoffeeData {
     http.Response response = await http.get(
         Uri.parse('https://coffee-app-system.herokuapp.com/get-coffee/'),
         headers: {
-          "Authorization": "Token e5e6f8876e00dbdc385682b9f1d9948d5f83ecd3"
+          "Authorization": "Token $token"
         });
     var coffees = GetCoffeeModel.fromJson(jsonDecode(response.body)).coffee;
     print(coffees![0].name); //This is the way data returns
