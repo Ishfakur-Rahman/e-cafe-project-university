@@ -84,6 +84,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     TextInputField(
                       icon: FontAwesomeIcons.eye,
                       hint: 'Password',
+                      inputType: TextInputType.visiblePassword,
+                      isPassword: true,
                       onChanged: (value) {
                         password = value;
                       },
@@ -91,6 +93,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     TextInputField(
                       icon: FontAwesomeIcons.key,
                       hint: 'Confirm Password',
+                      isPassword: true,
                       onChanged: (value) {
                         confirmedPassword = value;
                       },

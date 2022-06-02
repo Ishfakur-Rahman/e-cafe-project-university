@@ -12,6 +12,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/Theme/mText.dart';
 import 'package:versity_project_coffee/bottom_page.dart';
+import 'package:versity_project_coffee/database/userBoxController.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/sellerPage.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/get/userAccountController.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/pages/RegisterPage.dart';
@@ -147,18 +148,19 @@ class PassWordField extends StatelessWidget {
 
 class LogInButton extends StatelessWidget {
   var _existUser;
-  var message;
   var token;
 
   Future<bool> loginAuthentications() async {
     //ishfaks
     try {
-      token = await Authentication().login_auth(email: email, password: password);
-      //TODO: save this token in shared preferences.
-      //TODO: shama korle janais
-      return true;
+      token =
+          await Authentication().login_auth(email: email, password: password);
+      if (token != "empty") {
+        UserBoxController().addToken(token);
+        return true;
+      }
+      return false;
     } catch (e) {
-      message = "Failed to log in";
       return false;
     }
   }
@@ -172,33 +174,38 @@ class LogInButton extends StatelessWidget {
         onPressed: () async {
           //TODO: shamama your work is to use animation for loading screen mines are for temporary
           if (email != null && password != null) {
-            showDialog(
-                //ishfaks
-                context: context,
-                builder: (BuildContext context) {
-                  return Center(
-                    child: CircularProgressIndicator(
-                      backgroundColor: MColors.primaryColorDark,
-                      color: MColors.primaryColorLight,
-                      strokeWidth: 3,
-                    ),
-                  );
-                });
-
-            //TODO: till this lines [From 160 Line] mone kore koris
-            _existUser = await loginAuthentications(); //ishfaks
+  //ishfaks
             if (GetUtils.isEmail(EmailField().emailAccountController.text)) {
               //Ishfaks
+            if (_existUser == null) {
+              showDialog(
+                  //ishfaks
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: MColors.primaryColorDark,
+                        color: MColors.primaryColorLight,
+                        strokeWidth: 3,
+                      ),
+                    );
+                  });
+            }
+
+            //TODO: till this lines [From 160 Line] mone kore koris
+            _existUser = await loginAuthentications();
               if (_existUser == true) {
                 var role = await Authentication().user_role(token: token);
+                UserBoxController().addRole(role);
                 if (role == 'buyer') {
                   Get.off(() => BottomPage());
                 } else {
                   Get.off(() => HomePage());
                 }
               } else {
+                Navigator.pop(context);
                 SnackBar(
-                  content: Text(message),
+                  content: Text("Failed"),
                 );
               }
             }
@@ -223,7 +230,7 @@ class RegisterRouter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    if (width <= 316) {
+    if (width <= 380) {
       return Column(
         children: [
           MText(

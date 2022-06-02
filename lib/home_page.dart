@@ -215,55 +215,65 @@ class HomePage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 10),
-                    child: GestureDetector(
-                      onTap: () {
-                        Get.to(() => OfferPage());
-                      },
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          color: const Color(0xff141921),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: const Icon(
-                          Icons.grid_view_rounded,
-                          color: Color(0xff4d4f52),
-                          size: 20,
+                SizedBox(height: 10),
+                Center(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10),
+                          child: GestureDetector(
+                            onTap: () {
+                              Get.to(() => OfferPage());
+                            },
+                            child: Container(
+                              height: 60,
+                              width: 60,
+                              decoration: BoxDecoration(
+                                color: const Color(0xff141921),
+                                borderRadius: BorderRadius.circular(10.0),
+                              ),
+                              child: const Icon(
+                                Icons.grid_view_rounded,
+                                color: Color(0xff4d4f52),
+                                size: 20,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                      SizedBox(width: 15),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: SizedBox(
+                          width: Get.width - 120,
+                          child: TextField(
+                            style: const TextStyle(color: Colors.white),
+                            decoration: InputDecoration(
+                                prefixIcon: const Icon(
+                                  Icons.search,
+                                  color: Color(0xff52555a),
+                                ),
+                                hintText: "Find your coffee...",
+                                hintStyle: const TextStyle(
+                                  color: Color(0xff52555a),
+                                ),
+                                fillColor: const Color(0xff141921),
+                                filled: true,
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                )),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 30,
-                  ),
-                  child: TextField(
-                    style: const TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                        prefixIcon: const Icon(
-                          Icons.search,
-                          color: Color(0xff52555a),
-                        ),
-                        hintText: "Find your coffee...",
-                        hintStyle: const TextStyle(
-                          color: Color(0xff52555a),
-                        ),
-                        fillColor: const Color(0xff141921),
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(10.0),
-                        )),
-                  ),
-                ),
+                SizedBox(height: 20),
                 SizedBox(
                   height: 40,
                   child: ListView.builder(
@@ -320,130 +330,130 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                ListView.separated(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: ctrl.coffeeList.length,
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(
-                        height: 20,
-                      );
-                    },
-                    itemBuilder: (context, index) {
-                      int id = ctrl.getCoffeeId(index).value;
-                      String images = CoffeeData().coffeeList[id].image;
-                      String title = CoffeeData().coffeeList[id].title;
-                      String subTitle = CoffeeData().coffeeList[id].subTitle;
-                      String price =CoffeeData().coffeeList[id].price;
-                      String rating =CoffeeData().coffeeList[id].rating;
-
-                      return Container(
-                        padding: const EdgeInsets.all(12.0),
-                        margin: const EdgeInsets.symmetric(horizontal: 15),
-                        height: HomePage.screenHeight * 0.2 - 20,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: const Color(0xff171b22),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      blurRadius: 2.0,
-                                      spreadRadius: 1.0,
-                                      color: Color(0xff30221f),
-                                    ),
-                                  ],
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: AssetImage(
-                                      images,
-                                    ),
-                                  ),
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 20.0,
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    title,
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  Text(
-                                    subTitle,
-                                    style: TextStyle(
-                                      color: Color(0xffaeaeae),
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "\$\t",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0xffd17842),
-                                            ),
-                                          ),
-                                          Text(
-                                            price,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Container(
+                Obx(() => ListView.separated(
+                                    physics: NeverScrollableScrollPhysics(),
+                                    shrinkWrap: true,
+                                    itemCount: ctrl.allCoffeeList.length,
+                                    separatorBuilder: (context, index) {
+                                      return const SizedBox(
+                                        height: 20,
+                                      );
+                                    },
+                                    itemBuilder: (context, index) {
+                                      int id = ctrl.getCoffeeId(index).value;
+                                      String images = CoffeeData().coffeeList[id].image;
+                                      String title = CoffeeData().coffeeList[id].title;
+                                      String subTitle = CoffeeData().coffeeList[id].subTitle;
+                                      String price =CoffeeData().coffeeList[id].price;
+                                      String rating =CoffeeData().coffeeList[id].rating;
+                
+                                      return Container(
+                                        padding: const EdgeInsets.all(12.0),
+                                        margin: const EdgeInsets.symmetric(horizontal: 15),
+                                        height: HomePage.screenHeight * 0.2 - 20,
+                                        width: double.infinity,
                                         decoration: BoxDecoration(
-                                          color: const Color(0xffd17842),
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
+                                          color: const Color(0xff171b22),
+                                          borderRadius: BorderRadius.circular(25),
                                         ),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            ctrl.addCart(
-                                              id: id,
-                                              images: images,
-                                              title: title,
-                                              subTitle: subTitle,
-                                              price: price,
-                                              rating: rating,
-                                            );
-                                          },
-                                          child: const Icon(Icons.add,
-                                              size: 30, color: Colors.white),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  boxShadow: const [
+                                                    BoxShadow(
+                                                      blurRadius: 2.0,
+                                                      spreadRadius: 1.0,
+                                                      color: Color(0xff30221f),
+                                                    ),
+                                                  ],
+                                                  image: DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image: AssetImage(
+                                                      images,
+                                                    ),
+                                                  ),
+                                                  borderRadius: BorderRadius.circular(20.0),
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 20.0,
+                                            ),
+                                            Expanded(
+                                              flex: 2,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.spaceEvenly,
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    title,
+                                                    style: TextStyle(
+                                                      fontSize: 17,
+                                                      color: Colors.white,
+                                                      fontWeight: FontWeight.w400,
+                                                    ),
+                                                  ),
+                                                  Text(
+                                                    subTitle,
+                                                    style: TextStyle(
+                                                      color: Color(0xffaeaeae),
+                                                    ),
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          Text(
+                                                            "\$\t",
+                                                            style: TextStyle(
+                                                              fontWeight: FontWeight.bold,
+                                                              color: Color(0xffd17842),
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            price,
+                                                            style: TextStyle(
+                                                              fontWeight: FontWeight.bold,
+                                                              color: Colors.white,
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                      Container(
+                                                        decoration: BoxDecoration(
+                                                          color: const Color(0xffd17842),
+                                                          borderRadius:
+                                                              BorderRadius.circular(10.0),
+                                                        ),
+                                                        child: GestureDetector(
+                                                          onTap: () {
+                                                            ctrl.addCart(
+                                                              id: id,
+                                                              images: images,
+                                                              title: title,
+                                                              subTitle: subTitle,
+                                                              price: price,
+                                                              rating: rating,
+                                                            );
+                                                          },
+                                                          child: const Icon(Icons.add,
+                                                              size: 30, color: Colors.white),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
+                                            )
+                                          ],
                                         ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      );
-                    }),
+                                      );
+                                    })),
                 Container(
                   margin: const EdgeInsets.only(right: 15),
                   height: 25.0,
@@ -500,12 +510,12 @@ class HomePageController extends GetxController {
                                   : true))).toList().obs;
 
 
-  RxList<CoffeeModel> get coffeeList => CoffeeData()
+  RxList<CoffeeModel> get allCoffeeList => CoffeeData()
                           .coffeeList
-                          .where((coffee) => ((selectedCategories.value != "All"
+                          .where((coffee) => (selectedCategories.value != "All"
                                   ? coffee.catagory
                                       .contains(selectedCategories.value)
-                                  : true))).toList().obs;
+                                  : true)).toList().obs;
 
   void toggle(String catagory) {
     selectedCategories.value = catagory;
@@ -535,7 +545,7 @@ class HomePageController extends GetxController {
     return recommendedCoffeeList[index].id.obs;
   }
   Rx<int> getCoffeeId(int index) {
-    return recommendedCoffeeList[index].id.obs;
+    return allCoffeeList[index].id.obs;
   }
 }
 

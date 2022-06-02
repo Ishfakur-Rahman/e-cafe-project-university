@@ -11,11 +11,16 @@ class UserBoxController {
 
   void addToken(String token) async {
     box = getToken();
-    await box.add(token);
+    await box.put("token", token);
   }
 
   void delToken() async {
     box = getToken();
     await box.clear();
+  }
+
+  void addRole(String role) async {
+    box = getToken();
+    await box.put("role", role);
   }
 }
