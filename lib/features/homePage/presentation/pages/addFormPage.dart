@@ -46,6 +46,9 @@ class _AddFormPageState extends State<AddFormPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
+                    onChanged: (val) {
+                      coffeeNames = val;
+                    },
                     decoration: InputDecoration(
                         filled: true,
                         fillColor:
@@ -62,6 +65,7 @@ class _AddFormPageState extends State<AddFormPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
+                    onChanged: (value) {coffeeShopNames = value;},
                     decoration: InputDecoration(
                         filled: true,
                         fillColor:
@@ -78,6 +82,7 @@ class _AddFormPageState extends State<AddFormPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
+                    onChanged: (val){},
                     decoration: InputDecoration(
                         filled: true,
                         fillColor:
@@ -94,6 +99,7 @@ class _AddFormPageState extends State<AddFormPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
+                    onChanged: (val){prices = val;},
                     decoration: InputDecoration(
                         filled: true,
                         fillColor:
@@ -110,6 +116,7 @@ class _AddFormPageState extends State<AddFormPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
+                    onChanged: (value){coffeeTastes = value;},
                     decoration: InputDecoration(
                         filled: true,
                         fillColor:
@@ -118,7 +125,7 @@ class _AddFormPageState extends State<AddFormPage> {
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.all(Radius.circular(6)),
                         ),
-                        labelText: 'Enter your product\'s name',
+                        labelText: 'Ingredients',
                         labelStyle: MText.textThemePoppins(
                             Colors.white, FontWeight.w400, 18)),
                   ),
@@ -126,6 +133,7 @@ class _AddFormPageState extends State<AddFormPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
+                    onChanged: (value){coffeeShopNames = value;},
                     decoration: InputDecoration(
                         filled: true,
                         fillColor:
@@ -134,7 +142,7 @@ class _AddFormPageState extends State<AddFormPage> {
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.all(Radius.circular(6)),
                         ),
-                        labelText: 'Enter your product\'s name',
+                        labelText: 'Your Shop\'s name',
                         labelStyle: MText.textThemePoppins(
                             Colors.white, FontWeight.w400, 18)),
                   ),

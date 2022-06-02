@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
       theme: MColors.homeThemeData,
       initialRoute: '/',
       routes: {
-        '/': (context) => LogInPages(),
+        '/': (context) => BottomPage(),
       },
     );
   }

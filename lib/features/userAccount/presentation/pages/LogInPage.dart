@@ -153,7 +153,6 @@ class LogInButton extends StatelessWidget {
   Future<bool> loginAuthentications() async {
     //ishfaks
     try {
-<<<<<<< HEAD
       token =
           await Authentication().login_auth(email: email, password: password);
       if (token != "empty") {
@@ -161,15 +160,6 @@ class LogInButton extends StatelessWidget {
         return true;
       }
       return false;
-=======
-      token = await Authentication().login_auth(email: email, password: password);
-      //TODO: save this token in shared preferences.
-      //TODO: shama korle janais
-      if(token == "empty"){
-        return false;
-      }
-      return true;
->>>>>>> b326dd03c1e328b02dbf42d4a557c42d100f4dd3
     } catch (e) {
       return false;
     }
