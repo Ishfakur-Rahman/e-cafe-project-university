@@ -11,10 +11,10 @@ class RegistrationHelper {
     http.Response response = await http.post(
       Uri.parse('https://coffee-app-system.herokuapp.com/register/'),
       body: {
-        "email": email,
-        "username": userName,
-        "password": password,
-        "role": userTypes
+        "email": "$email",
+        "username": "$userName",
+        "password": "$password",
+        "role": "$userTypes"
       },
     );
     if (response.statusCode == 200) {

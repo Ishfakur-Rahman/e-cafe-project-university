@@ -153,23 +153,12 @@ class LogInButton extends StatelessWidget {
   Future<bool> loginAuthentications() async {
     //ishfaks
     try {
-<<<<<<< HEAD
-      token =
-          await Authentication().login_auth(email: email, password: password);
+      token = await Authentication().login_auth(email: email, password: password);
       if (token != "empty") {
         UserBoxController().addToken(token);
         return true;
       }
       return false;
-=======
-      token = await Authentication().login_auth(email: email, password: password);
-      //TODO: save this token in shared preferences.
-      //TODO: shama korle janais
-      if(token == "empty"){
-        return false;
-      }
-      return true;
->>>>>>> b326dd03c1e328b02dbf42d4a557c42d100f4dd3
     } catch (e) {
       return false;
     }
@@ -184,26 +173,26 @@ class LogInButton extends StatelessWidget {
         onPressed: () async {
           //TODO: shamama your work is to use animation for loading screen mines are for temporary
           if (email != null && password != null) {
-  //ishfaks
+            //ishfaks
             if (GetUtils.isEmail(EmailField().emailAccountController.text)) {
               //Ishfaks
-            if (_existUser == null) {
-              showDialog(
-                  //ishfaks
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        backgroundColor: MColors.primaryColorDark,
-                        color: MColors.primaryColorLight,
-                        strokeWidth: 3,
-                      ),
-                    );
-                  });
-            }
+              if (_existUser == null) {
+                showDialog(
+                    //ishfaks
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          backgroundColor: MColors.primaryColorDark,
+                          color: MColors.primaryColorLight,
+                          strokeWidth: 3,
+                        ),
+                      );
+                    });
+              }
 
-            //TODO: till this lines [From 160 Line] mone kore koris
-            _existUser = await loginAuthentications();
+              //TODO: till this lines [From 160 Line] mone kore koris
+              _existUser = await loginAuthentications();
               if (_existUser == true) {
                 var role = await Authentication().user_role(token: token);
                 UserBoxController().addRole(role);
