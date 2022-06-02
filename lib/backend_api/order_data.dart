@@ -14,14 +14,8 @@ class Order {
     return order.allOrders;
   }
 
-  Future place_order(
-    String coffeeId,
-      String coffeeName,
-      String size,
-      String quantity,
-      String address,
-      String contact
-  ) async {
+  Future place_order(String coffeeId, String coffeeName, String size,
+      String quantity, String address, String contact) async {
     http.Response response = await http.post(
         Uri.parse('https://coffee-app-system.herokuapp.com/make-order/'),
         headers: {
@@ -36,5 +30,14 @@ class Order {
           "address": "$address",
           "contact": "$contact"
         });
+  }
+
+  Future order_delivered(String order_id) async {
+    http.Response response = await http.delete(
+        Uri.parse(
+            'https://coffee-app-system.herokuapp.com/delete-order/$order_id/'),
+        headers: {"Authorization": "Token $token"});
+    var message = jsonDecode(response.body);
+    print(message['response']);
   }
 }
