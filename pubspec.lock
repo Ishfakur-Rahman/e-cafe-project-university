@@ -168,7 +168,11 @@ packages:
       name: collection
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "1.15.0"
+=======
+    version: "1.16.0"
+>>>>>>> b326dd03c1e328b02dbf42d4a557c42d100f4dd3
   convert:
     dependency: transitive
     description:
@@ -825,7 +829,11 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "2.1.1"
+=======
+    version: "2.1.2"
+>>>>>>> b326dd03c1e328b02dbf42d4a557c42d100f4dd3
   watcher:
     dependency: transitive
     description:
