@@ -20,7 +20,7 @@ class _AddFormPageState extends State<AddFormPage> {
   late String coffeeShopLocations;
   late String coffeeShopNames;
   late String prices;
-  late String imageUrls;
+  late dynamic imageUrls;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -141,7 +141,7 @@ class _AddFormPageState extends State<AddFormPage> {
                   SizedBox(height: 20),
                   ElevatedButton.icon(
                       onPressed: () async {
-                        var imageUrls = Navigator.push(
+                        imageUrls = Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) => ImagePickerHelper(
@@ -169,7 +169,7 @@ class _AddFormPageState extends State<AddFormPage> {
                       icon: Icon(Icons.send),
                       label: Padding(
                           padding: EdgeInsets.all(8),
-                          child: MText("Upload Image").heading2())),
+                          child: MText("Submit").heading2())),
                   SizedBox(height: 20),
                 ],
               ),
