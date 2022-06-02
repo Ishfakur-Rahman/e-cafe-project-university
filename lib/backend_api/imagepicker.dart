@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:versity_project_coffee/Theme/mText.dart';
 import 'package:path/path.dart';
-import 'package:versity_project_coffee/backend_api/coffeedata.dart';
 
 
 class ImagePickerHelper extends StatefulWidget {
@@ -114,7 +113,7 @@ class _ImagePickerHelperState extends State<ImagePickerHelper> {
                 icon: Icons.cloud_upload_outlined,
                 onClicked: () async {
                   var imageurls = await uploadFiles(imagepurposes);
-                  Navigator.pop(context, imageurls);
+                  Navigator.pop(context, imageurls.toString());
                 }),
             Spacer(),
           ],
