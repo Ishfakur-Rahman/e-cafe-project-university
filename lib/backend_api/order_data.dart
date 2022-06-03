@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:versity_project_coffee/backend_api/get_order_model.dart';
+import 'package:versity_project_coffee/api_data_model/get_order_model.dart';
 
 class Order {
   var token;

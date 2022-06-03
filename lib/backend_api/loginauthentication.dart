@@ -1,6 +1,6 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:versity_project_coffee/backend_api/model.dart';
+import 'package:versity_project_coffee/api_data_model/model.dart';
 
 class Authentication {
   Future login_auth({required String email, required String password}) async {

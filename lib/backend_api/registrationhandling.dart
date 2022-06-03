@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:versity_project_coffee/backend_api/model.dart';
+import 'package:versity_project_coffee/api_data_model/model.dart';
 import 'package:http/http.dart' as http;
 
 class RegistrationHelper {

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:versity_project_coffee/backend_api/model.dart';
+import '../api_data_model/get_coffee_model.dart';
+import '../api_data_model/get_single_coffee_model.dart';
 
 class CoffeeData {
   late String buyerName; //TODO: shared preferences theke eitao newa laghbe
