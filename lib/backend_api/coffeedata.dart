@@ -77,6 +77,6 @@ class CoffeeData {
           "Authorization": "Token $token"
         });
     var coffees = GetCoffeeModel.fromJson(jsonDecode(response.body)).coffee;
-    print(coffees![0].name); //This is the way data returns
+    return coffees;
   }
 }

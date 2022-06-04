@@ -168,11 +168,7 @@ packages:
       name: collection
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-    version: "1.15.0"
-=======
     version: "1.16.0"
->>>>>>> b326dd03c1e328b02dbf42d4a557c42d100f4dd3
   convert:
     dependency: transitive
     description:
@@ -214,7 +210,7 @@ packages:
       name: fake_async
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "1.3.0"
   ffi:
     dependency: transitive
     description:
@@ -523,7 +519,7 @@ packages:
       name: material_color_utilities
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.3"
+    version: "0.1.4"
   meta:
     dependency: transitive
     description:
@@ -710,7 +706,7 @@ packages:
       name: source_span
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.1"
+    version: "1.8.2"
   stack_trace:
     dependency: transitive
     description:
@@ -829,11 +825,7 @@ packages:
       name: vector_math
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-    version: "2.1.1"
-=======
     version: "2.1.2"
->>>>>>> b326dd03c1e328b02dbf42d4a557c42d100f4dd3
   watcher:
     dependency: transitive
     description:
@@ -877,5 +869,5 @@ packages:
     source: hosted
     version: "3.1.1"
 sdks:
-  dart: ">=2.16.1 <3.0.0"
+  dart: ">=2.17.0-0 <3.0.0"
   flutter: ">=2.10.0"
