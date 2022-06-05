@@ -12,11 +12,15 @@ class CoffeeModel {
   final String image;
   final String price;
   final String rating;
+  final String location;
+  final String coffeeshopid;
   final bool isfavorite;
   final bool isRecommended;
   final bool isPurchased;
   final DateTime? purchaseDate;
   CoffeeModel({
+    required this.coffeeshopid,
+    required this.location,
     required this.id,
     required this.title,
     required this.subTitle,
@@ -42,6 +46,8 @@ class CoffeeModel {
     String? image,
     String? price,
     String? rating,
+    String? location,
+    String? coffeeshopid,
     bool? isfavorite,
     bool? isRecommended,
     bool? isPurchased,
@@ -57,6 +63,8 @@ class CoffeeModel {
       image: image ?? this.image,
       price: price ?? this.price,
       rating: rating ?? this.rating,
+      location: location ?? this.location,
+      coffeeshopid: coffeeshopid ?? this.coffeeshopid,
       isfavorite: isfavorite ?? this.isfavorite,
       isRecommended: isRecommended ?? this.isRecommended,
       isPurchased: isPurchased ?? this.isPurchased,
@@ -75,6 +83,8 @@ class CoffeeModel {
       'image': image,
       'price': price,
       'rating': rating,
+      'location': location,
+      'coffeeshopid': coffeeshopid,
       'isfavorite': isfavorite,
       'isRecommended': isRecommended,
       'isPurchased': isPurchased,
@@ -93,56 +103,65 @@ class CoffeeModel {
       image: map['image'] ?? '',
       price: map['price'] ?? '',
       rating: map['rating'] ?? '',
+      location: map['location'] ?? '',
+      coffeeshopid: map['coffeeshopid'] ?? '',
       isfavorite: map['isfavorite'] ?? false,
       isRecommended: map['isRecommended'] ?? false,
       isPurchased: map['isPurchased'] ?? false,
-      purchaseDate: map['purchaseDate'] != null ? DateTime.fromMillisecondsSinceEpoch(map['purchaseDate']) : null,
+      purchaseDate: map['purchaseDate'] != null
+          ? DateTime.fromMillisecondsSinceEpoch(map['purchaseDate'])
+          : null,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory CoffeeModel.fromJson(String source) => CoffeeModel.fromMap(json.decode(source));
+  factory CoffeeModel.fromJson(String source) =>
+      CoffeeModel.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'CoffeeModel(id: $id, title: $title, subTitle: $subTitle, catagory: $catagory, ingredients: $ingredients, description: $description, image: $image, price: $price, rating: $rating, isfavorite: $isfavorite, isRecommended: $isRecommended, isPurchased: $isPurchased, purchaseDate: $purchaseDate)';
+    return 'CoffeeModel(id: $id, title: $title, subTitle: $subTitle, catagory: $catagory, ingredients: $ingredients, description: $description, image: $image, price: $price, rating: $rating,location: $location, coffeeshopid: $coffeeshopid, isfavorite: $isfavorite, isRecommended: $isRecommended, isPurchased: $isPurchased, purchaseDate: $purchaseDate)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is CoffeeModel &&
-      other.id == id &&
-      other.title == title &&
-      other.subTitle == subTitle &&
-      other.catagory == catagory &&
-      listEquals(other.ingredients, ingredients) &&
-      other.description == description &&
-      other.image == image &&
-      other.price == price &&
-      other.rating == rating &&
-      other.isfavorite == isfavorite &&
-      other.isRecommended == isRecommended &&
-      other.isPurchased == isPurchased &&
-      other.purchaseDate == purchaseDate;
+        other.id == id &&
+        other.title == title &&
+        other.subTitle == subTitle &&
+        other.catagory == catagory &&
+        listEquals(other.ingredients, ingredients) &&
+        other.description == description &&
+        other.image == image &&
+        other.price == price &&
+        other.rating == rating &&
+        other.location == location &&
+        other.coffeeshopid == coffeeshopid &&
+        other.isfavorite == isfavorite &&
+        other.isRecommended == isRecommended &&
+        other.isPurchased == isPurchased &&
+        other.purchaseDate == purchaseDate;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      title.hashCode ^
-      subTitle.hashCode ^
-      catagory.hashCode ^
-      ingredients.hashCode ^
-      description.hashCode ^
-      image.hashCode ^
-      price.hashCode ^
-      rating.hashCode ^
-      isfavorite.hashCode ^
-      isRecommended.hashCode ^
-      isPurchased.hashCode ^
-      purchaseDate.hashCode;
+        title.hashCode ^
+        subTitle.hashCode ^
+        catagory.hashCode ^
+        ingredients.hashCode ^
+        description.hashCode ^
+        image.hashCode ^
+        price.hashCode ^
+        rating.hashCode ^
+        location.hashCode ^
+        coffeeshopid.hashCode ^
+        isfavorite.hashCode ^
+        isRecommended.hashCode ^
+        isPurchased.hashCode ^
+        purchaseDate.hashCode;
   }
 }

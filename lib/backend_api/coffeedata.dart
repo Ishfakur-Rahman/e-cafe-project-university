@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:versity_project_coffee/backend_api/model.dart';
+import '../api_data_model/get_coffee_model.dart';
+import '../api_data_model/get_single_coffee_model.dart';
 
 class CoffeeData {
   late String buyerName; //TODO: shared preferences theke eitao newa laghbe
@@ -76,6 +77,6 @@ class CoffeeData {
           "Authorization": "Token $token"
         });
     var coffees = GetCoffeeModel.fromJson(jsonDecode(response.body)).coffee;
-    print(coffees![0].name); //This is the way data returns
+    return coffees;
   }
 }

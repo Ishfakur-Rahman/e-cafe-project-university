@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:versity_project_coffee/backend_api/get_order_model.dart';
+import 'package:versity_project_coffee/api_data_model/get_order_model.dart';
 
 class Order {
   var token;
@@ -15,7 +15,7 @@ class Order {
   }
 
   Future place_order(String coffeeId, String coffeeName, String size,
-      String quantity, String address, String contact) async {
+      int quantity, String address, String contact, String shopName) async {
     http.Response response = await http.post(
         Uri.parse('https://coffee-app-system.herokuapp.com/make-order/'),
         headers: {
@@ -26,9 +26,10 @@ class Order {
           "coffee_id": "${coffeeId}",
           "name": "$coffeeName",
           "size": "$size",
-          "quantity": "$quantity",
+          "quantity": quantity,
           "address": "$address",
-          "contact": "$contact"
+          "contact": "$contact",
+          "shop_name": "$shopName"
         });
   }
 
