@@ -19,16 +19,16 @@ class CoffeeData {
     http.Response response = await http.post(
         Uri.parse('https://coffee-app-system.herokuapp.com/add-coffee/'),
         body: {
-          "name": coffeeName,
+          "name": "$coffeeName",
           "ratings": "No ratings",
-          "taste": coffeeTaste,
-          "coffeeType": coffeeType,
-          "price": price,
-          "img": imageUrl,
-          "shopName": coffeeShopName,
+          "taste": "$coffeeTaste",
+          "coffeeType": "$coffeeType",
+          "price": "$price",
+          "img": "$imageUrl",
+          "shopName": "$coffeeShopName",
           "coffeeShopID": "add coffeeshopid",
-          "location": coffeeShopLocation,
-          "user": buyerName
+          "location": "$coffeeShopLocation",
+          "user": "$buyerName"
         },
         headers: {
           "Authorization": "Token $token"
@@ -53,16 +53,16 @@ class CoffeeData {
         Uri.parse(
             'https://coffee-app-system.herokuapp.com/update-coffee/$coffee_id/'),
         body: {
-          "name": coffee.name,
-          "ratings": ratings,
-          "taste": coffee.taste,
-          "coffeeType": coffee.coffeeType,
-          "price": coffee.price,
-          "img": coffee.img,
-          "shopName": coffee.shopName,
+          "name": "${coffee.name}",
+          "ratings": "$ratings",
+          "taste": "${coffee.taste}",
+          "coffeeType": "${coffee.coffeeType}",
+          "price": "${coffee.price}",
+          "img": "${coffee.img}",
+          "shopName": "${coffee.shopName}",
           "coffeeShopID": "add coffeeshopid",
-          "location": coffee.location,
-          "user": buyerName
+          "location": "${coffee.location}",
+          "user": "${buyerName}"
         },
         headers: {"Authorization": "Token $token"},
       );
@@ -73,7 +73,7 @@ class CoffeeData {
     http.Response response = await http.get(
         Uri.parse('https://coffee-app-system.herokuapp.com/get-coffee/'),
         headers: {
-          "Authorization": "Token e5e6f8876e00dbdc385682b9f1d9948d5f83ecd3"
+          "Authorization": "Token $token"
         });
     var coffees = GetCoffeeModel.fromJson(jsonDecode(response.body)).coffee;
     print(coffees![0].name); //This is the way data returns

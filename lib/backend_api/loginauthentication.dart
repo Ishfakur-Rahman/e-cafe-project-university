@@ -6,7 +6,7 @@ class Authentication {
   Future login_auth({required String email, required String password}) async {
     http.Response response = await http.post(
         Uri.parse('https://coffee-app-system.herokuapp.com/login/'),
-        body: {"username": email, "password": password});
+        body: {"username": "$email", "password": "$password"});
     if (response.statusCode == 200) {
       var token = Token.fromJson(jsonDecode(response.body)).token;
       return token;

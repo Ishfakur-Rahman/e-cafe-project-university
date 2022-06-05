@@ -153,8 +153,7 @@ class LogInButton extends StatelessWidget {
   Future<bool> loginAuthentications() async {
     //ishfaks
     try {
-      token =
-          await Authentication().login_auth(email: email, password: password);
+      token = await Authentication().login_auth(email: email, password: password);
       if (token != "empty") {
         UserBoxController().addToken(token);
         return true;
@@ -174,26 +173,26 @@ class LogInButton extends StatelessWidget {
         onPressed: () async {
           //TODO: shamama your work is to use animation for loading screen mines are for temporary
           if (email != null && password != null) {
-  //ishfaks
+            //ishfaks
             if (GetUtils.isEmail(EmailField().emailAccountController.text)) {
               //Ishfaks
-            if (_existUser == null) {
-              showDialog(
-                  //ishfaks
-                  context: context,
-                  builder: (BuildContext context) {
-                    return Center(
-                      child: CircularProgressIndicator(
-                        backgroundColor: MColors.primaryColorDark,
-                        color: MColors.primaryColorLight,
-                        strokeWidth: 3,
-                      ),
-                    );
-                  });
-            }
+              if (_existUser == null) {
+                showDialog(
+                    //ishfaks
+                    context: context,
+                    builder: (BuildContext context) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          backgroundColor: MColors.primaryColorDark,
+                          color: MColors.primaryColorLight,
+                          strokeWidth: 3,
+                        ),
+                      );
+                    });
+              }
 
-            //TODO: till this lines [From 160 Line] mone kore koris
-            _existUser = await loginAuthentications();
+              //TODO: till this lines [From 160 Line] mone kore koris
+              _existUser = await loginAuthentications();
               if (_existUser == true) {
                 var role = await Authentication().user_role(token: token);
                 UserBoxController().addRole(role);
