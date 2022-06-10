@@ -172,11 +172,11 @@ class _AddFormPageState extends State<AddFormPage> {
                   ElevatedButton.icon(
                       onPressed: () async {
                         await CoffeeData().addCoffee(
-                            coffeeType: 'cappucino',
+                            coffeeType: coffeeTypes,
                             coffeeTaste: coffeeTastes,
                             coffeeName: coffeeNames,
-                            coffeeShopLocation: coffeeShopLocations,
                             coffeeShopName: coffeeShopNames,
+                            description: coffeeTastes,
                             price: prices,
                             imagefile: imagefile);
                         Navigator.pop(context);

@@ -13,8 +13,8 @@ class CoffeeData {
     required String coffeeType,
     required String coffeeTaste,
     required String coffeeName,
-    required String coffeeShopLocation,
     required String coffeeShopName,
+    required String description,
     required String price,
     required File? imagefile,
   }) async {
@@ -26,7 +26,7 @@ class CoffeeData {
           "ratings": "No ratings",
           "taste": "$coffeeTaste",
           "coffeeType": "$coffeeType",
-          "description": 'description',
+          "description": '$description',
           "price": "$price",
           "shopName": "$coffeeShopName",
           "user": "$buyerName"
