@@ -19,7 +19,7 @@ class UserRatings {
     double newUsersRating,
     int newUsers,
     int oldTotalUser,
-    int coffeeId,
+    String coffeeId,
   ) async {
     var results = _ratings(
       existingCoffeeRatingInTotal: existingCoffeeRatingInTotal,
@@ -27,10 +27,10 @@ class UserRatings {
       newUser: newUsers,
       oldTotalUser: oldTotalUser,
     );
-    await CoffeeData().getacoffee(
+    await CoffeeData().update_coffee_data(
       coffee_id: coffeeId,
       ratings: results,
-      total_users: (oldTotalUser + 1).toString(),
+      // total_users: (oldTotalUser + 1).toString(),
     );
   }
 }

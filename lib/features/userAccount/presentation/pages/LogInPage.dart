@@ -195,7 +195,7 @@ class LogInButton extends StatelessWidget {
               _existUser = await loginAuthentications();
               if (_existUser == true) {
                 var role = await Authentication().user_role(token: token);
-                UserBoxController().addRole(role);
+                UserBoxController().addRole(role!);
                 if (role == 'buyer') {
                   Get.off(() => BottomPage());
                 } else {
