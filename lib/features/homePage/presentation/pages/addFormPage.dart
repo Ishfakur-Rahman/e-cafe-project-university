@@ -179,6 +179,7 @@ class _AddFormPageState extends State<AddFormPage> {
                             coffeeShopName: coffeeShopNames,
                             price: prices,
                             imagefile: imagefile);
+                        Navigator.pop(context);
                       },
                       icon: Icon(Icons.send),
                       label: Padding(
