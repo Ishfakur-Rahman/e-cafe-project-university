@@ -175,7 +175,6 @@ class _AddFormPageState extends State<AddFormPage> {
                             coffeeType: coffeeTypes,
                             coffeeTaste: coffeeTastes,
                             coffeeName: coffeeNames,
-                            coffeeShopName: coffeeShopNames,
                             description: coffeeTastes,
                             price: prices,
                             imagefile: imagefile);

@@ -5,15 +5,14 @@ import '../api_data_model/get_coffee_model.dart';
 import '../api_data_model/get_single_coffee_model.dart';
 
 class CoffeeData {
-  late String buyerName; //TODO: shared preferences theke eitao newa laghbe
-  late String token; //TODO: Change the data type to shared preferences
-  //TODO: mane tui shared preference theke send korbi then coffee data server e patano jabe else jabe na
+  late int coffeeShopName;//TODO:nicher 3tai shared preference theke patabi
+  late String sellerName;
+  late String token;
 
   Future<bool> addCoffee({
     required String coffeeType,
     required String coffeeTaste,
     required String coffeeName,
-    required String coffeeShopName,
     required String description,
     required String price,
     required File? imagefile,
@@ -23,13 +22,13 @@ class CoffeeData {
         body: {
           "name": "$coffeeName",
           "img": imagefile,
-          "ratings": "No ratings",
+          "ratings": 0,
           "taste": "$coffeeTaste",
           "coffeeType": "$coffeeType",
           "description": '$description',
           "price": "$price",
           "shopName": "$coffeeShopName",
-          "user": "$buyerName"
+          "user": "$sellerName"
         },
         headers: {
           "Authorization": "Token $token"
