@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/backend_api/imagepicker.dart';
-
+import 'dart:io';
 import '../../../../Theme/mText.dart';
 import '../../../../backend_api/coffeedata.dart';
 
@@ -20,7 +20,7 @@ class _AddFormPageState extends State<AddFormPage> {
   late String coffeeShopLocations;
   late String coffeeShopNames;
   late String prices;
-  late dynamic imageUrls;
+  late File? imagefile;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -65,7 +65,9 @@ class _AddFormPageState extends State<AddFormPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
-                    onChanged: (value) {coffeeShopNames = value;},
+                    onChanged: (value) {
+                      coffeeShopNames = value;
+                    },
                     decoration: InputDecoration(
                         filled: true,
                         fillColor:
@@ -82,7 +84,7 @@ class _AddFormPageState extends State<AddFormPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
-                    onChanged: (val){},
+                    onChanged: (val) {},
                     decoration: InputDecoration(
                         filled: true,
                         fillColor:
@@ -99,7 +101,9 @@ class _AddFormPageState extends State<AddFormPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
-                    onChanged: (val){prices = val;},
+                    onChanged: (val) {
+                      prices = val;
+                    },
                     decoration: InputDecoration(
                         filled: true,
                         fillColor:
@@ -116,7 +120,9 @@ class _AddFormPageState extends State<AddFormPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
-                    onChanged: (value){coffeeTastes = value;},
+                    onChanged: (value) {
+                      coffeeTastes = value;
+                    },
                     decoration: InputDecoration(
                         filled: true,
                         fillColor:
@@ -133,7 +139,9 @@ class _AddFormPageState extends State<AddFormPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
-                    onChanged: (value){coffeeShopNames = value;},
+                    onChanged: (value) {
+                      coffeeShopNames = value;
+                    },
                     decoration: InputDecoration(
                         filled: true,
                         fillColor:
@@ -149,12 +157,10 @@ class _AddFormPageState extends State<AddFormPage> {
                   SizedBox(height: 20),
                   ElevatedButton.icon(
                       onPressed: () async {
-                        imageUrls = Navigator.push(
+                        imagefile = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ImagePickerHelper(
-                              imagepurpose: 'coffeeImages',
-                            ),
+                            builder: (context) => ImagePickerHelper(),
                           ),
                         );
                       },
@@ -172,7 +178,7 @@ class _AddFormPageState extends State<AddFormPage> {
                             coffeeShopLocation: coffeeShopLocations,
                             coffeeShopName: coffeeShopNames,
                             price: prices,
-                            imageUrl: imageUrls.toString());
+                            imagefile: imagefile);
                       },
                       icon: Icon(Icons.send),
                       label: Padding(

@@ -1,16 +1,11 @@
-import 'package:firebase_storage/firebase_storage.dart' as storage;
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:versity_project_coffee/Theme/mText.dart';
-import 'package:path/path.dart';
 
 
 class ImagePickerHelper extends StatefulWidget {
-  ImagePickerHelper({required this.imagepurpose});
-
-  late String imagepurpose;
 
   @override
   _ImagePickerHelperState createState() => _ImagePickerHelperState();
@@ -18,7 +13,6 @@ class ImagePickerHelper extends StatefulWidget {
 
 class _ImagePickerHelperState extends State<ImagePickerHelper> {
   File? image;
-  late String imagepurposes = widget.imagepurpose;
 
   Future pick_image(ImageSource source) async {
     try {
@@ -29,12 +23,11 @@ class _ImagePickerHelperState extends State<ImagePickerHelper> {
     } on PlatformException catch (e) {}
   }
 
-  Future uploadFiles(String imagepurpose) async {
-    if (image == null) return;
-
-    final imageName = basename(image!.path);
-    final destination = '$imagepurpose/$imageName';
-    await FirebaseApi.uploadFile(destination, image!);
+  Future<File?> uploadFiles() async {
+    if (image == null){
+      return null;
+    }
+    return image;
   }
 
   Widget buildButton({
@@ -93,7 +86,7 @@ class _ImagePickerHelperState extends State<ImagePickerHelper> {
               height: 24,
             ),
             buildButton(
-              title: 'Pick Camera',
+              title: 'Pick from Camera',
               icon: Icons.camera_alt_outlined,
               onClicked: () => pick_image(ImageSource.camera),
             ),
@@ -101,7 +94,7 @@ class _ImagePickerHelperState extends State<ImagePickerHelper> {
               height: 24,
             ),
             buildButton(
-              title: 'Pick Gallery',
+              title: 'Pick from Gallery',
               icon: Icons.image_outlined,
               onClicked: () => pick_image(ImageSource.gallery),
             ),
@@ -109,11 +102,11 @@ class _ImagePickerHelperState extends State<ImagePickerHelper> {
               height: 24,
             ),
             buildButton(
-                title: 'Submit',
+                title: 'Done',
                 icon: Icons.cloud_upload_outlined,
                 onClicked: () async {
-                  var imageurls = await uploadFiles(imagepurposes);
-                  Navigator.pop(context, imageurls.toString());
+                  File? imagefile = await uploadFiles();
+                  Navigator.pop(context, imagefile);
                 }),
             Spacer(),
           ],
@@ -123,14 +116,3 @@ class _ImagePickerHelperState extends State<ImagePickerHelper> {
   }
 }
 
-class FirebaseApi {
-  static Future uploadFile(String destination, File file) async {
-    try {
-      final refs = storage.FirebaseStorage.instance.ref(destination);
-      await refs.putFile(file);
-      return refs.getDownloadURL();
-    } on storage.FirebaseException catch (e) {
-      return null;
-    }
-  }
-}

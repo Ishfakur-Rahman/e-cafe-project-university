@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import '../api_data_model/get_coffee_model.dart';
 import '../api_data_model/get_single_coffee_model.dart';
@@ -16,7 +16,7 @@ class CoffeeData {
     required String coffeeShopLocation,
     required String coffeeShopName,
     required String price,
-    required String imageUrl,
+    required File? imagefile,
   }) async {
     http.Response response = await http.post(
         Uri.parse('https://coffee-app-system.herokuapp.com/add-coffee/'),
@@ -26,7 +26,7 @@ class CoffeeData {
           "taste": "$coffeeTaste",
           "coffeeType": "$coffeeType",
           "price": "$price",
-          "img": "$imageUrl",
+          "img": "$imagefile",
           "shopName": "$coffeeShopName",
           "coffeeShopID": "add coffeeshopid",
           "location": "$coffeeShopLocation",
@@ -40,7 +40,7 @@ class CoffeeData {
   Future<void> update_coffee_data({
     required String coffee_id,
     String? name,
-    FileImage? image,
+    File? image,
     String? ratings,
     String? taste,
     String? coffeeType,
