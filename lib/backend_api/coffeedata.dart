@@ -26,7 +26,7 @@ class CoffeeData {
           "taste": "$coffeeTaste",
           "coffeeType": "$coffeeType",
           "price": "$price",
-          "img": "$imagefile",
+          "img": imagefile,
           "shopName": "$coffeeShopName",
           "coffeeShopID": "add coffeeshopid",
           "location": "$coffeeShopLocation",
