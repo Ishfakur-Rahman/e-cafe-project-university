@@ -22,22 +22,21 @@ class CoffeeData {
         Uri.parse('https://coffee-app-system.herokuapp.com/add-coffee/'),
         body: {
           "name": "$coffeeName",
+          "img": imagefile,
           "ratings": "No ratings",
           "taste": "$coffeeTaste",
           "coffeeType": "$coffeeType",
+          "description": 'description',
           "price": "$price",
-          "img": imagefile,
           "shopName": "$coffeeShopName",
-          "coffeeShopID": "add coffeeshopid",
-          "location": "$coffeeShopLocation",
           "user": "$buyerName"
         },
         headers: {
           "Authorization": "Token $token"
         });
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }

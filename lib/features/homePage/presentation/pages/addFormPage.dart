@@ -172,7 +172,7 @@ class _AddFormPageState extends State<AddFormPage> {
                   ElevatedButton.icon(
                       onPressed: () async {
                         await CoffeeData().addCoffee(
-                            coffeeType: coffeeTypes,
+                            coffeeType: 'cappucino',
                             coffeeTaste: coffeeTastes,
                             coffeeName: coffeeNames,
                             coffeeShopLocation: coffeeShopLocations,
