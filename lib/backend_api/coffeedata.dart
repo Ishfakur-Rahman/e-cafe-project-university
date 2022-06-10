@@ -9,7 +9,7 @@ class CoffeeData {
   late String token; //TODO: Change the data type to shared preferences
   //TODO: mane tui shared preference theke send korbi then coffee data server e patano jabe else jabe na
 
-  Future<void> addCoffee({
+  Future<bool> addCoffee({
     required String coffeeType,
     required String coffeeTaste,
     required String coffeeName,
@@ -35,6 +35,11 @@ class CoffeeData {
         headers: {
           "Authorization": "Token $token"
         });
+    if(response.statusCode == 200){
+      return true;
+    }else{
+      return false;
+    }
   }
 
   Future<void> update_coffee_data({
