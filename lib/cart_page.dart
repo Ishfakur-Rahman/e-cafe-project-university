@@ -176,7 +176,7 @@ class CartWidget extends StatelessWidget {
                       ),
                       child: GestureDetector(
                         onTap: () {
-                          ctrl.delCart(carts[index].id);
+                          ctrl.delCart(carts[index]);
                         },
                         child: const Icon(Icons.delete,
                             size: 25, color: Colors.white),
@@ -222,7 +222,7 @@ class CartController extends GetxController {
     }
   }
 
-  void delCart(int id) {
-    CartBoxController().delCart(id);
+  void delCart(CartModel cart) {
+    CartBoxController().delCart(cart);
   }
 }

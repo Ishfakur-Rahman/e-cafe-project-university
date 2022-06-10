@@ -1,4 +1,3 @@
-import 'package:firebase_storage/firebase_storage.dart' as storage;
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +33,7 @@ class _ImagePickerHelperState extends State<ImagePickerHelper> {
 
     final imageName = basename(image!.path);
     final destination = '$imagepurpose/$imageName';
-    await FirebaseApi.uploadFile(destination, image!);
+    // await FirebaseApi.uploadFile(destination, image!);
   }
 
   Widget buildButton({
@@ -123,14 +122,14 @@ class _ImagePickerHelperState extends State<ImagePickerHelper> {
   }
 }
 
-class FirebaseApi {
-  static Future uploadFile(String destination, File file) async {
-    try {
-      final refs = storage.FirebaseStorage.instance.ref(destination);
-      await refs.putFile(file);
-      return refs.getDownloadURL();
-    } on storage.FirebaseException catch (e) {
-      return null;
-    }
-  }
-}
+// class FirebaseApi {
+//   static Future uploadFile(String destination, File file) async {
+//     try {
+//       final refs = storage.FirebaseStorage.instance.ref(destination);
+//       await refs.putFile(file);
+//       return refs.getDownloadURL();
+//     } on storage.FirebaseException catch (e) {
+//       return null;
+//     }
+//   }
+// }

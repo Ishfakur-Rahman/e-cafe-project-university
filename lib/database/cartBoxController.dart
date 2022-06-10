@@ -14,11 +14,22 @@ class CartBoxController {
 
   void addCart(CartModel model) async {
     box = getCart();
-    await box.put(model.id, model);
+    int sizeNum = getSizeNum(model.size);
+    await box.put(model.id+0.1*sizeNum, model);
   }
 
-  void delCart(int id) async {
+  void delCart(CartModel model) async {
     box = getCart();
-    await box.delete(id);
+    await box.delete(model.id+0.1*getSizeNum(model.size));
+  }
+
+  int getSizeNum(String size){
+    if(size == "S") {
+      return 0;
+    } else if(size == "M") {
+      return 1;
+    } else {
+      return 2;
+    }
   }
 }
