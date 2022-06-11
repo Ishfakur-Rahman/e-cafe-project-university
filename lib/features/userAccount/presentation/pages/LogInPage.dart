@@ -153,7 +153,8 @@ class LogInButton extends StatelessWidget {
   Future<bool> loginAuthentications() async {
     //ishfaks
     try {
-      token = await Authentication().login_auth(email: email, password: password);
+      token =
+          await Authentication().login_auth(email: email, password: password);
       if (token != "empty") {
         UserBoxController().addToken(token);
         return true;
@@ -171,7 +172,6 @@ class LogInButton extends StatelessWidget {
       padding: EdgeInsets.all(10),
       child: ElevatedButton.icon(
         onPressed: () async {
-          //TODO: shamama your work is to use animation for loading screen mines are for temporary
           if (email != null && password != null) {
             //ishfaks
             if (GetUtils.isEmail(EmailField().emailAccountController.text)) {
@@ -191,11 +191,10 @@ class LogInButton extends StatelessWidget {
                     });
               }
 
-              //TODO: till this lines [From 160 Line] mone kore koris
               _existUser = await loginAuthentications();
               if (_existUser == true) {
                 var role = await Authentication().user_role(token: token);
-                UserBoxController().addRole(role);
+                UserBoxController().addRole(role!);
                 if (role == 'buyer') {
                   Get.off(() => BottomPage());
                 } else {
@@ -229,7 +228,8 @@ class RegisterRouter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    if (width <= 380) {
+    // print(width);
+    if (width <= 410) {
       return Column(
         children: [
           MText(
@@ -239,7 +239,7 @@ class RegisterRouter extends StatelessWidget {
           InkWell(
             child: MText(
               "Register now",
-              color: Colors.blueAccent,
+              color: Colors.orange,
               decoration: TextDecoration.underline,
             ).heading2(),
             onTap: () {

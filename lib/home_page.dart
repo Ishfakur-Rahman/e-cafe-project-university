@@ -302,7 +302,7 @@ class HomePage extends StatelessWidget {
                         String images = ctrl.listofcoffee[id].image;
                         String title = ctrl.listofcoffee[id].title;
                         String subTitle = ctrl.listofcoffee[id].subTitle;
-                        String price = ctrl.listofcoffee[id].price;
+                        int price = ctrl.listofcoffee[id].price;
                         String rating = ctrl.listofcoffee[id].rating;
                         return buildSingleItem(
                           context: context,
@@ -342,7 +342,7 @@ class HomePage extends StatelessWidget {
                       String images = ctrl.listofcoffee[id].image;
                       String title = ctrl.listofcoffee[id].title;
                       String subTitle = ctrl.listofcoffee[id].subTitle;
-                      String price = ctrl.listofcoffee[id].price;
+                      int price = ctrl.listofcoffee[id].price;
                       String rating = ctrl.listofcoffee[id].rating;
 
                       return Container(
@@ -414,7 +414,7 @@ class HomePage extends StatelessWidget {
                                             ),
                                           ),
                                           Text(
-                                            price,
+                                            '$price',
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white,
@@ -548,11 +548,11 @@ class HomePageController extends GetxController {
   }
 
   Rx<int> getRecomendedCoffeeId(int index) {
-    return recommendedCoffeeList[index].id.obs;
+    return recommendedCoffeeList[index].coffeeShopId.obs;
   }
 
   Rx<int> getCoffeeId(int index) {
-    return allCoffeeList[index].id.obs;
+    return allCoffeeList[index].coffeeShopId.obs;
   }
 }
 

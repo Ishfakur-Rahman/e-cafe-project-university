@@ -1,23 +1,27 @@
 // ignore_for_file: file_names
 
 import 'dart:convert';
+import 'dart:io';
 
 class CoffeeModel {
-  // final Image img; //TODO: images are here
+  final String img; 
   final String name;
   final String type;
   final String market;
   final double ratings;
   final double price;
   CoffeeModel({
+    required this.img,
     required this.name,
     required this.type,
     required this.market,
     required this.ratings,
     required this.price,
   });
+  
 
   CoffeeModel copyWith({
+    String? img,
     String? name,
     String? type,
     String? market,
@@ -25,6 +29,7 @@ class CoffeeModel {
     double? price,
   }) {
     return CoffeeModel(
+      img: img ?? this.img,
       name: name ?? this.name,
       type: type ?? this.type,
       market: market ?? this.market,
@@ -35,6 +40,7 @@ class CoffeeModel {
 
   Map<String, dynamic> toMap() {
     return {
+      'img': img,
       'name': name,
       'type': type,
       'market': market,
@@ -45,6 +51,7 @@ class CoffeeModel {
 
   factory CoffeeModel.fromMap(Map<String, dynamic> map) {
     return CoffeeModel(
+      img: map['img'] ?? '',
       name: map['name'] ?? '',
       type: map['type'] ?? '',
       market: map['market'] ?? '',
@@ -59,7 +66,7 @@ class CoffeeModel {
 
   @override
   String toString() {
-    return 'CoffeeModel(name: $name, type: $type, market: $market, ratings: $ratings, price: $price)';
+    return 'CoffeeModel(img: $img, name: $name, type: $type, market: $market, ratings: $ratings, price: $price)';
   }
 
   @override
@@ -67,6 +74,7 @@ class CoffeeModel {
     if (identical(this, other)) return true;
   
     return other is CoffeeModel &&
+      other.img == img &&
       other.name == name &&
       other.type == type &&
       other.market == market &&
@@ -76,7 +84,8 @@ class CoffeeModel {
 
   @override
   int get hashCode {
-    return name.hashCode ^
+    return img.hashCode ^
+      name.hashCode ^
       type.hashCode ^
       market.hashCode ^
       ratings.hashCode ^

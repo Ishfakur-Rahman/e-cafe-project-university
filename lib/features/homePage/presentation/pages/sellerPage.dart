@@ -12,52 +12,48 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     HomePageController ctrl = Get.put(HomePageController());
     var pageTitle = "Home Page";
-    return GetBuilder<HomePageController>(
-      init: HomePageController(),
-      initState: (_) {},
-      builder: (ctrl) {
-        return Scaffold(
-          appBar: AppBar(
-            title: MText("").heading2(),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Iconsax.notification5),
-                splashRadius: 25,
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(Iconsax.user),
-                splashRadius: 25,
-              ),
-            ],
+    return Scaffold(
+      appBar: AppBar(
+        title: MText("").heading2(),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Iconsax.notification5),
+            splashRadius: 25,
           ),
-          body: IndexedStack(index: ctrl.tabIndex, children: [
-            HomeScreen(),
-            ProfileUserScreen(),
-            SettingScreen(),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Iconsax.user),
+            splashRadius: 25,
+          ),
+        ],
+      ),
+      body: IndexedStack(index: ctrl.tabIndex, children: [
+        HomeScreen(),
+        ProfileUserScreen(),
+        SettingScreen(),
+      ]),
+      bottomNavigationBar: BottomNavigationBar(
+          onTap: ctrl.changeTagIndex,
+          currentIndex: ctrl.tabIndex,
+          items: [
+            BottomNavigationBarItem(icon: Icon(Iconsax.home), label: 'Home'),
+            BottomNavigationBarItem(
+                icon: Icon(Iconsax.profile_2user), label: 'Profile'),
+            BottomNavigationBarItem(
+                icon: Icon(Iconsax.setting_2), label: 'Setting'),
           ]),
-          bottomNavigationBar: BottomNavigationBar(
-              onTap: ctrl.changeTagIndex,
-              currentIndex: ctrl.tabIndex,
-              items: [
-                BottomNavigationBarItem(
-                    icon: Icon(Iconsax.home), label: 'Home'),
-                BottomNavigationBarItem(
-                    icon: Icon(Iconsax.profile_2user), label: 'Profile'),
-                BottomNavigationBarItem(
-                    icon: Icon(Iconsax.setting_2), label: 'Setting'),
-              ]),
-
-          floatingActionButton:(ctrl.tabIndex==0)?FloatingActionButton(
-            onPressed: (){Get.to(() => AddFormPage());},
-            backgroundColor: MColors.primaryColor,
-            child: Icon(Iconsax.add)
-            ):null,
-        );
-      },
+      floatingActionButton: (ctrl.tabIndex == 0)
+          ? FloatingActionButton(
+              onPressed: () {
+                Get.to(() => AddFormPage());
+              },
+              backgroundColor: MColors.primaryColor,
+              child: Icon(Iconsax.add))
+          : null,
     );
   }
 }

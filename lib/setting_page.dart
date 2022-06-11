@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:versity_project_coffee/database/userBoxController.dart';
+import 'package:versity_project_coffee/features/userAccount/presentation/pages/LogInPage.dart';
+
+import 'notification.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -126,7 +130,9 @@ class SettingsScreen extends StatelessWidget {
                             Icons.keyboard_arrow_right,
                             color: Colors.white,
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            Get.to(() => NotificationPage());
+                          },
                         ),
                         ListTile(
                           leading: const Icon(Icons.language_rounded,
@@ -171,7 +177,10 @@ class SettingsScreen extends StatelessWidget {
                               Icons.keyboard_arrow_right,
                               color: Colors.white,
                             ),
-                            onTap: () {},
+                            onTap: () {
+                              UserBoxController().delUser();
+                              Get.offAll(() => LogInPages());
+                            },
                           ),
                         ]))
                   ]))),
@@ -822,101 +831,94 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: Color(0xFF212121),
-      body: SafeArea(
-      child: Container(
-      height: size.height,
-      width: size.width,
-      child: Column(
-        children: [
-      SizedBox(
-      height: size.height * 0.008,
-      ),
-      Container(
-        width: size.width,
-        margin: EdgeInsets.symmetric(
-          horizontal: size.width * 0.035,
-        ),
-      ),
-             Expanded(
-          child: Column( crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      SizedBox(
-        width: size.width * 0.90,
-        height: size.height * 0.10,
-      ),
-      Text(
-        'Edit Language -',
-        textAlign: TextAlign.left,
-        style: TextStyle(
-          fontSize: size.height * 0.024,
-          color: Colors.white,
-          fontWeight: FontWeight.w700,
-        ),
-      ),
-      SizedBox(
-        height: size.height * 0.08,
-      ),
-           Text(
-    'Bangla',
-    textAlign: TextAlign.left,
-    style: TextStyle(
-    fontSize: size.height * 0.024,
-    color: Colors.white,
-    ),
-    ),
-      SizedBox(
-        height: size.height * 0.02,
-      ),
-      Text(
-        'English',
-        textAlign: TextAlign.left,
-        style: TextStyle(
-          fontSize: size.height * 0.024,
-          color: Colors.white,
-        ),
-      ),
-      SizedBox(
-        height: size.height * 0.02,
-      ),
-      Text(
-        'India',
-        textAlign: TextAlign.left,
-        style: TextStyle(
-          fontSize: size.height * 0.024,
-          color: Colors.white,
-        ),
-      ),
-      SizedBox(
-        height: size.height * 0.02,
-      ),
-      Text(
-        'German',
-        textAlign: TextAlign.left,
-        style: TextStyle(
-          fontSize: size.height * 0.024,
-          color: Colors.white,
-        ),
-      ),
-      SizedBox(
-        height: size.height * 0.02,
-      ),
-      Text(
-        'Spanish',
-        textAlign: TextAlign.left,
-        style: TextStyle(
-          fontSize: size.height * 0.024,
-          color: Colors.white,
-        ),
-      ),
-
-    ]
-      )
-    )
-    ]
-      )
-    )
-    )
-    );
+        backgroundColor: Color(0xFF212121),
+        body: SafeArea(
+            child: Container(
+                height: size.height,
+                width: size.width,
+                child: Column(children: [
+                  SizedBox(
+                    height: size.height * 0.008,
+                  ),
+                  Container(
+                    width: size.width,
+                    margin: EdgeInsets.symmetric(
+                      horizontal: size.width * 0.035,
+                    ),
+                  ),
+                  Expanded(
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                        SizedBox(
+                          width: size.width * 0.90,
+                          height: size.height * 0.10,
+                        ),
+                        Text(
+                          'Edit Language -',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize: size.height * 0.024,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.08,
+                        ),
+                        Text(
+                          'Bangla',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize: size.height * 0.024,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.02,
+                        ),
+                        Text(
+                          'English',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize: size.height * 0.024,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.02,
+                        ),
+                        Text(
+                          'India',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize: size.height * 0.024,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.02,
+                        ),
+                        Text(
+                          'German',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize: size.height * 0.024,
+                            color: Colors.white,
+                          ),
+                        ),
+                        SizedBox(
+                          height: size.height * 0.02,
+                        ),
+                        Text(
+                          'Spanish',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                            fontSize: size.height * 0.024,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ]))
+                ]))));
   }
 }

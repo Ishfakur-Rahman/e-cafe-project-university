@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/backend_api/imagepicker.dart';
-
+import 'dart:io';
 import '../../../../Theme/mText.dart';
 import '../../../../backend_api/coffeedata.dart';
 
@@ -17,13 +17,14 @@ class _AddFormPageState extends State<AddFormPage> {
   late String coffeeTypes;
   late String coffeeTastes;
   late String coffeeNames;
-  late String coffeeShopLocations;
+  late String description;
   late String coffeeShopNames;
   late String prices;
-  late dynamic imageUrls;
+  late File? imagefile;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: MColors.homeThemeData,
       home: Scaffold(
         appBar: AppBar(
@@ -65,7 +66,9 @@ class _AddFormPageState extends State<AddFormPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
-                    onChanged: (value) {coffeeShopNames = value;},
+                    onChanged: (value) {
+                      coffeeTypes = value;
+                    },
                     decoration: InputDecoration(
                         filled: true,
                         fillColor:
@@ -74,7 +77,7 @@ class _AddFormPageState extends State<AddFormPage> {
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.all(Radius.circular(6)),
                         ),
-                        labelText: 'Subtitile',
+                        labelText: 'Coffee Category',
                         labelStyle: MText.textThemePoppins(
                             Colors.white, FontWeight.w400, 18)),
                   ),
@@ -82,7 +85,9 @@ class _AddFormPageState extends State<AddFormPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
-                    onChanged: (val){},
+                    onChanged: (val) {
+                      description = val;
+                    },
                     decoration: InputDecoration(
                         filled: true,
                         fillColor:
@@ -99,7 +104,9 @@ class _AddFormPageState extends State<AddFormPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
-                    onChanged: (val){prices = val;},
+                    onChanged: (val) {
+                      prices = val;
+                    },
                     decoration: InputDecoration(
                         filled: true,
                         fillColor:
@@ -116,7 +123,9 @@ class _AddFormPageState extends State<AddFormPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
-                    onChanged: (value){coffeeTastes = value;},
+                    onChanged: (value) {
+                      coffeeTastes = value;
+                    },
                     decoration: InputDecoration(
                         filled: true,
                         fillColor:
@@ -133,7 +142,9 @@ class _AddFormPageState extends State<AddFormPage> {
                   TextFormField(
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
-                    onChanged: (value){coffeeShopNames = value;},
+                    onChanged: (value) {
+                      coffeeShopNames = value;
+                    },
                     decoration: InputDecoration(
                         filled: true,
                         fillColor:
@@ -149,12 +160,10 @@ class _AddFormPageState extends State<AddFormPage> {
                   SizedBox(height: 20),
                   ElevatedButton.icon(
                       onPressed: () async {
-                        imageUrls = Navigator.push(
+                        imagefile = await Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ImagePickerHelper(
-                              imagepurpose: 'coffeeImages',
-                            ),
+                            builder: (context) => ImagePickerHelper(),
                           ),
                         );
                       },
@@ -169,10 +178,10 @@ class _AddFormPageState extends State<AddFormPage> {
                             coffeeType: coffeeTypes,
                             coffeeTaste: coffeeTastes,
                             coffeeName: coffeeNames,
-                            coffeeShopLocation: coffeeShopLocations,
-                            coffeeShopName: coffeeShopNames,
+                            description: description,
                             price: prices,
-                            imageUrl: imageUrls.toString());
+                            imagefile: imagefile);
+                        Navigator.pop(context);
                       },
                       icon: Icon(Icons.send),
                       label: Padding(

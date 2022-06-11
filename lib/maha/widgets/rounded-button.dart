@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:versity_project_coffee/backend_api/registrationhandling.dart';
 import 'package:versity_project_coffee/bottom_page.dart';
+import '../../database/userBoxController.dart';
 import '../pallete.dart';
 import 'package:get/get.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/sellerPage.dart';
@@ -32,7 +33,10 @@ class RoundedButton extends StatelessWidget {
         userTypes: userType,
         email: email,
       );
-      //TODO: take the token to shared preferences
+      UserBoxController().addToken(token!);
+      UserBoxController().addUserName(user);
+      UserBoxController().addRole(userType);
+
       return true;
     } catch (e) {
       messages = 'Couldn\'t registered';
@@ -51,7 +55,7 @@ class RoundedButton extends StatelessWidget {
         elevation: 5,
         child: MaterialButton(
           minWidth: size.width * 0.6,
-          height: size.height * 0.06,
+          height: size.height * 0.07,
           onPressed: () async {
             if (password == confirmPassword && password != 'n') {
               showDialog(
@@ -66,9 +70,9 @@ class RoundedButton extends StatelessWidget {
               var status = await registrationInAPI();
               if (status == true) {
                 if (userType == 'buyer') {
-                  Get.off(() => BottomPage());
+                  Get.offAll(() => BottomPage());
                 } else {
-                  Get.off(() => HomePage());
+                  Get.offAll(() => HomePage());
                 }
               }
             } else {
