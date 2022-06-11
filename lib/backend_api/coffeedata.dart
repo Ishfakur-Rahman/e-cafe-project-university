@@ -22,11 +22,11 @@ class CoffeeData {
         Uri.parse('https://coffee-app-system.herokuapp.com/add-coffee/'),
         body: {
           "name": "$coffeeName",
-          "img": imagefile,
+          "image": imagefile,
           "ratings": 0,
           "taste": "$coffeeTaste",
           "coffeeType": "$coffeeType",
-          "description": '$description',
+          "description": "$description",
           "price": "$price",
           "shopName": "$coffeeShopName",
           "user": "$sellerName"

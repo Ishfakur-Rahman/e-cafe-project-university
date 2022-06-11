@@ -1,7 +1,7 @@
 import 'package:versity_project_coffee/backend_api/coffeedata.dart';
 
 class UserRatings {
-  String _ratings({
+  dynamic _ratings({
     required double existingCoffeeRatingInTotal,
     required double newUserRating,
     required int oldTotalUser,
@@ -10,7 +10,7 @@ class UserRatings {
                 existingCoffeeRatingInTotal) +
             newUserRating) /
         (oldTotalUser + (existingCoffeeRatingInTotal == 0 ? 1 : 0));
-    return result.toString();
+    return result;
   }
 
   Future<void> updateRatings(
@@ -27,7 +27,7 @@ class UserRatings {
     await CoffeeData().update_coffee_data(
       coffee_id: coffeeId,
       ratings: results,
-      // total_users: (oldTotalUser + 1).toString(),
+      // total_users: (oldTotalUser + 1),
     );
   }
 }
