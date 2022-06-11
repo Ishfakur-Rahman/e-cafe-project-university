@@ -174,6 +174,18 @@ class _AddFormPageState extends State<AddFormPage> {
                   SizedBox(height: 20),
                   ElevatedButton.icon(
                       onPressed: () async {
+                        showDialog(
+                        //ishfaks
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Center(
+                            child: CircularProgressIndicator(
+                              backgroundColor: MColors.primaryColorDark,
+                              color: MColors.primaryColorLight,
+                              strokeWidth: 3,
+                            ),
+                          );
+                        });
                         await CoffeeData().addCoffee(
                             coffeeType: coffeeTypes,
                             coffeeTaste: coffeeTastes,
