@@ -6,9 +6,9 @@ import '../api_data_model/get_single_coffee_model.dart';
 import '../database/userBoxController.dart';
 
 class CoffeeData {
-  int coffeeShopName = 1; //= UserBoxController().shopId;
-  String sellerName = UserBoxController().userName;
-  String token = UserBoxController().token;
+  // CoffeeData() {
+  //   print(sellerName + token);
+  // }
 
   Future<bool> addCoffee({
     required String coffeeType,
@@ -18,6 +18,10 @@ class CoffeeData {
     required String price,
     required File? imagefile,
   }) async {
+    print("Functionta onek pocha");
+    int coffeeShopName = 1; //= UserBoxController().shopId;
+  String sellerName = UserBoxController().userName;
+  String token = UserBoxController().token;
     http.Response response = await http.post(
         Uri.parse('https://coffee-app-system.herokuapp.com/add-coffee/'),
         body: {
@@ -34,6 +38,7 @@ class CoffeeData {
         headers: {
           "Authorization": "Token $token"
         });
+    print("Function sweet");
     if (response.statusCode == 200) {
       return true;
     } else {
@@ -51,6 +56,9 @@ class CoffeeData {
     String? description,
     String? price,
   }) async {
+    int coffeeShopName = 1; //= UserBoxController().shopId;
+  String sellerName = UserBoxController().userName;
+  String token = UserBoxController().token;
     http.Response response = await http.patch(
         Uri.parse(
             'https://coffee-app-system.herokuapp.com/update-coffee/$coffee_id/'),
@@ -74,6 +82,9 @@ class CoffeeData {
   Future<GetSingleCoffeeModel> get_a_coffe({
     required String coffee_id,
   }) async {
+    int coffeeShopName = 1; //= UserBoxController().shopId;
+  String sellerName = UserBoxController().userName;
+  String token = UserBoxController().token;
     http.Response response = await http.get(
         Uri.parse(
             'https://coffee-app-system.herokuapp.com/update-coffee/$coffee_id/'),
@@ -83,6 +94,9 @@ class CoffeeData {
   }
 
   Future get_all_coffee() async {
+    int coffeeShopName = 1; //= UserBoxController().shopId;
+  String sellerName = UserBoxController().userName;
+  String token = UserBoxController().token;
     http.Response response = await http.get(
         Uri.parse('https://coffee-app-system.herokuapp.com/get-coffee/'),
         headers: {"Authorization": "Token $token"});

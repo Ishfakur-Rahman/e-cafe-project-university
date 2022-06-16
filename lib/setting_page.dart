@@ -27,7 +27,9 @@ class SettingsScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10)),
                       color: Color(0xFF63554b),
                       child: ListTile(
-                        onTap: () {},
+                        onTap: () {
+                          Get.to(() => UserInfo());
+                        },
                         title: const Text(
                           'Account',
                           style: TextStyle(
@@ -920,5 +922,84 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
                         ),
                       ]))
                 ]))));
+  }
+}
+
+class UserInfo extends StatefulWidget {
+  const UserInfo({Key? key}) : super(key: key);
+
+  @override
+  _UserInfoState createState() => _UserInfoState();
+}
+
+class _UserInfoState extends State<UserInfo> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Color(0xffa68966),
+        body: SingleChildScrollView(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            SizedBox(
+              height: 20,
+            ),
+            InfoCard(
+                text: 'Upload your profile picture',
+                icon: Icons.collections,
+                onPressed: () async {}),
+            InfoCard(
+                text: 'Username',
+                icon: Icons.person_pin,
+                onPressed: () async {}),
+            InfoCard(
+                text: 'Contact', icon: Icons.phone, onPressed: () async {}),
+            InfoCard(
+                text: 'Address',
+                icon: Icons.location_on,
+                onPressed: () async {}),
+            InfoCard(
+                text: 'Shopname', icon: Icons.store, onPressed: () async {}),
+          ]),
+        ));
+  }
+}
+
+class InfoCard extends StatelessWidget {
+  // the values we need
+  final String text;
+  final IconData icon;
+  final VoidCallback onPressed;
+
+  InfoCard({required this.text, required this.icon, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    return GestureDetector(
+        onTap: onPressed,
+        child: Container(
+          height: 130,
+          child: Card(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            color: Colors.white,
+            margin: EdgeInsets.symmetric(vertical: 30, horizontal: 50),
+            child: Center(
+              child: ListTile(
+                leading: Icon(
+                  icon,
+                  color: Colors.black54,
+                ),
+                title: Text(
+                  text,
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 }

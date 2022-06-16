@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/database/hiveRepository.dart';
+import 'package:versity_project_coffee/database/userBoxController.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/pages/LogInPage.dart';
 import 'package:get/get.dart';
 import 'features/userAccount/presentation/pages/LogInPage.dart';

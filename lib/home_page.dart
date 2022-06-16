@@ -52,11 +52,12 @@ class HomePage extends StatelessWidget {
     price,
     context,
     rating,
+    model,
   }) {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => DetailPage())); //todo modifying detail page
+            builder: (context) => DetailPage(model: model))); //todo modifying detail page
       },
       child: Container(
         width: HomePage.screenWidth * 0.4 + 10,
@@ -312,6 +313,7 @@ class HomePage extends StatelessWidget {
                           subTitle: subTitle,
                           price: price,
                           rating: rating,
+                          model: ctrl.listofcoffee[id]
                         );
                       })),
                 ),
