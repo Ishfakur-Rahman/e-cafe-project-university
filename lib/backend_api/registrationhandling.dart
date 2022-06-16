@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 import 'package:versity_project_coffee/database/userBoxController.dart';
 
 class RegistrationHelper {
-  String token = UserBoxController().token;
   Future<String?> registrating(
       {required String userName,
       required String email,
@@ -36,6 +35,7 @@ class RegistrationHelper {
     String? address,
     int? shop_name,
   }) async {
+    String token = UserBoxController().token;
     http.Response response = await http.post(
       Uri.parse('https://coffee-app-system.herokuapp.com/profile-info/'),
       headers: {"Authorization" : "Token $token"},
