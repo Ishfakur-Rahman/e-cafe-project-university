@@ -6,10 +6,9 @@ import '../api_data_model/get_single_coffee_model.dart';
 import '../database/userBoxController.dart';
 
 class CoffeeData {
-  // CoffeeData() {
-  //   print(sellerName + token);
-  // }
-
+  int coffeeShopName = 1; //= UserBoxController().shopId;
+  String sellerName = UserBoxController().userName;
+  String token = UserBoxController().token;
   Future<bool> addCoffee({
     required String coffeeType,
     required String coffeeTaste,
@@ -18,10 +17,6 @@ class CoffeeData {
     required int price,
     required File? imagefile,
   }) async {
-    print("Functionta onek pocha");
-    int coffeeShopName = 1; //= UserBoxController().shopId;
-  String sellerName = UserBoxController().userName;
-  String token = UserBoxController().token;
     http.Response response = await http.post(
         Uri.parse('https://coffee-app-system.herokuapp.com/add-coffee/'),
         body: {
@@ -31,7 +26,7 @@ class CoffeeData {
           "taste": "$coffeeTaste",
           "coffeeType": "$coffeeType",
           "description": "$description",
-          "price": "$price",
+          "price": price,
           "shopName": "$coffeeShopName",
           "user": "$sellerName"
         },
@@ -56,9 +51,6 @@ class CoffeeData {
     String? description,
     String? price,
   }) async {
-    int coffeeShopName = 1; //= UserBoxController().shopId;
-  String sellerName = UserBoxController().userName;
-  String token = UserBoxController().token;
     http.Response response = await http.patch(
         Uri.parse(
             'https://coffee-app-system.herokuapp.com/update-coffee/$coffee_id/'),
@@ -82,9 +74,6 @@ class CoffeeData {
   Future<GetSingleCoffeeModel> get_a_coffe({
     required String coffee_id,
   }) async {
-    int coffeeShopName = 1; //= UserBoxController().shopId;
-  String sellerName = UserBoxController().userName;
-  String token = UserBoxController().token;
     http.Response response = await http.get(
         Uri.parse(
             'https://coffee-app-system.herokuapp.com/update-coffee/$coffee_id/'),
@@ -94,9 +83,6 @@ class CoffeeData {
   }
 
   Future get_all_coffee() async {
-    int coffeeShopName = 1; //= UserBoxController().shopId;
-  String sellerName = UserBoxController().userName;
-  String token = UserBoxController().token;
     http.Response response = await http.get(
         Uri.parse('https://coffee-app-system.herokuapp.com/get-coffee/'),
         headers: {"Authorization": "Token $token"});
