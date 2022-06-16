@@ -17,6 +17,32 @@ class CoffeeData {
     required int price,
     required File? imagefile,
   }) async {
+    // var stream  = new http.ByteStream(imagefile!.openRead());
+    // stream.cast();
+    //
+    // var length = await imagefile!.length();
+    //
+    // var uri = Uri.parse('https://fakestoreapi.com/products');
+    //
+    // var request = new http.MultipartRequest('POST', uri);
+    //
+    // request.fields['name'] = "$coffeeName" ;
+    // request.fields['ratings'] = "0";
+    // request.fields['taste'] = "$coffeeTaste";
+    // request.fields['coffeeType'] = "$coffeeType";
+    // request.fields['description'] = "$description";
+    // request.fields['price'] = "23";
+    // request.fields['user'] = "$sellerName";
+    // request.fields['shopName'] = "$coffeeShopName";
+    //
+    // var multiport = new http.MultipartFile(
+    //     'image',
+    //     stream,
+    //     length);
+    //
+    // request.files.add(multiport);
+    //
+    // var response = await request.send() ;
     http.Response response = await http.post(
         Uri.parse('https://coffee-app-system.herokuapp.com/add-coffee/'),
         body: {
@@ -27,7 +53,7 @@ class CoffeeData {
           "coffeeType": "$coffeeType",
           "description": "$description",
           "price": price,
-          "shopName": "$coffeeShopName",
+          "shopName": coffeeShopName,
           "user": "$sellerName"
         },
         headers: {

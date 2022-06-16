@@ -33,11 +33,11 @@ class RoundedButton extends StatelessWidget {
         userTypes: userType,
         email: email,
       );
-      // UserBoxController().addToken(token!);
-      
-      // UserBoxController().addUserName(user);
-      // UserBoxController().addRole(userType);
-
+      print("problem to eikhane");
+      UserBoxController().addToken(token!);
+      UserBoxController().addUserName(user);
+      UserBoxController().addRole(userType);
+      print("eikhanei problem");
       return true;
     } catch (e) {
       messages = 'Couldn\'t registered';
