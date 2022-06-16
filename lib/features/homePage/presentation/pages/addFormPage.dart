@@ -14,12 +14,12 @@ class AddFormPage extends StatefulWidget {
 
 class _AddFormPageState extends State<AddFormPage> {
   late String imagepurposes;
-  late String coffeeTypes;
-  late String coffeeTastes;
-  late String coffeeNames;
-  late String description;
-  late String coffeeShopNames;
-  late String prices;
+  late String coffeeTypes = "null";
+  late String coffeeTastes = "nul";
+  late String coffeeNames = "null";
+  late String description = "null";
+  late String coffeeShopNames = "null";
+  late int prices = 12;
   late File? imagefile;
   @override
   Widget build(BuildContext context) {
@@ -105,7 +105,7 @@ class _AddFormPageState extends State<AddFormPage> {
                     keyboardType: TextInputType.name,
                     textInputAction: TextInputAction.next,
                     onChanged: (val) {
-                      prices = val;
+                      prices = int.parse(val);
                     },
                     decoration: InputDecoration(
                         filled: true,
@@ -191,8 +191,9 @@ class _AddFormPageState extends State<AddFormPage> {
                             coffeeTaste: coffeeTastes,
                             coffeeName: coffeeNames,
                             description: description,
-                            price: prices,
+                            price: prices.toString(),
                             imagefile: imagefile);
+
                         Navigator.pop(context);
                       },
                       icon: Icon(Icons.send),

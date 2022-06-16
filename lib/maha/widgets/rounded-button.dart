@@ -33,9 +33,10 @@ class RoundedButton extends StatelessWidget {
         userTypes: userType,
         email: email,
       );
-      UserBoxController().addToken(token!);
-      UserBoxController().addUserName(user);
-      UserBoxController().addRole(userType);
+      // UserBoxController().addToken(token!);
+      
+      // UserBoxController().addUserName(user);
+      // UserBoxController().addRole(userType);
 
       return true;
     } catch (e) {
