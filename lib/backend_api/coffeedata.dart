@@ -45,11 +45,11 @@ class CoffeeData {
     required String coffee_id,
     String? name,
     File? image,
-    String? ratings,
+    int? ratings,
     String? taste,
     String? coffeeType,
     String? description,
-    String? price,
+    int? price,
   }) async {
     http.Response response = await http.patch(
         Uri.parse(
@@ -60,11 +60,11 @@ class CoffeeData {
         body: {
           "name": "$name",
           "image": "$image",
-          "ratings": "$ratings",
+          "ratings": ratings,
           "taste": "$taste",
           "coffeeType": "$coffeeType",
           "description": "$description",
-          "price": "$price",
+          "price": price,
           "user": "$name"
         });
     //is any of the field in this json is null then it doesn't upload the value.by postman
