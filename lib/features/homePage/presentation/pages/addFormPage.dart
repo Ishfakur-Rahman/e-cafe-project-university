@@ -191,7 +191,7 @@ class _AddFormPageState extends State<AddFormPage> {
                             coffeeTaste: coffeeTastes,
                             coffeeName: coffeeNames,
                             description: description,
-                            price: prices.toString(),
+                            price: prices,
                             imagefile: imagefile);
 
                         Navigator.pop(context);

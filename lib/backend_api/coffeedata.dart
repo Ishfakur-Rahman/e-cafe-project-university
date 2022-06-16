@@ -15,7 +15,7 @@ class CoffeeData {
     required String coffeeTaste,
     required String coffeeName,
     required String description,
-    required String price,
+    required int price,
     required File? imagefile,
   }) async {
     print("Functionta onek pocha");
