@@ -78,7 +78,7 @@ class RoundedButton extends StatelessWidget {
               if (status == true) {
                 if (userType == 'buyer') {
                   Get.offAll(() => BottomPage());
-                } else {
+                } else if(userType == 'seller') {
                   Get.offAll(() => HomePage());
                 }
               } else {
