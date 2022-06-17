@@ -13,11 +13,11 @@ class RegistrationHelper {
     http.Response response = await http.post(
       Uri.parse('https://coffee-app-system.herokuapp.com/register/'),
       body: {
-        "name": "$userName",
-        "email": "$email",
-        "username": "$userName",
-        "password": "$password",
-        "role": "$userTypes"
+        "name": userName,
+        "email": email,
+        "username": userName,
+        "password": password,
+        "role": userTypes
       },
     );
     print("status: " +response.statusCode.toString());
@@ -44,11 +44,11 @@ class RegistrationHelper {
           "Authorization": "Token $token"
         },
         body: {
-          "user": "$user",
-          "profile": "$image",
-          "contact": 17,
-          "address": "$address",
-          "shopName": 1
+          "user": user,
+          "profile": image,
+          "contact": contact,
+          "address": address,
+          "shopName": shop_name
         });
     if (response.statusCode == 200) {
       return 'done';
