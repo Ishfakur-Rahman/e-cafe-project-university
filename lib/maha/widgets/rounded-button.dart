@@ -33,14 +33,14 @@ class RoundedButton extends StatelessWidget {
         userTypes: userType,
         email: email,
       );
-      // UserBoxController().addToken(token!);
-      
-      // UserBoxController().addUserName(user);
-      // UserBoxController().addRole(userType);
+      print("token: " + token.toString());
+      UserBoxController().addToken(token!);
+      UserBoxController().addUserName(user);
+      UserBoxController().addRole(userType);
 
       return true;
     } catch (e) {
-      messages = 'Couldn\'t registered';
+      messages = "Error";
       return false;
     }
   }
@@ -58,7 +58,7 @@ class RoundedButton extends StatelessWidget {
           minWidth: size.width * 0.6,
           height: size.height * 0.07,
           onPressed: () async {
-            if (password == confirmPassword && password != 'n') {
+            if (password == confirmPassword && password.isNotEmpty) {
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -75,9 +75,11 @@ class RoundedButton extends StatelessWidget {
                 } else {
                   Get.offAll(() => HomePage());
                 }
+              } else {
+                print("Message: " + messages);
               }
             } else {
-              messages = 'Your password doesn\'t matched';
+              print('Your password doesn\'t matched');
             }
           },
           child: Text(

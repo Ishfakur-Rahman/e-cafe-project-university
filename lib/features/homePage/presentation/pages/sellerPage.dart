@@ -31,22 +31,22 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: IndexedStack(index: ctrl.tabIndex, children: [
+      body: Obx(() =>IndexedStack(index: ctrl.tabIndex.value, children: [
         HomeScreen(),
         ProfileUserScreen(),
         SettingScreen(),
-      ]),
-      bottomNavigationBar: BottomNavigationBar(
+      ])),
+      bottomNavigationBar: Obx(() => BottomNavigationBar(
           onTap: ctrl.changeTagIndex,
-          currentIndex: ctrl.tabIndex,
-          items: [
+          currentIndex: ctrl.tabIndex.value,
+          items: const[
             BottomNavigationBarItem(icon: Icon(Iconsax.home), label: 'Home'),
             BottomNavigationBarItem(
                 icon: Icon(Iconsax.profile_2user), label: 'Profile'),
             BottomNavigationBarItem(
                 icon: Icon(Iconsax.setting_2), label: 'Setting'),
-          ]),
-      floatingActionButton: (ctrl.tabIndex == 0)
+          ])),
+      floatingActionButton: (ctrl.tabIndex.value == 0)
           ? FloatingActionButton(
               onPressed: () {
                 Get.to(() => AddFormPage());
@@ -76,10 +76,10 @@ class SettingScreen extends StatelessWidget {
   }
 }
 
-class HomePageController extends GetxController {
-  var tabIndex = 0;
+class HomePageController extends GetxController { 
+  RxInt tabIndex = 0.obs;
   changeTagIndex(int index) {
-    tabIndex = index;
+    tabIndex.value = index;
     update();
   }
 }

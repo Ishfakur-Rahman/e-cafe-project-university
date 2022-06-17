@@ -12,6 +12,7 @@ class UserBoxController {
   void addToken(String token) async {
     box = getBox();
     await box.put("token", token);
+    print("addToken");
   }
 
   String get token => getBox().get("token")!;
@@ -34,6 +35,7 @@ class UserBoxController {
     box = getBox();
     await box.put("shopId", shopId.toString());
   }
+
   int get shopId => int.parse(getBox().get("shopId")!);
 
   void delUser() async {
