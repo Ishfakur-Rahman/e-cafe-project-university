@@ -6,10 +6,9 @@ import '../api_data_model/get_single_coffee_model.dart';
 import '../database/userBoxController.dart';
 
 class CoffeeData {
-  // CoffeeData() {
-  //   print(sellerName + token);
-  // }
-
+  int coffeeShopName = 1; //= UserBoxController().shopId;
+  String sellerName = UserBoxController().userName;
+  String token = UserBoxController().token;
   Future<bool> addCoffee({
     required String coffeeType,
     required String coffeeTaste,
@@ -18,10 +17,32 @@ class CoffeeData {
     required int price,
     required File? imagefile,
   }) async {
-    print("Functionta onek pocha");
-    int coffeeShopName = 1; //= UserBoxController().shopId;
-  String sellerName = UserBoxController().userName;
-  String token = UserBoxController().token;
+    // var stream  = new http.ByteStream(imagefile!.openRead());
+    // stream.cast();
+    //
+    // var length = await imagefile!.length();
+    //
+    // var uri = Uri.parse('https://fakestoreapi.com/products');
+    //
+    // var request = new http.MultipartRequest('POST', uri);
+    //
+    // request.fields['name'] = "$coffeeName" ;
+    // request.fields['ratings'] = "0";
+    // request.fields['taste'] = "$coffeeTaste";
+    // request.fields['coffeeType'] = "$coffeeType";
+    // request.fields['description'] = "$description";
+    // request.fields['price'] = "23";
+    // request.fields['user'] = "$sellerName";
+    // request.fields['shopName'] = "$coffeeShopName";
+    //
+    // var multiport = new http.MultipartFile(
+    //     'image',
+    //     stream,
+    //     length);
+    //
+    // request.files.add(multiport);
+    //
+    // var response = await request.send() ;
     http.Response response = await http.post(
         Uri.parse('https://coffee-app-system.herokuapp.com/add-coffee/'),
         body: {
@@ -31,8 +52,8 @@ class CoffeeData {
           "taste": "$coffeeTaste",
           "coffeeType": "$coffeeType",
           "description": "$description",
-          "price": "$price",
-          "shopName": "$coffeeShopName",
+          "price": price,
+          "shopName": coffeeShopName,
           "user": "$sellerName"
         },
         headers: {
@@ -50,15 +71,12 @@ class CoffeeData {
     required String coffee_id,
     String? name,
     File? image,
-    String? ratings,
+    int? ratings,
     String? taste,
     String? coffeeType,
     String? description,
-    String? price,
+    int? price,
   }) async {
-    int coffeeShopName = 1; //= UserBoxController().shopId;
-  String sellerName = UserBoxController().userName;
-  String token = UserBoxController().token;
     http.Response response = await http.patch(
         Uri.parse(
             'https://coffee-app-system.herokuapp.com/update-coffee/$coffee_id/'),
@@ -68,11 +86,11 @@ class CoffeeData {
         body: {
           "name": "$name",
           "image": "$image",
-          "ratings": "$ratings",
+          "ratings": ratings,
           "taste": "$taste",
           "coffeeType": "$coffeeType",
           "description": "$description",
-          "price": "$price",
+          "price": price,
           "user": "$name"
         });
     //is any of the field in this json is null then it doesn't upload the value.by postman
@@ -82,9 +100,6 @@ class CoffeeData {
   Future<GetSingleCoffeeModel> get_a_coffe({
     required String coffee_id,
   }) async {
-    int coffeeShopName = 1; //= UserBoxController().shopId;
-  String sellerName = UserBoxController().userName;
-  String token = UserBoxController().token;
     http.Response response = await http.get(
         Uri.parse(
             'https://coffee-app-system.herokuapp.com/update-coffee/$coffee_id/'),
@@ -94,9 +109,6 @@ class CoffeeData {
   }
 
   Future get_all_coffee() async {
-    int coffeeShopName = 1; //= UserBoxController().shopId;
-  String sellerName = UserBoxController().userName;
-  String token = UserBoxController().token;
     http.Response response = await http.get(
         Uri.parse('https://coffee-app-system.herokuapp.com/get-coffee/'),
         headers: {"Authorization": "Token $token"});

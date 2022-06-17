@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:versity_project_coffee/backend_api/registrationhandling.dart';
 import 'package:versity_project_coffee/bottom_page.dart';
@@ -26,20 +28,24 @@ class RoundedButton extends StatelessWidget {
   late String messages = ' ';
 
   Future<bool> registrationInAPI() async {
+    print("registrationInAPI");
     try {
+      print("trying token");
       var token = await RegistrationHelper().registrating(
         userName: user,
         password: password,
         userTypes: userType,
         email: email,
       );
+      await Future.delayed(Duration(microseconds: 1));
       print("token: " + token.toString());
-      UserBoxController().addToken(token!);
+      // UserBoxController().addToken(token!);
       UserBoxController().addUserName(user);
       UserBoxController().addRole(userType);
 
       return true;
     } catch (e) {
+      print(e.toString());
       messages = "Error";
       return false;
     }

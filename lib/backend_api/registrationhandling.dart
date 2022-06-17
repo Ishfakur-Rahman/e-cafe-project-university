@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:versity_project_coffee/database/userBoxController.dart';
 
 class RegistrationHelper {
-  Future<String?> registrating(
+  Future registrating(
       {required String userName,
       required String email,
       required String password,
@@ -20,9 +20,11 @@ class RegistrationHelper {
         "role": "$userTypes"
       },
     );
+    print("status: " +response.statusCode.toString());
     if (response.statusCode == 200) {
-      var token = Token.fromJson(jsonDecode(response.body)).token;
-      return token;
+      var token = Token.fromJson(jsonDecode(response.body));
+      print("token from registrationhandling: " + jsonDecode(response.body));
+      return token.token!;
     } else {
       return "failed to register";
     }
@@ -37,19 +39,20 @@ class RegistrationHelper {
   }) async {
     String token = UserBoxController().token;
     http.Response response = await http.post(
-      Uri.parse('https://coffee-app-system.herokuapp.com/profile-info/'),
-      headers: {"Authorization" : "Token $token"},
-      body: {
-        "user": "$user",
-        "profile": "$image",
-        "contact": 17,
-        "address": "$address",
-        "shopName": 1
-      }
-    );
-    if(response.statusCode==200){
+        Uri.parse('https://coffee-app-system.herokuapp.com/profile-info/'),
+        headers: {
+          "Authorization": "Token $token"
+        },
+        body: {
+          "user": "$user",
+          "profile": "$image",
+          "contact": 17,
+          "address": "$address",
+          "shopName": 1
+        });
+    if (response.statusCode == 200) {
       return 'done';
-    }else{
+    } else {
       return 'The action couldn\'t be done';
     }
   }
