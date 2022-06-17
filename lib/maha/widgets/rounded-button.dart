@@ -28,18 +28,20 @@ class RoundedButton extends StatelessWidget {
   late String messages = ' ';
 
   Future<bool> registrationInAPI() async {
-    print("registrationInAPI");
     try {
-      print("trying token");
       var token = await RegistrationHelper().registrating(
         userName: user,
         password: password,
         userTypes: userType,
         email: email,
       );
+<<<<<<< HEAD
       await Future.delayed(Duration(microseconds: 1));
       print("token: " + token.toString());
        UserBoxController().addToken(token!);
+=======
+      UserBoxController().addToken(token!);
+>>>>>>> f6b7b38b1d3514be77057c51b09774b3aa1ff659
       UserBoxController().addUserName(user);
       UserBoxController().addRole(userType);
 
@@ -78,7 +80,7 @@ class RoundedButton extends StatelessWidget {
               if (status == true) {
                 if (userType == 'buyer') {
                   Get.offAll(() => BottomPage());
-                } else {
+                } else if(userType == 'seller') {
                   Get.offAll(() => HomePage());
                 }
               } else {

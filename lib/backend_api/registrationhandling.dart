@@ -20,17 +20,20 @@ class RegistrationHelper {
         "role": userTypes
       },
     );
-    print("status: " +response.statusCode.toString());
     if (response.statusCode == 200) {
+<<<<<<< HEAD
       var result = RegistrationResponse.fromJson(jsonDecode(response.body));
       print("token from registrationhandling: " + result.token!);
+=======
+      var result = Token.fromJson(jsonDecode(response.body));
+>>>>>>> f6b7b38b1d3514be77057c51b09774b3aa1ff659
       return result.token!;
     } else {
       return "failed to register";
     }
   }
 
-  Future<String?> update_profile_info({
+  Future<String> update_profile_info({
     String? user,
     FileImage? image,
     int? contact,

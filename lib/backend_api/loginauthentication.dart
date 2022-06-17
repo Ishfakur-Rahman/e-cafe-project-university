@@ -3,13 +3,13 @@ import 'dart:convert';
 import 'package:versity_project_coffee/api_data_model/model.dart';
 
 class Authentication {
-  Future<String?> login_auth({required String email, required String password}) async {
+  Future<String> login_auth({required String email, required String password}) async {
     http.Response response = await http.post(
         Uri.parse('https://coffee-app-system.herokuapp.com/login/'),
         body: {"username": email, "password": password});
     if (response.statusCode == 200) {
-      var token = RegistrationResponse.fromJson(jsonDecode(response.body)).token;
-      return token;
+      var result = Token.fromJson(jsonDecode(response.body));
+      return result.token!;
     }else{
       return "empty";
     }
@@ -24,8 +24,8 @@ class Authentication {
     );
 
     if(response.statusCode == 200){
-      var roles = RegistrationResponse.fromJson(jsonDecode(response.body));
-      return roles.role;
+      var roles = UserNameAndRole.fromJson(jsonDecode(response.body));
+      return roles.role!;
     }else{
       return "SuperUser";
     }

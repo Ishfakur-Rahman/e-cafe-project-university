@@ -197,7 +197,7 @@ class LogInButton extends StatelessWidget {
                 UserBoxController().addRole(role!);
                 if (role == 'buyer') {
                   Get.off(() => BottomPage());
-                } else {
+                } else if(role == 'seller'){
                   Get.off(() => HomePage());
                 }
               } else {

@@ -1,18 +1,21 @@
-class RegistrationResponse {
-  String? response;
-  String? email;
-  String? username;
-  String? role;
+class Token {
   String? token;
 
-  RegistrationResponse(
-      {this.response, this.email, this.username, this.role, this.token});
+  Token({this.token});
 
-  RegistrationResponse.fromJson(Map<String, dynamic> json) {
-    response = json['response'];
-    email = json['email'];
-    username = json['username'];
-    role = json['role'];
+  Token.fromJson(Map<String, dynamic> json) {
     token = json['token'];
+  }
+}
+
+class UserNameAndRole {
+  String? role;
+  String? user;
+
+  UserNameAndRole({this.role, this.user});
+
+  UserNameAndRole.fromJson(Map<String, dynamic> json) {
+    role = json['role'];
+    user = json['user'];
   }
 }
