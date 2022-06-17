@@ -39,7 +39,7 @@ class RoundedButton extends StatelessWidget {
       );
       await Future.delayed(Duration(microseconds: 1));
       print("token: " + token.toString());
-      // UserBoxController().addToken(token!);
+       UserBoxController().addToken(token!);
       UserBoxController().addUserName(user);
       UserBoxController().addRole(userType);
 

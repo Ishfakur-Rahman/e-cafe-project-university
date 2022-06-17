@@ -22,9 +22,9 @@ class RegistrationHelper {
     );
     print("status: " +response.statusCode.toString());
     if (response.statusCode == 200) {
-      var token = RegistrationResponse.fromJson(jsonDecode(response.body)).token;
-      print("token from registrationhandling: " + jsonDecode(response.body));
-      return token!;
+      var result = RegistrationResponse.fromJson(jsonDecode(response.body));
+      print("token from registrationhandling: " + result.token!);
+      return result.token!;
     } else {
       return "failed to register";
     }
