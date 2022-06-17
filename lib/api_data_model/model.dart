@@ -8,27 +8,14 @@ class Token {
   }
 }
 
-class RegistrationResponse {
-  String? response;
-  String? email;
-  String? username;
+class UserNameAndRole {
   String? role;
+  String? user;
 
-  RegistrationResponse({this.response, this.email, this.username, this.role});
+  UserNameAndRole({this.role, this.user});
 
-  RegistrationResponse.fromJson(Map<String, dynamic> json) {
-    response = json['response'];
-    email = json['email'];
-    username = json['username'];
+  UserNameAndRole.fromJson(Map<String, dynamic> json) {
     role = json['role'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['response'] = this.response;
-    data['email'] = this.email;
-    data['username'] = this.username;
-    data['role'] = this.role;
-    return data;
+    user = json['user'];
   }
 }

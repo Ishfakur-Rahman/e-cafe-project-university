@@ -24,7 +24,7 @@ class Authentication {
     );
 
     if(response.statusCode == 200){
-      var roles = RegistrationResponse.fromJson(jsonDecode(response.body));
+      var roles = UserNameAndRole.fromJson(jsonDecode(response.body));
       return roles.role!;
     }else{
       return "SuperUser";
