@@ -15,7 +15,7 @@ class Authentication {
     }
   }
 
-  Future<String?> user_role({required String token}) async {
+  Future<String> user_role({required String token}) async {
     http.Response response = await http.get(
       Uri.parse('https://coffee-app-system.herokuapp.com/get-user/$token/'),
       headers: {
@@ -26,6 +26,21 @@ class Authentication {
     if(response.statusCode == 200){
       var roles = UserNameAndRole.fromJson(jsonDecode(response.body));
       return roles.role!;
+    }else{
+      return "SuperUser";
+    }
+  }
+  Future<String> user_name({required String token}) async {
+    http.Response response = await http.get(
+      Uri.parse('https://coffee-app-system.herokuapp.com/get-user/$token/'),
+      headers: {
+        "Authorization" : "Token $token"
+      },
+    );
+
+    if(response.statusCode == 200){
+      var users = UserNameAndRole.fromJson(jsonDecode(response.body));
+      return users.user!;
     }else{
       return "SuperUser";
     }
