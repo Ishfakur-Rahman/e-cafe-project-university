@@ -7,7 +7,7 @@ import '../pallete.dart';
 import 'package:get/get.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/sellerPage.dart';
 
-class RoundedButton extends StatelessWidget {
+class RoundedButton extends StatefulWidget {
   RoundedButton({
     Key? key,
     required this.buttonName,
@@ -24,22 +24,28 @@ class RoundedButton extends StatelessWidget {
   final String password;
   final String confirmPassword;
   final String userType;
+
+  @override
+  State<RoundedButton> createState() => _RoundedButtonState();
+}
+
+class _RoundedButtonState extends State<RoundedButton> {
   late String messages = ' ';
 
   Future<bool> registrationInAPI() async {
     try {
       var token = await RegistrationHelper().registrating(
-        userName: user,
-        password: password,
-        userTypes: userType,
-        email: email,
+        userName: widget.user,
+        password: widget.password,
+        userTypes: widget.userType,
+        email: widget.email,
       );
       print("token: " + token);
       UserBoxController().addToken(token);
-      UserBoxController().addUserName(user);
-      UserBoxController().addRole(userType);
+      UserBoxController().addUserName(widget.user);
+      UserBoxController().addRole(widget.userType);
 
-      return false;//it was true
+      return false; //it was true
     } catch (e) {
       print(e.toString());
       messages = "Error";
@@ -60,12 +66,13 @@ class RoundedButton extends StatelessWidget {
           minWidth: size.width * 0.6,
           height: size.height * 0.07,
           onPressed: () async {
-            if (password == confirmPassword && password.isNotEmpty) {
-              var status = await registrationInAPI();
+            
+            if (widget.password == widget.confirmPassword && widget.password.isNotEmpty) {
+              bool? status;
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    if (status == false) {
+                    if(status==false){
                       Navigator.pop(context);
                     }
                     return Center(
@@ -73,12 +80,16 @@ class RoundedButton extends StatelessWidget {
                         strokeWidth: 2,
                       ),
                     );
-                  });
-              
+                  },
+              barrierDismissible: false,
+              );
+              setState(() async{
+                status = await registrationInAPI();
+              });
               if (status == true) {
-                if (userType == 'buyer') {
+                if (widget.userType == 'buyer') {
                   Get.offAll(() => BottomPage());
-                } else if (userType == 'seller') {
+                } else if (widget.userType == 'seller') {
                   Get.offAll(() => HomePage());
                 }
               } else {
@@ -90,7 +101,7 @@ class RoundedButton extends StatelessWidget {
             // Navigator.pop(context);
           },
           child: Text(
-            buttonName,
+            widget.buttonName,
             style: kBodyText.copyWith(fontWeight: FontWeight.bold),
           ),
         ),
