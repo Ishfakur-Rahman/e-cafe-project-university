@@ -21,7 +21,7 @@ class RegistrationHelper {
       },
     );
     if (response.statusCode == 200) {
-      var result = RegistrationResponse.fromJson(jsonDecode(response.body));
+      var result = Token.fromJson(jsonDecode(response.body));
       return result.token!;
     } else {
       return "failed to register";
