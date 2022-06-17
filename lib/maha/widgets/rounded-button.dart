@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:versity_project_coffee/backend_api/registrationhandling.dart';
 import 'package:versity_project_coffee/bottom_page.dart';
@@ -35,11 +34,12 @@ class RoundedButton extends StatelessWidget {
         userTypes: userType,
         email: email,
       );
-      UserBoxController().addToken(token!);
+      print("token: " + token);
+      UserBoxController().addToken(token);
       UserBoxController().addUserName(user);
       UserBoxController().addRole(userType);
 
-      return true;
+      return false;//it was true
     } catch (e) {
       print(e.toString());
       messages = "Error";
@@ -61,20 +61,24 @@ class RoundedButton extends StatelessWidget {
           height: size.height * 0.07,
           onPressed: () async {
             if (password == confirmPassword && password.isNotEmpty) {
+              var status = await registrationInAPI();
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
+                    if (status == false) {
+                      Navigator.pop(context);
+                    }
                     return Center(
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
                       ),
                     );
                   });
-              var status = await registrationInAPI();
+              
               if (status == true) {
                 if (userType == 'buyer') {
                   Get.offAll(() => BottomPage());
-                } else if(userType == 'seller') {
+                } else if (userType == 'seller') {
                   Get.offAll(() => HomePage());
                 }
               } else {
@@ -83,6 +87,7 @@ class RoundedButton extends StatelessWidget {
             } else {
               print('Your password doesn\'t matched');
             }
+            // Navigator.pop(context);
           },
           child: Text(
             buttonName,
