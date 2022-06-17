@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:versity_project_coffee/database/userBoxController.dart';
 
 class RegistrationHelper {
-  Future registrating(
+  Future<String> registrating(
       {required String userName,
       required String email,
       required String password,
@@ -22,9 +22,9 @@ class RegistrationHelper {
     );
     print("status: " +response.statusCode.toString());
     if (response.statusCode == 200) {
-      var token = Token.fromJson(jsonDecode(response.body));
+      var token = RegistrationResponse.fromJson(jsonDecode(response.body)).token;
       print("token from registrationhandling: " + jsonDecode(response.body));
-      return token.token!;
+      return token!;
     } else {
       return "failed to register";
     }
