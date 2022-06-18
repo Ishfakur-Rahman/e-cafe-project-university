@@ -45,7 +45,7 @@ class _RoundedButtonState extends State<RoundedButton> {
       UserBoxController().addUserName(widget.user);
       UserBoxController().addRole(widget.userType);
 
-      return false; //it was true
+      return true; //it was true
     } catch (e) {
       print(e.toString());
       messages = "Error";
@@ -69,12 +69,11 @@ class _RoundedButtonState extends State<RoundedButton> {
             
             if (widget.password == widget.confirmPassword && widget.password.isNotEmpty) {
               bool? status;
+              BuildContext? dialogContext;
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
-                    if(status==false){
-                      Navigator.pop(context);
-                    }
+                   dialogContext = context;
                     return Center(
                       child: CircularProgressIndicator(
                         strokeWidth: 2,
@@ -83,10 +82,11 @@ class _RoundedButtonState extends State<RoundedButton> {
                   },
               barrierDismissible: false,
               );
-              setState(() async{
+
                 status = await registrationInAPI();
-              });
+
               if (status == true) {
+                Navigator.pop(dialogContext!);
                 if (widget.userType == 'buyer') {
                   Get.offAll(() => BottomPage());
                 } else if (widget.userType == 'seller') {
@@ -94,6 +94,7 @@ class _RoundedButtonState extends State<RoundedButton> {
                 }
               } else {
                 print("Message: " + messages);
+                Navigator.pop(dialogContext!);
               }
             } else {
               print('Your password doesn\'t matched');
