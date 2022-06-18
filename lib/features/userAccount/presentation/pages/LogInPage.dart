@@ -175,33 +175,32 @@ class LogInButton extends StatelessWidget {
           if (email != null && password != null) {
             //ishfaks
             if (GetUtils.isEmail(EmailField().emailAccountController.text)) {
-              //Ishfaks
-              if (_existUser == null) {
-                showDialog(
-                    //ishfaks
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Center(
-                        child: CircularProgressIndicator(
-                          backgroundColor: MColors.primaryColorDark,
-                          color: MColors.primaryColorLight,
-                          strokeWidth: 3,
-                        ),
-                      );
-                    });
-              }
+              BuildContext? dialogContext;
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    dialogContext = context;
+                    return Center(
+                      child: CircularProgressIndicator(
+                        backgroundColor: MColors.primaryColorDark,
+                        color: MColors.primaryColorLight,
+                        strokeWidth: 3,
+                      ),
+                    );
+                  });
 
               _existUser = await loginAuthentications();
+
               if (_existUser == true) {
                 var role = await Authentication().user_role(token: token);
                 UserBoxController().addRole(role);
                 if (role == 'buyer') {
                   Get.off(() => BottomPage());
-                } else if(role == 'seller'){
+                } else if (role == 'seller') {
                   Get.off(() => HomePage());
                 }
               } else {
-                Navigator.pop(context);
+                Navigator.pop(dialogContext!);
                 SnackBar(
                   content: Text("Failed"),
                 );
