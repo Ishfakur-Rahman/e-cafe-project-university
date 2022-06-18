@@ -5,6 +5,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:versity_project_coffee/maha/pallete.dart';
 import 'package:versity_project_coffee/maha/widgets/widgets.dart';
 
+import '../../backend_api/registrationhandling.dart';
+import '../../bottom_page.dart';
+import '../../database/userBoxController.dart';
+import '../../features/homePage/presentation/pages/sellerPage.dart';
+
 late String selectedUser = 'n';
 
 class SignUpScreen extends StatefulWidget {
@@ -19,6 +24,26 @@ class _SignUpScreenState extends State<SignUpScreen> {
   late String email = 'n';
   late String password = 'n';
   late String confirmedPassword = 'n';
+  late String messages = 'n';
+  Future<bool> registrationInAPI() async {
+    try {
+      var token = await RegistrationHelper().registrating(
+        userName: user,
+        password: password,
+        userTypes: selectedUser,
+        email: email,
+      );
+      UserBoxController().addToken(token);
+      UserBoxController().addUserName(user);
+      UserBoxController().addRole(selectedUser);
+
+      return true;
+    } catch (e) {
+      print(e.toString());
+      messages = "Error";
+      return false;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -103,11 +128,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     // buttonWidget(),
                     RoundedButton(
                       buttonName: 'Register',
-                      user: user,
-                      email: email,
-                      password: password,
-                      confirmPassword: confirmedPassword,
-                      userType: selectedUser,
+                      onPressed: () async {
+                        if (password == confirmedPassword &&
+                            password.isNotEmpty) {
+                          BuildContext? dialogContext;
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              dialogContext = context;
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              );
+                            },
+                            barrierDismissible: false,
+                          );
+
+                          var status = await registrationInAPI();
+
+                          if (status == true) {
+                            Navigator.pop(dialogContext!);
+                            if (selectedUser == 'buyer') {
+                              Get.offAll(() => BottomPage());
+                            } else if (selectedUser == 'seller') {
+                              Get.offAll(() => HomePage());
+                            }
+                          } else {
+                            print("Message: " + messages);
+                            Navigator.pop(dialogContext!);
+                          }
+                        } else {
+                          print('Your password doesn\'t matched');
+                        }
+                      },
                     ),
                     const SizedBox(
                       height: 30,

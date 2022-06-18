@@ -7,51 +7,17 @@ import '../pallete.dart';
 import 'package:get/get.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/sellerPage.dart';
 
-class RoundedButton extends StatefulWidget {
+class RoundedButton extends StatelessWidget {
   RoundedButton({
-    Key? key,
     required this.buttonName,
-    required this.user,
-    required this.email,
-    required this.password,
-    required this.confirmPassword,
-    required this.userType,
-  }) : super(key: key);
+    required this.onPressed,
+  });
 
+  final VoidCallback onPressed;
   final String buttonName;
-  final String user;
-  final String email;
-  final String password;
-  final String confirmPassword;
-  final String userType;
 
-  @override
-  State<RoundedButton> createState() => _RoundedButtonState();
-}
 
-class _RoundedButtonState extends State<RoundedButton> {
   late String messages = ' ';
-
-  Future<bool> registrationInAPI() async {
-    try {
-      var token = await RegistrationHelper().registrating(
-        userName: widget.user,
-        password: widget.password,
-        userTypes: widget.userType,
-        email: widget.email,
-      );
-      print("token: " + token);
-      UserBoxController().addToken(token);
-      UserBoxController().addUserName(widget.user);
-      UserBoxController().addRole(widget.userType);
-
-      return true; //it was true
-    } catch (e) {
-      print(e.toString());
-      messages = "Error";
-      return false;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,44 +31,9 @@ class _RoundedButtonState extends State<RoundedButton> {
         child: MaterialButton(
           minWidth: size.width * 0.6,
           height: size.height * 0.07,
-          onPressed: () async {
-            
-            if (widget.password == widget.confirmPassword && widget.password.isNotEmpty) {
-              bool? status;
-              BuildContext? dialogContext;
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                   dialogContext = context;
-                    return Center(
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                      ),
-                    );
-                  },
-              barrierDismissible: false,
-              );
-
-                status = await registrationInAPI();
-
-              if (status == true) {
-                Navigator.pop(dialogContext!);
-                if (widget.userType == 'buyer') {
-                  Get.offAll(() => BottomPage());
-                } else if (widget.userType == 'seller') {
-                  Get.offAll(() => HomePage());
-                }
-              } else {
-                print("Message: " + messages);
-                Navigator.pop(dialogContext!);
-              }
-            } else {
-              print('Your password doesn\'t matched');
-            }
-            // Navigator.pop(context);
-          },
+          onPressed: onPressed,
           child: Text(
-            widget.buttonName,
+            buttonName,
             style: kBodyText.copyWith(fontWeight: FontWeight.bold),
           ),
         ),
