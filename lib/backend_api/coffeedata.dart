@@ -46,16 +46,16 @@ class CoffeeData {
     http.Response response = await http.post(
         Uri.parse('https://coffee-app-systems.herokuapp.com/add-coffee/'),
         body: {
-          "name": "$coffeeName",
+          "name": coffeeName,
           "image": imagefile,
           "ratings": 0,
           "totalUser": 0,
-          "taste": "$coffeeTaste",
-          "coffeeType": "$coffeeType",
-          "description": "$description",
+          "taste": coffeeTaste,
+          "coffeeType": coffeeType,
+          "description": description,
           "price": price,
           "shopName": coffeeShopName,
-          "user": "$sellerName"
+          "user": sellerName
         },
         headers: {
           "Authorization": "Token $token"
@@ -85,20 +85,20 @@ class CoffeeData {
           "Authorization": "Token $token"
         },
         body: {
-          "name": "$name",
+          "name": name,
           "image": image,
           "ratings": ratings,
-          "taste": "$taste",
-          "coffeeType": "$coffeeType",
-          "description": "$description",
+          "taste": taste,
+          "coffeeType": coffeeType,
+          "description": description,
           "price": price,
-          "user": "$name"
+          "user": name
         });
     //is any of the field in this json is null then it doesn't upload the value.by postman
     //testing would visualize the action in real time using
   }
 
-  Future<GetSingleCoffeeModel> get_a_coffe({
+  Future get_a_coffe({
     required String coffee_id,
   }) async {
     http.Response response = await http.get(

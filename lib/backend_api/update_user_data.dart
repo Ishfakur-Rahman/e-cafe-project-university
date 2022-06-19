@@ -15,10 +15,10 @@ class UserDataUpdate {
         Uri.parse('https://coffee-app-systems.herokuapp.com/profile-info/'),
         body: {
           {
-            "user": "$userName",
+            "user": userName,
             "profile": imageurl,
-            "contact": "$contact",
-            "address": "$address",
+            "contact": contact,
+            "address": address,
             "shopName": shopName
           }
         },

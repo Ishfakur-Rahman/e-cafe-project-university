@@ -25,14 +25,14 @@ class Order {
           "Authorization": "Token $token"
         },
         body: {
-          "name": "$coffeeName",
-          "size": "$size",
+          "name": coffeeName,
+          "size": size,
           "quantity": quantity,
-          "address": "$address",
-          "contact": "$contact",
-          "user": "$user_name",
-          "coffee_id": "${coffeeId}",
-          "shop_name": "$shopName"
+          "address": address,
+          "contact": contact,
+          "user": user_name,
+          "coffee_id": coffeeId,
+          "shop_name": shopName
         });
     if(response.statusCode == 200){
       return true;
