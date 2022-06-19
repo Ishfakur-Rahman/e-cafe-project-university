@@ -27,7 +27,7 @@ class UserRatings {
     await CoffeeData().update_coffee_data(
       coffee_id: coffeeId,
       ratings: results,
-      // total_users: (oldTotalUser + 1),
+      total_users: (oldTotalUser + 1),
     );
   }
 }
