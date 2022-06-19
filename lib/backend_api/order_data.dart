@@ -10,7 +10,7 @@ class Order {
   
   Future<List<AllOrders>?> get_all_order() async {
     http.Response response = await http.get(
-        Uri.parse('https://coffee-app-system.herokuapp.com/get-order/'),
+        Uri.parse('https://coffee-app-systems.herokuapp.com/get-order/'),
         headers: {"Authorization": "Token $token"});
 
     var order = GetAllOrderDataModel.fromJson(jsonDecode(response.body));
@@ -20,7 +20,7 @@ class Order {
   Future<bool> place_order(String coffeeId, String coffeeName, String size,
       int quantity, String address, String contact, int shopName) async {
     http.Response response = await http.post(
-        Uri.parse('https://coffee-app-system.herokuapp.com/make-order/'),
+        Uri.parse('https://coffee-app-systems.herokuapp.com/make-order/'),
         headers: {
           "Authorization": "Token $token"
         },
@@ -44,7 +44,7 @@ class Order {
   Future<String> order_delivered(String order_id) async {
     http.Response response = await http.delete(
         Uri.parse(
-            'https://coffee-app-system.herokuapp.com/delete-order/$order_id/'),
+            'https://coffee-app-systems.herokuapp.com/delete-order/$order_id/'),
         headers: {"Authorization": "Token $token"});
     var message = jsonDecode(response.body);
     if(response.statusCode == 200){

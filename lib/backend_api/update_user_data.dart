@@ -12,7 +12,7 @@ class UserDataUpdate {
     int? shopName,
   }) async {
     http.Response response = await http.patch(
-        Uri.parse('https://coffee-app-system.herokuapp.com/profile-info/'),
+        Uri.parse('https://coffee-app-systems.herokuapp.com/profile-info/'),
         body: {
           {
             "user": "$userName",

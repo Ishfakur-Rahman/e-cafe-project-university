@@ -5,7 +5,7 @@ import 'package:versity_project_coffee/api_data_model/model.dart';
 class Authentication {
   Future<String> login_auth({required String email, required String password}) async {
     http.Response response = await http.post(
-        Uri.parse('https://coffee-app-system.herokuapp.com/login/'),
+        Uri.parse('https://coffee-app-systems.herokuapp.com/login/'),
         body: {"username": email, "password": password});
     if (response.statusCode == 200) {
       var result = Token.fromJson(jsonDecode(response.body));
@@ -17,7 +17,7 @@ class Authentication {
 
   Future<String> user_role({required String token}) async {
     http.Response response = await http.get(
-      Uri.parse('https://coffee-app-system.herokuapp.com/get-user/$token/'),
+      Uri.parse('https://coffee-app-systems.herokuapp.com/get-user/$token/'),
       headers: {
         "Authorization" : "Token $token"
       },
@@ -32,7 +32,7 @@ class Authentication {
   }
   Future<String> user_name({required String token}) async {
     http.Response response = await http.get(
-      Uri.parse('https://coffee-app-system.herokuapp.com/get-user/$token/'),
+      Uri.parse('https://coffee-app-systems.herokuapp.com/get-user/$token/'),
       headers: {
         "Authorization" : "Token $token"
       },

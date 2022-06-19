@@ -11,7 +11,7 @@ class RegistrationHelper {
       required String password,
       required String userTypes}) async {
     http.Response response = await http.post(
-      Uri.parse('https://coffee-app-system.herokuapp.com/register/'),
+      Uri.parse('https://coffee-app-systems.herokuapp.com/register/'),
       body: {
         "name": userName,
         "email": email,
@@ -37,7 +37,7 @@ class RegistrationHelper {
   }) async {
     String token = UserBoxController().token;
     http.Response response = await http.post(
-        Uri.parse('https://coffee-app-system.herokuapp.com/profile-info/'),
+        Uri.parse('https://coffee-app-systems.herokuapp.com/profile-info/'),
         headers: {
           "Authorization": "Token $token"
         },

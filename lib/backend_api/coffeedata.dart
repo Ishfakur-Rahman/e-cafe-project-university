@@ -6,7 +6,7 @@ import '../api_data_model/get_single_coffee_model.dart';
 import '../database/userBoxController.dart';
 
 class CoffeeData {
-  int coffeeShopName = 1; //= UserBoxController().shopId;
+  int coffeeShopName =  UserBoxController().shopId;
   String sellerName = UserBoxController().userName;
   String token = UserBoxController().token;
   Future<bool> addCoffee({
@@ -44,11 +44,12 @@ class CoffeeData {
     //
     // var response = await request.send() ;
     http.Response response = await http.post(
-        Uri.parse('https://coffee-app-system.herokuapp.com/add-coffee/'),
+        Uri.parse('https://coffee-app-systems.herokuapp.com/add-coffee/'),
         body: {
           "name": "$coffeeName",
           "image": imagefile,
           "ratings": 0,
+          "totalUser": 0,
           "taste": "$coffeeTaste",
           "coffeeType": "$coffeeType",
           "description": "$description",
@@ -59,7 +60,6 @@ class CoffeeData {
         headers: {
           "Authorization": "Token $token"
         });
-    print("Function sweet");
     if (response.statusCode == 200) {
       return true;
     } else {
@@ -72,6 +72,7 @@ class CoffeeData {
     String? name,
     File? image,
     int? ratings,
+    int? total_users,
     String? taste,
     String? coffeeType,
     String? description,
@@ -79,13 +80,13 @@ class CoffeeData {
   }) async {
     http.Response response = await http.patch(
         Uri.parse(
-            'https://coffee-app-system.herokuapp.com/update-coffee/$coffee_id/'),
+            'https://coffee-app-systems.herokuapp.com/update-coffee/$coffee_id/'),
         headers: {
           "Authorization": "Token $token"
         },
         body: {
           "name": "$name",
-          "image": "$image",
+          "image": image,
           "ratings": ratings,
           "taste": "$taste",
           "coffeeType": "$coffeeType",
@@ -102,7 +103,7 @@ class CoffeeData {
   }) async {
     http.Response response = await http.get(
         Uri.parse(
-            'https://coffee-app-system.herokuapp.com/update-coffee/$coffee_id/'),
+            'https://coffee-app-systems.herokuapp.com/update-coffee/$coffee_id/'),
         headers: {"Authorization": "Token $token"});
     var a_coffee = GetSingleCoffeeModel.fromJson(jsonDecode(response.body));
     return a_coffee;
@@ -110,7 +111,7 @@ class CoffeeData {
 
   Future get_all_coffee() async {
     http.Response response = await http.get(
-        Uri.parse('https://coffee-app-system.herokuapp.com/get-coffee/'),
+        Uri.parse('https://coffee-app-systems.herokuapp.com/get-coffee/'),
         headers: {"Authorization": "Token $token"});
     var coffees = GetAllCoffeeModel.fromJson(jsonDecode(response.body));
     return coffees;
