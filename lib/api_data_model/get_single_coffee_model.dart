@@ -6,6 +6,7 @@ class GetSingleCoffeeModel {
   String? coffeeType;
   String? description;
   int? price;
+  int? totalUser;
   String? updatedAt;
   int? shopName;
   String? user;
@@ -18,6 +19,7 @@ class GetSingleCoffeeModel {
         this.coffeeType,
         this.description,
         this.price,
+        this.totalUser,
         this.updatedAt,
         this.shopName,
         this.user});
@@ -30,23 +32,9 @@ class GetSingleCoffeeModel {
     coffeeType = json['coffeeType'];
     description = json['description'];
     price = json['price'];
+    totalUser = json['totalUser'];
     updatedAt = json['updated_at'];
     shopName = json['shopName'];
     user = json['user'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['image'] = this.image;
-    data['ratings'] = this.ratings;
-    data['taste'] = this.taste;
-    data['coffeeType'] = this.coffeeType;
-    data['description'] = this.description;
-    data['price'] = this.price;
-    data['updated_at'] = this.updatedAt;
-    data['shopName'] = this.shopName;
-    data['user'] = this.user;
-    return data;
   }
 }

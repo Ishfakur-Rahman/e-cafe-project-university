@@ -11,14 +11,6 @@ class GetAllOrderDataModel {
       });
     }
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.allOrders != null) {
-      data['all_orders'] = this.allOrders!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
 }
 
 class AllOrders {
@@ -59,21 +51,5 @@ class AllOrders {
     user = json['user'];
     coffeeId = json['coffee_id'];
     shopName = json['shop_name'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['size'] = this.size;
-    data['quantity'] = this.quantity;
-    data['address'] = this.address;
-    data['contact'] = this.contact;
-    data['updated_at'] = this.updatedAt;
-    data['created_at'] = this.createdAt;
-    data['user'] = this.user;
-    data['coffee_id'] = this.coffeeId;
-    data['shop_name'] = this.shopName;
-    return data;
   }
 }

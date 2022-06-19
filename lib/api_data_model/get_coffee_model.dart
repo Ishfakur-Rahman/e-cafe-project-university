@@ -20,18 +20,6 @@ class GetAllCoffeeModel {
       });
     }
   }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total_items'] = this.totalItems;
-    if (this.coffee != null) {
-      data['coffee'] = this.coffee!.map((v) => v.toJson()).toList();
-    }
-    if (this.shopDetails != null) {
-      data['shop_details'] = this.shopDetails!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
 }
 
 class Coffee {
@@ -42,6 +30,7 @@ class Coffee {
   String? coffeeType;
   String? description;
   int? price;
+  int? totalUser;
   String? updatedAt;
   int? shopName;
   String? user;
@@ -54,6 +43,7 @@ class Coffee {
         this.coffeeType,
         this.description,
         this.price,
+        this.totalUser,
         this.updatedAt,
         this.shopName,
         this.user});
@@ -66,24 +56,10 @@ class Coffee {
     coffeeType = json['coffeeType'];
     description = json['description'];
     price = json['price'];
+    totalUser = json['totalUser'];
     updatedAt = json['updated_at'];
     shopName = json['shopName'];
     user = json['user'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['image'] = this.image;
-    data['ratings'] = this.ratings;
-    data['taste'] = this.taste;
-    data['coffeeType'] = this.coffeeType;
-    data['description'] = this.description;
-    data['price'] = this.price;
-    data['updated_at'] = this.updatedAt;
-    data['shopName'] = this.shopName;
-    data['user'] = this.user;
-    return data;
   }
 }
 
@@ -100,14 +76,5 @@ class ShopDetails {
     name = json['name'];
     location = json['location'];
     createdAt = json['created_at'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['coffee_shop_id'] = this.coffeeShopId;
-    data['name'] = this.name;
-    data['location'] = this.location;
-    data['created_at'] = this.createdAt;
-    return data;
   }
 }
