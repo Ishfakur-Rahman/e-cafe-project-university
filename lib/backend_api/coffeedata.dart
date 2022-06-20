@@ -113,7 +113,6 @@ class CoffeeData {
           },
           body: {
             "name": name,
-            "image": image,
             "ratings": ratings,
             "taste": taste,
             "coffeeType": coffeeType,
