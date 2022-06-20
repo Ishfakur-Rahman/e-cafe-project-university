@@ -1,8 +1,5 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import '../api_data_model/get_coffee_model.dart';
-import '../api_data_model/get_single_coffee_model.dart';
 import '../database/userBoxController.dart';
 
 class CoffeeData {
