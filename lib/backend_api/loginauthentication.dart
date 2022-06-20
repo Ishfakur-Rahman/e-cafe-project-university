@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:versity_project_coffee/api_data_model/get_shops_model.dart';
 import 'dart:convert';
 import 'package:versity_project_coffee/api_data_model/model.dart';
 
@@ -30,6 +31,7 @@ class Authentication {
       return "SuperUser";
     }
   }
+
   Future<String> user_name({required String token}) async {
     http.Response response = await http.get(
       Uri.parse('https://coffee-app-systems.herokuapp.com/get-user/$token/'),
@@ -43,6 +45,22 @@ class Authentication {
       return users.user!;
     }else{
       return "SuperUser";
+    }
+  }
+
+  Future<dynamic> shop_id({required String token, required String shopName}) async {
+    http.Response response = await http.get(
+      Uri.parse('https://coffee-app-systems.herokuapp.com/get-shop-name/$shopName/'),
+      headers: {
+        "Authorization" : "Token $token"
+      },
+    );
+
+    if(response.statusCode == 200){
+      var users = ShopsDetails.fromJson(jsonDecode(response.body));
+      return users.coffeeShopId;
+    }else{
+      return null;
     }
   }
 }
