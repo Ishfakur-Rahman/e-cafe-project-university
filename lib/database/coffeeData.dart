@@ -15,22 +15,31 @@ class CoffeeDataLocal {
     List<CoffeeModel> coffeeList = [];
     var getcoffeeList = GetAllCoffeeModel.fromJson(jsonDecode(getcoffees));
     var getshopList = GetAllShopModel.fromJson(jsonDecode(getshops));
+
     for (var coffeedetails in getcoffeeList.coffee!) {
-      coffeeList.add(CoffeeModel(
-          id: coffeedetails.name!,
-          location: getshopList.shopsDetails![coffeedetails.shopName!].location!,
-          coffeeShopId: getshopList.shopsDetails![coffeedetails.shopName!].coffeeShopId!,
-          title: getshopList.shopsDetails![coffeedetails.shopName!].name!,
-          subTitle: getshopList.shopsDetails![coffeedetails.shopName!].name!,
-          catagory: coffeedetails.coffeeType!,
-          description: coffeedetails.description!,
-          image: coffeedetails.image!,
-          price: coffeedetails.price!,
-          rating: coffeedetails.ratings!,
-          totalUser: coffeedetails.totalUser!,
-          isfavorite: false,
-          isRecommended: false,
-          isPurchased: false));
+      for (var shopdetails in getshopList.shopsDetails!) {
+        if (shopdetails.coffeeShopId == coffeedetails.shopName) {
+          coffeeList.add(CoffeeModel(
+              id: coffeedetails.name!,
+              location:
+                  getshopList.shopsDetails![coffeedetails.shopName!].location!,
+              coffeeShopId: getshopList
+                  .shopsDetails![coffeedetails.shopName!].coffeeShopId!,
+              title: getshopList.shopsDetails![coffeedetails.shopName!].name!,
+              subTitle:
+                  getshopList.shopsDetails![coffeedetails.shopName!].name!,
+              catagory: coffeedetails.coffeeType!,
+              description: coffeedetails.description!,
+              image: coffeedetails.image!,
+              price: coffeedetails.price!,
+              rating: coffeedetails.ratings!,
+              totalUser: coffeedetails.totalUser!,
+              isfavorite: false,
+              isRecommended: false,
+              isPurchased: false));
+          break;
+        }
+      }
     }
     return coffeeList;
   }
