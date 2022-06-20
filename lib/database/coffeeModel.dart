@@ -11,6 +11,7 @@ class CoffeeModel {
   final String description;
   final String image;
   final int price;
+  final int totalUser;
   final String rating;
   final String location;
   final String id;
@@ -25,6 +26,7 @@ class CoffeeModel {
     required this.title,
     required this.subTitle,
     required this.catagory,
+    required this.totalUser,
     this.ingredients,
     required this.description,
     required this.image,
@@ -45,6 +47,7 @@ class CoffeeModel {
     String? description,
     String? image,
     int? price,
+    int? totalUser,
     String? rating,
     String? location,
     String? id,
@@ -63,6 +66,7 @@ class CoffeeModel {
       image: image ?? this.image,
       price: price ?? this.price,
       rating: rating ?? this.rating,
+      totalUser: totalUser ?? this.totalUser,
       location: location ?? this.location,
       id: id ?? this.id,
       isfavorite: isfavorite ?? this.isfavorite,
@@ -83,6 +87,7 @@ class CoffeeModel {
       'image': image,
       'price': price,
       'rating': rating,
+      'totalUser': totalUser,
       'location': location,
       'coffeeshopid': id,
       'isfavorite': isfavorite,
@@ -103,6 +108,7 @@ class CoffeeModel {
       image: map['image'] ?? '',
       price: map['price']?.toInt() ?? '',
       rating: map['rating'] ?? '',
+      totalUser: map['totalUser'] ?? '',
       location: map['location'] ?? '',
       id: map['id'] ?? '',
       isfavorite: map['isfavorite'] ?? false,
@@ -121,7 +127,7 @@ class CoffeeModel {
 
   @override
   String toString() {
-    return 'CoffeeModel(coffeeShopId: $coffeeShopId, title: $title, subTitle: $subTitle, catagory: $catagory, ingredients: $ingredients, description: $description, image: $image, price: $price, rating: $rating,location: $location, id: $id, isfavorite: $isfavorite, isRecommended: $isRecommended, isPurchased: $isPurchased, purchaseDate: $purchaseDate)';
+    return 'CoffeeModel(coffeeShopId: $coffeeShopId, title: $title, subTitle: $subTitle, catagory: $catagory, ingredients: $ingredients, description: $description, image: $image, price: $price, rating: $rating,location: $location, id: $id,totalUser: $totalUser, isfavorite: $isfavorite, isRecommended: $isRecommended, isPurchased: $isPurchased, purchaseDate: $purchaseDate)';
   }
 
   @override
@@ -138,6 +144,7 @@ class CoffeeModel {
         other.image == image &&
         other.price == price &&
         other.rating == rating &&
+        other.totalUser == totalUser &&
         other.location == location &&
         other.id == id &&
         other.isfavorite == isfavorite &&
@@ -157,6 +164,7 @@ class CoffeeModel {
         image.hashCode ^
         price.hashCode ^
         rating.hashCode ^
+        totalUser.hashCode ^
         location.hashCode ^
         id.hashCode ^
         isfavorite.hashCode ^

@@ -1,38 +1,43 @@
 import 'package:versity_project_coffee/database/coffeeModel.dart';
 
+import 'package:versity_project_coffee/backend_api/coffeedata.dart';
+import 'package:versity_project_coffee/backend_api/shopdetails.dart';
+
 import '../api_data_model/get_coffee_model.dart';
+import '../api_data_model/get_shops_model.dart';
 
 class CoffeeDataLocal {
   Future<List<CoffeeModel>> create_list() async {
-    List<GetAllCoffeeModel> getList = [];
+    List<Coffee> getcoffeeList = await CoffeeData().get_all_coffee();
+    List<ShopsDetails> getshopList = await ShopDetail().get_all_shop_details();
     List<CoffeeModel> coffeeList = [];
 
-    for (var coffeedetails in getList) {
-      for(int i =0;i<getList.length;i++){
-        int j = coffeedetails.coffee![i].shopName!;
+    for (var coffeedetails in getcoffeeList) {
       coffeeList.add(CoffeeModel(
-          id: coffeedetails.coffee![i].name!,
-          location: coffeedetails.shopDetails![j].location!,
-          coffeeShopId: coffeedetails.shopDetails![j].coffeeShopId!,
-          title: coffeedetails.shopDetails![j].name!,
-          subTitle: coffeedetails.shopDetails![j].name!,
-          catagory: coffeedetails.coffee![i].coffeeType!,
-          description: coffeedetails.coffee![i].description!,
-          image: coffeedetails.coffee![i].image!,
-          price: coffeedetails.coffee![i].price!,
-          rating: coffeedetails.coffee![i].ratings!,
+          id: coffeedetails.name!,
+          location: getshopList[coffeedetails.shopName!].location!,
+          coffeeShopId: getshopList[coffeedetails.shopName!].coffeeShopId!,
+          title: getshopList[coffeedetails.shopName!].name!,
+          subTitle: getshopList[coffeedetails.shopName!].name!,
+          catagory: coffeedetails.coffeeType!,
+          description: coffeedetails.description!,
+          image: coffeedetails.image!,
+          price: coffeedetails.price!,
+          rating: coffeedetails.ratings!,
+          totalUser: coffeedetails.totalUser!,
           isfavorite: false,
           isRecommended: false,
-          isPurchased: false));}
+          isPurchased: false));
     }
     return coffeeList;
   }
 
-  Future<List<String>> get catagoryList async{
+  Future<List<String>> get catagoryList async {
     List<String> uniCatagoryList = [];
     (await create_list()).forEach((coffee) {
-      if (!uniCatagoryList.contains(coffee.catagory))
+      if (!uniCatagoryList.contains(coffee.catagory)) {
         uniCatagoryList.add(coffee.catagory);
+      }
     });
 
     return uniCatagoryList;
