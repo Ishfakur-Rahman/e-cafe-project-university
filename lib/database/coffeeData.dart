@@ -16,24 +16,24 @@ class CoffeeDataLocal {
     var getcoffeeList = GetAllCoffeeModel.fromJson(jsonDecode(getcoffees));
     var getshopList = GetAllShopModel.fromJson(jsonDecode(getshops));
 
-    for (var coffeedetails in getcoffeeList.coffee!) {
-      for (var shopdetails in getshopList.shopsDetails!) {
-        if (shopdetails.coffeeShopId == coffeedetails.shopName) {
+    for (var coffees in getcoffeeList.coffee!) {
+      for (var shops in getshopList.shopsDetails!) {
+        if (shops.coffeeShopId == coffees.shopName) {
           coffeeList.add(CoffeeModel(
-              id: coffeedetails.name!,
+              id: coffees.name!,
               location:
-                  getshopList.shopsDetails![coffeedetails.shopName!].location!,
+                  getshopList.shopsDetails![coffees.shopName!].location!,
               coffeeShopId: getshopList
-                  .shopsDetails![coffeedetails.shopName!].coffeeShopId!,
-              title: getshopList.shopsDetails![coffeedetails.shopName!].name!,
+                  .shopsDetails![coffees.shopName!].coffeeShopId!,
+              title: getshopList.shopsDetails![coffees.shopName!].name!,
               subTitle:
-                  getshopList.shopsDetails![coffeedetails.shopName!].name!,
-              catagory: coffeedetails.coffeeType!,
-              description: coffeedetails.description!,
-              image: coffeedetails.image!,
-              price: coffeedetails.price!,
-              rating: coffeedetails.ratings!,
-              totalUser: coffeedetails.totalUser!,
+                  getshopList.shopsDetails![coffees.shopName!].name!,
+              catagory: coffees.coffeeType!,
+              description: coffees.description!,
+              image: coffees.image!,
+              price: coffees.price!,
+              rating: coffees.ratings!,
+              totalUser: coffees.totalUser!,
               isfavorite: false,
               isRecommended: false,
               isPurchased: false));
