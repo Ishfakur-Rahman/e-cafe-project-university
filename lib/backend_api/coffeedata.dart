@@ -129,22 +129,20 @@ class CoffeeData {
     }
   }
 
-  Future get_a_coffe({
+  Future<dynamic> get_a_coffe({
     required String coffee_id,
   }) async {
     http.Response response = await http.get(
         Uri.parse(
             'https://coffee-app-systems.herokuapp.com/update-coffee/$coffee_id/'),
         headers: {"Authorization": "Token $token"});
-    var a_coffee = GetSingleCoffeeModel.fromJson(jsonDecode(response.body));
-    return a_coffee;
+    return response.body;
   }
 
-  Future get_all_coffee() async {
+  Future<dynamic> get_all_coffee() async {
     http.Response response = await http.get(
         Uri.parse('https://coffee-app-systems.herokuapp.com/get-coffee/'),
         headers: {"Authorization": "Token $token"});
-    var coffees = GetAllCoffeeModel.fromJson(jsonDecode(response.body));
-    return coffees;
+    return response.body;
   }
 }
