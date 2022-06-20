@@ -21,13 +21,10 @@ class CoffeeDataLocal {
         if (shops.coffeeShopId == coffees.shopName) {
           coffeeList.add(CoffeeModel(
               id: coffees.name!,
-              location:
-                  getshopList.shopsDetails![coffees.shopName!].location!,
-              coffeeShopId: getshopList
-                  .shopsDetails![coffees.shopName!].coffeeShopId!,
-              title: getshopList.shopsDetails![coffees.shopName!].name!,
-              subTitle:
-                  getshopList.shopsDetails![coffees.shopName!].name!,
+              location: shops.location!,
+              coffeeShopId: shops.coffeeShopId!,
+              title: shops.name!,
+              subTitle: shops.name!,
               catagory: coffees.coffeeType!,
               description: coffees.description!,
               image: coffees.image!,
