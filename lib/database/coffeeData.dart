@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:versity_project_coffee/database/coffeeModel.dart';
 
 import 'package:versity_project_coffee/backend_api/coffeedata.dart';
@@ -8,17 +10,18 @@ import '../api_data_model/get_shops_model.dart';
 
 class CoffeeDataLocal {
   Future<List<CoffeeModel>> create_list() async {
-    List<Coffee> getcoffeeList = await CoffeeData().get_all_coffee();
-    List<ShopsDetails> getshopList = await ShopDetail().get_all_shop_details();
+    var getcoffees = await CoffeeData().get_all_coffee();
+    var getshops = await ShopDetail().get_all_shop_details();
     List<CoffeeModel> coffeeList = [];
-
-    for (var coffeedetails in getcoffeeList) {
+    var getcoffeeList = GetAllCoffeeModel.fromJson(jsonDecode(getcoffees));
+    var getshopList = GetAllShopModel.fromJson(jsonDecode(getshops));
+    for (var coffeedetails in getcoffeeList.coffee!) {
       coffeeList.add(CoffeeModel(
           id: coffeedetails.name!,
-          location: getshopList[coffeedetails.shopName!].location!,
-          coffeeShopId: getshopList[coffeedetails.shopName!].coffeeShopId!,
-          title: getshopList[coffeedetails.shopName!].name!,
-          subTitle: getshopList[coffeedetails.shopName!].name!,
+          location: getshopList.shopsDetails![coffeedetails.shopName!].location!,
+          coffeeShopId: getshopList.shopsDetails![coffeedetails.shopName!].coffeeShopId!,
+          title: getshopList.shopsDetails![coffeedetails.shopName!].name!,
+          subTitle: getshopList.shopsDetails![coffeedetails.shopName!].name!,
           catagory: coffeedetails.coffeeType!,
           description: coffeedetails.description!,
           image: coffeedetails.image!,
