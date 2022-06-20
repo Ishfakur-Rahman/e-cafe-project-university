@@ -1,22 +1,15 @@
 class GetAllCoffeeModel {
   int? totalItems;
   List<Coffee>? coffee;
-  List<ShopDetails>? shopDetails;
 
-  GetAllCoffeeModel({this.totalItems, this.coffee, this.shopDetails});
+  GetAllCoffeeModel({this.totalItems, this.coffee});
 
   GetAllCoffeeModel.fromJson(Map<String, dynamic> json) {
     totalItems = json['total_items'];
     if (json['coffee'] != null) {
       coffee = <Coffee>[];
       json['coffee'].forEach((v) {
-        coffee!.add(new Coffee.fromJson(v));
-      });
-    }
-    if (json['shop_details'] != null) {
-      shopDetails = <ShopDetails>[];
-      json['shop_details'].forEach((v) {
-        shopDetails!.add(new ShopDetails.fromJson(v));
+        coffee!.add(Coffee.fromJson(v));
       });
     }
   }
@@ -37,16 +30,16 @@ class Coffee {
 
   Coffee(
       {this.name,
-        this.image,
-        this.ratings,
-        this.taste,
-        this.coffeeType,
-        this.description,
-        this.price,
-        this.totalUser,
-        this.updatedAt,
-        this.shopName,
-        this.user});
+      this.image,
+      this.ratings,
+      this.taste,
+      this.coffeeType,
+      this.description,
+      this.price,
+      this.totalUser,
+      this.updatedAt,
+      this.shopName,
+      this.user});
 
   Coffee.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -60,21 +53,5 @@ class Coffee {
     updatedAt = json['updated_at'];
     shopName = json['shopName'];
     user = json['user'];
-  }
-}
-
-class ShopDetails {
-  int? coffeeShopId;
-  String? name;
-  String? location;
-  String? createdAt;
-
-  ShopDetails({this.coffeeShopId, this.name, this.location, this.createdAt});
-
-  ShopDetails.fromJson(Map<String, dynamic> json) {
-    coffeeShopId = json['coffee_shop_id'];
-    name = json['name'];
-    location = json['location'];
-    createdAt = json['created_at'];
   }
 }
