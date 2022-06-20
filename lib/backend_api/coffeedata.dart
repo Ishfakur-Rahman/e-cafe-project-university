@@ -6,7 +6,7 @@ import '../api_data_model/get_single_coffee_model.dart';
 import '../database/userBoxController.dart';
 
 class CoffeeData {
-  int coffeeShopName =  UserBoxController().shopId;
+  int coffeeShopName = UserBoxController().shopId;
   String sellerName = UserBoxController().userName;
   String token = UserBoxController().token;
   Future<bool> addCoffee({
@@ -17,49 +17,49 @@ class CoffeeData {
     required int price,
     required File? imagefile,
   }) async {
-    // var stream  = new http.ByteStream(imagefile!.openRead());
-    // stream.cast();
-    //
-    // var length = await imagefile!.length();
-    //
-    // var uri = Uri.parse('https://fakestoreapi.com/products');
-    //
-    // var request = new http.MultipartRequest('POST', uri);
-    //
-    // request.fields['name'] = "$coffeeName" ;
-    // request.fields['ratings'] = "0";
-    // request.fields['taste'] = "$coffeeTaste";
-    // request.fields['coffeeType'] = "$coffeeType";
-    // request.fields['description'] = "$description";
-    // request.fields['price'] = "23";
-    // request.fields['user'] = "$sellerName";
-    // request.fields['shopName'] = "$coffeeShopName";
-    //
-    // var multiport = new http.MultipartFile(
-    //     'image',
-    //     stream,
-    //     length);
-    //
-    // request.files.add(multiport);
-    //
-    // var response = await request.send() ;
-    http.Response response = await http.post(
-        Uri.parse('https://coffee-app-systems.herokuapp.com/add-coffee/'),
-        body: {
-          "name": coffeeName,
-          "image": imagefile,
-          "ratings": 0,
-          "totalUser": 0,
-          "taste": coffeeTaste,
-          "coffeeType": coffeeType,
-          "description": description,
-          "price": price,
-          "shopName": coffeeShopName,
-          "user": sellerName
-        },
-        headers: {
-          "Authorization": "Token $token"
-        });
+    var stream = http.ByteStream(imagefile!.openRead());
+    stream.cast();
+
+    var length = await imagefile.length();
+
+    var uri = Uri.parse('https://coffee-app-systems.herokuapp.com/add-coffee/');
+
+    var request = http.MultipartRequest('POST', uri);
+
+    request.headers['Authorization'] = "Token $token";
+
+    request.fields['name'] = coffeeName;
+    request.fields['ratings'] = "0";
+    request.fields['totalUser'] = "0";
+    request.fields['taste'] = coffeeTaste;
+    request.fields['coffeeType'] = coffeeType;
+    request.fields['description'] = description;
+    request.fields['price'] = "$price";
+    request.fields['user'] = sellerName;
+    request.fields['shopName'] = "$coffeeShopName";
+
+    var multiport = http.MultipartFile('image', stream, length);
+
+    request.files.add(multiport);
+
+    var response = await request.send();
+    // http.Response response = await http.post(
+    //     Uri.parse('https://coffee-app-systems.herokuapp.com/add-coffee/'),
+    //     body: {
+    //       "name": coffeeName,
+    //       "image": imagefile,
+    //       "ratings": 0,
+    //       "totalUser": 0,
+    //       "taste": coffeeTaste,
+    //       "coffeeType": coffeeType,
+    //       "description": description,
+    //       "price": price,
+    //       "shopName": coffeeShopName,
+    //       "user": sellerName
+    //     },
+    //     headers: {
+    //       "Authorization": "Token $token"
+    //     });
     if (response.statusCode == 200) {
       return true;
     } else {
@@ -67,7 +67,7 @@ class CoffeeData {
     }
   }
 
-  Future<void> update_coffee_data({
+  Future<bool> update_coffee_data({
     required String coffee_id,
     String? name,
     File? image,
@@ -78,24 +78,56 @@ class CoffeeData {
     String? description,
     int? price,
   }) async {
-    http.Response response = await http.patch(
-        Uri.parse(
-            'https://coffee-app-systems.herokuapp.com/update-coffee/$coffee_id/'),
-        headers: {
-          "Authorization": "Token $token"
-        },
-        body: {
-          "name": name,
-          "image": image,
-          "ratings": ratings,
-          "taste": taste,
-          "coffeeType": coffeeType,
-          "description": description,
-          "price": price,
-          "user": name
-        });
-    //is any of the field in this json is null then it doesn't upload the value.by postman
-    //testing would visualize the action in real time using
+    var response;
+    var uri = Uri.parse(
+        'https://coffee-app-systems.herokuapp.com/update-coffee/$coffee_id/');
+    if (image != null) {
+      var stream = http.ByteStream(image.openRead());
+      stream.cast();
+
+      var length = await image.length();
+
+      var request = http.MultipartRequest('PATCH', uri);
+      request.headers['Authorization'] = "Token $token";
+
+      request.fields['name'] = name!;
+      request.fields['ratings'] = ratings.toString();
+      request.fields['totalUser'] = total_users.toString();
+      request.fields['taste'] = taste!;
+      request.fields['coffeeType'] = coffeeType!;
+      request.fields['description'] = description!;
+      request.fields['price'] = "$price";
+      request.fields['user'] = name;
+
+      var multiport = http.MultipartFile('image', stream, length);
+
+      request.files.add(multiport);
+
+      response = await request.send();
+    } else {
+      response = await http.patch(
+          Uri.parse(
+              'https://coffee-app-systems.herokuapp.com/update-coffee/$coffee_id/'),
+          headers: {
+            "Authorization": "Token $token"
+          },
+          body: {
+            "name": name,
+            "image": image,
+            "ratings": ratings,
+            "taste": taste,
+            "coffeeType": coffeeType,
+            "description": description,
+            "price": price,
+            "user": name
+          });
+    }
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   Future get_a_coffe({
