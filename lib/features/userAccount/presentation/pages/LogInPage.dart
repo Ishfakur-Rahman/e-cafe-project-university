@@ -193,10 +193,14 @@ class LogInButton extends StatelessWidget {
 
               if (_existUser == true) {
                 var role = await Authentication().user_role(token: token);
+                var username = await Authentication().user_name(token: token);
                 UserBoxController().addRole(role);
+                UserBoxController().addUserName(username);
                 if (role == 'buyer') {
                   Get.off(() => BottomPage());
                 } else if (role == 'seller') {
+                  var shopId = await Authentication().shop_id(token: token, shopName: username);
+                  UserBoxController().addShopId(shopId as int);
                   Get.off(() => HomePage());
                 }
               } else {
