@@ -23,11 +23,8 @@ class _ImagePickerHelperState extends State<ImagePickerHelper> {
     } on PlatformException catch (e) {}
   }
 
-  Future<File?> uploadFiles() async {
-    if (image == null){
-      return null;
-    }
-    return image;
+  Future<File> uploadFiles() async {
+    return image!;
   }
 
   Widget buildButton({
@@ -105,7 +102,7 @@ class _ImagePickerHelperState extends State<ImagePickerHelper> {
                 title: 'Done',
                 icon: Icons.cloud_upload_outlined,
                 onClicked: () async {
-                  File? imagefile = await uploadFiles();
+                  File imagefile = await uploadFiles();
                   Navigator.pop(context, imagefile);
                 }),
             Spacer(),
