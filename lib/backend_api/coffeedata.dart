@@ -3,9 +3,11 @@ import 'package:http/http.dart' as http;
 import '../database/userBoxController.dart';
 
 class CoffeeData {
-  int coffeeShopName = UserBoxController().shopId;
-  String sellerName = UserBoxController().userName;
-  String token = UserBoxController().token;
+
+  late int coffeeShopName;
+  late String sellerName;
+  late String token;
+
   Future<bool> addCoffee({
     required String coffeeType,
     required String coffeeTaste,
@@ -14,6 +16,11 @@ class CoffeeData {
     required int price,
     required File? imagefile,
   }) async {
+
+    token = UserBoxController().token;
+    sellerName = UserBoxController().userName;
+    coffeeShopName= UserBoxController().shopId;
+
     var stream = http.ByteStream(imagefile!.openRead());
     stream.cast();
 
@@ -75,6 +82,11 @@ class CoffeeData {
     String? description,
     int? price,
   }) async {
+
+    token = UserBoxController().token;
+    sellerName = UserBoxController().userName;
+    coffeeShopName= UserBoxController().shopId;
+
     var response;
     var uri = Uri.parse(
         'https://coffee-app-systems.herokuapp.com/update-coffee/$coffee_id/');
@@ -129,6 +141,7 @@ class CoffeeData {
   Future<dynamic> get_a_coffe({
     required String coffee_id,
   }) async {
+    token = UserBoxController().token;
     http.Response response = await http.get(
         Uri.parse(
             'https://coffee-app-systems.herokuapp.com/update-coffee/$coffee_id/'),
@@ -137,6 +150,7 @@ class CoffeeData {
   }
 
   Future<dynamic> get_all_coffee() async {
+    token = UserBoxController().token;
     http.Response response = await http.get(
         Uri.parse('https://coffee-app-systems.herokuapp.com/get-coffee/'),
         headers: {"Authorization": "Token $token"});
