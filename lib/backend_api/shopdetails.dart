@@ -14,8 +14,8 @@ class ShopDetail{
       "Authorization": "Token $token"
     });
     if(response.statusCode == 200){
-      var shopsdetails = GetAllShopModel.fromJson(jsonDecode(response.body));
-      return shopsdetails;
+      
+      return response.body;
     }else{
       return 'failed action';
     }

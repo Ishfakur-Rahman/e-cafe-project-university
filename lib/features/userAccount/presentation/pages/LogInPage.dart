@@ -159,8 +159,10 @@ class LogInButton extends StatelessWidget {
         UserBoxController().addToken(token);
         return true;
       }
+      Get.snackbar("Error", "Wrong email or password", colorText: Colors.red);
       return false;
     } catch (e) {
+      Get.snackbar("Error", e.toString(), colorText: Colors.red);
       return false;
     }
   }
@@ -199,7 +201,8 @@ class LogInButton extends StatelessWidget {
                 if (role == 'buyer') {
                   Get.off(() => BottomPage());
                 } else if (role == 'seller') {
-                  var shopId = await Authentication().shop_id(token: token, shopName: username);
+                  var shopId = await Authentication()
+                      .shop_id(token: token, shopName: username);
                   UserBoxController().addShopId(shopId as int);
                   Get.off(() => HomePage());
                 }

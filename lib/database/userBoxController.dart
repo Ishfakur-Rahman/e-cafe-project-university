@@ -20,6 +20,7 @@ class UserBoxController {
   void addRole(String role) async {
     box = getBox();
     await box.put("role", role);
+    print("addRole");
   }
 
   String get role => getBox().get("role")!;
@@ -27,6 +28,7 @@ class UserBoxController {
   void addUserName(String userName) async {
     box = getBox();
     await box.put("userName", userName);
+    print("addUserName");
   }
 
   String get userName => getBox().get("userName")!;
@@ -34,6 +36,7 @@ class UserBoxController {
   void addShopId(int shopId) async {
     box = getBox();
     await box.put("shopId", shopId.toString());
+    print("ShopID");
   }
 
   int get shopId => int.parse(getBox().get("shopId")!);

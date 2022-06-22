@@ -21,7 +21,6 @@ dependencies:
   hive_flutter: ^1.1.0
   iconsax: ^0.0.8
   image_picker: ^0.8.5+3
-  in_app_notification: any
   path_provider: ^2.0.10
   url_launcher: ^6.0.20
 

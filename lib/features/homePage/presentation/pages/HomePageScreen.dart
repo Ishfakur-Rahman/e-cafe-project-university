@@ -1,8 +1,15 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/Theme/mText.dart';
+import 'package:versity_project_coffee/api_data_model/get_coffee_model.dart';
+import 'package:versity_project_coffee/backend_api/coffeedata.dart';
+import 'package:versity_project_coffee/database/coffeeData.dart';
+import 'package:versity_project_coffee/database/coffeeModel.dart';
+import 'package:versity_project_coffee/database/userBoxController.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/addFormPage.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -20,7 +27,12 @@ class HomeScreen extends StatelessWidget {
               children: [
                 MText("Your Products", color: MColors.yellow).heading1(),
                 Spacer(),
-                IconButton(onPressed: (){}, icon: Icon(Iconsax.filter, color: MColors.yellow,))
+                IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      Iconsax.filter,
+                      color: MColors.yellow,
+                    ))
               ],
             ),
           ),
@@ -28,8 +40,9 @@ class HomeScreen extends StatelessWidget {
               shrinkWrap: true,
               primary: false,
               itemBuilder: (build, context) => ItemViewer(),
-              separatorBuilder: (build, context) =>
-                  Divider(color: Color.fromARGB(181, 50, 49, 49)),
+              separatorBuilder: (build, context) => SizedBox(
+                    height: 7,
+                  ),
               itemCount: 10),
         ],
       ),
@@ -121,8 +134,12 @@ class Ratings extends StatelessWidget {
 class ItemViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    HomePageController ctrl = Get.put(HomePageController());
     return GestureDetector(
-      onTap: (){},
+      onTap: () async {
+        var coffees = await CoffeeData().get_all_coffee();
+        print(GetAllCoffeeModel.fromJson(jsonDecode(coffees)));
+      },
       child: Stack(
         alignment: Alignment.topRight,
         children: [
@@ -242,5 +259,23 @@ class ItemViewer extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class HomePageController extends GetxController {
+  List<CoffeeModel> listofcoffee = [];
+  void onInit() async {
+    var coffee = CoffeeDataLocal();
+    super.onInit();
+    listofcoffee = await coffee.create_list();
+  }
+
+  RxList<CoffeeModel> get allCoffeeList => listofcoffee
+      .where((coffee) => (coffee.coffeeShopId == UserBoxController().shopId))
+      .toList()
+      .obs;
+
+  Rx<int> getCoffeeId(int index) {
+    return allCoffeeList[index].coffeeShopId.obs;
   }
 }

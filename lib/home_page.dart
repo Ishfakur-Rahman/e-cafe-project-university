@@ -4,12 +4,13 @@ import 'package:versity_project_coffee/database/cartBoxController.dart';
 import 'package:versity_project_coffee/database/cartModel.dart';
 import 'package:versity_project_coffee/database/coffeeData.dart';
 import 'database/coffeeModel.dart';
+import 'database/userBoxController.dart';
 import 'detail_page.dart';
 
 class HomePage extends StatelessWidget {
   static var screenHeight;
   static var screenWidth;
-  HomePageController ctrl = Get.put(HomePageController());
+  SHomePageController ctrl = Get.put(SHomePageController());
 
   Widget buildCoffeeCategory({categoryName, isSelected}) {
     return GestureDetector(
@@ -282,14 +283,13 @@ class HomePage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return Padding(
                             padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: Obx(
-                              () => buildCoffeeCategory(
+                            child: buildCoffeeCategory(
                                   categoryName:
                                       ctrl.observableCatagoryList[index],
                                   isSelected: ctrl.selectedCategories.value
                                       .contains(
                                           ctrl.observableCatagoryList[index])),
-                            ));
+                            );
                       }),
                 ),
                 SizedBox(
@@ -330,130 +330,135 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Obx(() => ListView.separated(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: ctrl.allCoffeeList.length,
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(
-                        height: 20,
-                      );
-                    },
-                    itemBuilder: (context, index) {
-                      int id = ctrl.getCoffeeId(index).value;
-                      String images = ctrl.listofcoffee[id].image;
-                      String title = ctrl.listofcoffee[id].title;
-                      String subTitle = ctrl.listofcoffee[id].subTitle;
-                      int price = ctrl.listofcoffee[id].price;
-                      String rating = ctrl.listofcoffee[id].rating;
+                FutureBuilder(
+                  builder: (context, sanapshot) {
+                    return ListView.separated(
+                        physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: ctrl.allCoffeeList.length,
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(
+                            height: 20,
+                          );
+                        },
+                        itemBuilder: (context, index) {
+                          int id = ctrl.getCoffeeId(index).value;
+                          String images = ctrl.listofcoffee[id].image;
+                          String title = ctrl.listofcoffee[id].title;
+                          String subTitle = ctrl.listofcoffee[id].subTitle;
+                          int price = ctrl.listofcoffee[id].price;
+                          String rating = ctrl.listofcoffee[id].rating;
 
-                      return Container(
-                        padding: const EdgeInsets.all(12.0),
-                        margin: const EdgeInsets.symmetric(horizontal: 15),
-                        height: HomePage.screenHeight * 0.2 - 20,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: const Color(0xff171b22),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      blurRadius: 2.0,
-                                      spreadRadius: 1.0,
-                                      color: Color(0xff30221f),
-                                    ),
-                                  ],
-                                  image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: AssetImage(
-                                      images,
-                                    ),
-                                  ),
-                                  borderRadius: BorderRadius.circular(20.0),
-                                ),
-                              ),
+                          return Container(
+                            padding: const EdgeInsets.all(12.0),
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
+                            height: HomePage.screenHeight * 0.2 - 20,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: const Color(0xff171b22),
+                              borderRadius: BorderRadius.circular(25),
                             ),
-                            const SizedBox(
-                              width: 20.0,
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    title,
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w400,
-                                    ),
-                                  ),
-                                  Text(
-                                    subTitle,
-                                    style: TextStyle(
-                                      color: Color(0xffaeaeae),
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "\$\t",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Color(0xffd17842),
-                                            ),
-                                          ),
-                                          Text(
-                                            '$price',
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ],
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          blurRadius: 2.0,
+                                          spreadRadius: 1.0,
+                                          color: Color(0xff30221f),
+                                        ),
+                                      ],
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: AssetImage(
+                                          images,
+                                        ),
                                       ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: const Color(0xffd17842),
-                                          borderRadius:
-                                              BorderRadius.circular(10.0),
+                                      borderRadius: BorderRadius.circular(20.0),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 20.0,
+                                ),
+                                Expanded(
+                                  flex: 2,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        title,
+                                        style: TextStyle(
+                                          fontSize: 17,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w400,
                                         ),
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            ctrl.addCart(
-                                              id: id,
-                                              images: images,
-                                              title: title,
-                                              subTitle: subTitle,
-                                              price: price,
-                                              rating: rating,
-                                            );
-                                          },
-                                          child: const Icon(Icons.add,
-                                              size: 30, color: Colors.white),
+                                      ),
+                                      Text(
+                                        subTitle,
+                                        style: TextStyle(
+                                          color: Color(0xffaeaeae),
                                         ),
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                "\$\t",
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color(0xffd17842),
+                                                ),
+                                              ),
+                                              Text(
+                                                '$price',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xffd17842),
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                ctrl.addCart(
+                                                  id: id,
+                                                  images: images,
+                                                  title: title,
+                                                  subTitle: subTitle,
+                                                  price: price,
+                                                  rating: rating,
+                                                );
+                                              },
+                                              child: const Icon(Icons.add,
+                                                  size: 30, color: Colors.white),
+                                            ),
+                                          )
+                                        ],
                                       )
                                     ],
-                                  )
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      );
-                    })),
+                                  ),
+                                )
+                              ],
+                            ),
+                          );
+                        });
+                  },
+                  future: CoffeeDataLocal().catagoryList
+                ),
                 Container(
                   margin: const EdgeInsets.only(right: 15),
                   height: 25.0,
@@ -491,7 +496,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class HomePageController extends GetxController {
+class SHomePageController extends GetxController {
   static List<String> catagory = [];
   List<CoffeeModel> listofcoffee = [];
   void onInit() async {

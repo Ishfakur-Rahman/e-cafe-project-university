@@ -4,6 +4,7 @@ import 'package:versity_project_coffee/database/hiveRepository.dart';
 import 'package:versity_project_coffee/database/userBoxController.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/pages/LogInPage.dart';
 import 'package:get/get.dart';
+import 'features/homePage/presentation/pages/sellerPage.dart';
 import 'features/userAccount/presentation/pages/LogInPage.dart';
 
 void main() async {
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

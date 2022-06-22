@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:versity_project_coffee/maha/pallete.dart';
 import 'package:versity_project_coffee/maha/widgets/widgets.dart';
 
+import '../../backend_api/loginauthentication.dart';
 import '../../backend_api/registrationhandling.dart';
 import '../../bottom_page.dart';
 import '../../database/userBoxController.dart';
@@ -36,7 +37,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
       UserBoxController().addToken(token);
       UserBoxController().addUserName(user);
       UserBoxController().addRole(selectedUser);
-
+      if (selectedUser == 'buyer') {
+        Get.off(() => BottomPage());
+      } else if (selectedUser == 'seller') {
+        var shopId =
+            await Authentication().shop_id(token: token, shopName: user);
+        UserBoxController().addShopId(shopId as int);
+        print("Shop Id: " + shopId.toString());///TODO: ata thik ache?
+      }
       return true;
     } catch (e) {
       print(e.toString());
@@ -44,6 +52,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       return false;
     }
   }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -155,11 +164,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               Get.offAll(() => HomePage());
                             }
                           } else {
-                            print("Message: " + messages);
+                            Get.snackbar("Error",
+                                "Something went wrong. Please try again",
+                                colorText: Colors.red);
                             Navigator.pop(dialogContext!);
                           }
                         } else {
-                          print('Your password doesn\'t matched');
+                          Get.snackbar(
+                              "Error", "Something went wrong. Please try again",
+                              colorText: Colors.red);
                         }
                       },
                     ),
