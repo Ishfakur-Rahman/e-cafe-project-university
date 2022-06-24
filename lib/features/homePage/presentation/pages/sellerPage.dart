@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
           ),
           body: Obx(() => IndexedStack(index: ctrl.tabIndex.value, children: [
                 HomeScreen(),
-                ProfileUserScreen(),
+                // ProfileUserScreen(),
                 SettingsScreen(),
               ])),
           bottomNavigationBar: Obx(() => BottomNavigationBar(
@@ -42,8 +42,8 @@ class HomePage extends StatelessWidget {
                   items: const [
                     BottomNavigationBarItem(
                         icon: Icon(Iconsax.home), label: 'Home'),
-                BottomNavigationBarItem(
-                    icon: Icon(Iconsax.profile_2user), label: 'Profile'),
+                // BottomNavigationBarItem(
+                //     icon: Icon(Iconsax.profile_2user), label: 'Profile'),
                 BottomNavigationBarItem(
                     icon: Icon(Iconsax.setting_2), label: 'Setting'),
               ])),

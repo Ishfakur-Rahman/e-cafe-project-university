@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:versity_project_coffee/backend_api/coffeedata.dart';
 import 'package:versity_project_coffee/database/cartBoxController.dart';
 import 'package:versity_project_coffee/database/cartModel.dart';
 import 'package:versity_project_coffee/database/coffeeData.dart';
@@ -58,7 +59,8 @@ class HomePage extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => DetailPage(model: model))); //todo modifying detail page
+            builder: (context) =>
+                DetailPage(model: model, id: id))); //todo modifying detail page
       },
       child: Container(
         width: HomePage.screenWidth * 0.4 + 10,
@@ -213,126 +215,135 @@ class HomePage extends StatelessWidget {
       body: SafeArea(
         child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                SizedBox(height: 10),
-                Center(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10),
-                          child: GestureDetector(
-                            onTap: () {
-                              Get.to(() => OfferPage());
-                            },
-                            child: Container(
-                              height: 60,
-                              width: 60,
-                              decoration: BoxDecoration(
-                                color: const Color(0xff141921),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: const Icon(
-                                Icons.grid_view_rounded,
-                                color: Color(0xff4d4f52),
-                                size: 20,
+            child: FutureBuilder(
+              builder: (context, snapshot) {
+                if (snapshot.hasData) ctrl.setCoffeeData(snapshot.data);
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(height: 10),
+                    Center(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: GestureDetector(
+                                onTap: () {
+                                  Get.to(() => OfferPage());
+                                },
+                                child: Container(
+                                  height: 60,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                    color: const Color(0xff141921),
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  child: const Icon(
+                                    Icons.grid_view_rounded,
+                                    color: Color(0xff4d4f52),
+                                    size: 20,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                      SizedBox(width: 15),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: SizedBox(
-                          width: Get.width - 120,
-                          child: TextField(
-                            style: const TextStyle(color: Colors.white),
-                            decoration: InputDecoration(
-                                prefixIcon: const Icon(
-                                  Icons.search,
-                                  color: Color(0xff52555a),
-                                ),
-                                hintText: "Find your coffee...",
-                                hintStyle: const TextStyle(
-                                  color: Color(0xff52555a),
-                                ),
-                                fillColor: const Color(0xff141921),
-                                filled: true,
-                                border: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(10.0),
-                                )),
+                          SizedBox(width: 15),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: SizedBox(
+                              width: Get.width - 120,
+                              child: TextField(
+                                style: const TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                    prefixIcon: const Icon(
+                                      Icons.search,
+                                      color: Color(0xff52555a),
+                                    ),
+                                    hintText: "Find your coffee...",
+                                    hintStyle: const TextStyle(
+                                      color: Color(0xff52555a),
+                                    ),
+                                    fillColor: const Color(0xff141921),
+                                    filled: true,
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(10.0),
+                                    )),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 20),
-                SizedBox(
-                  height: 40,
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: ctrl.observableCatagoryList.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 10),
-                            child: buildCoffeeCategory(
-                                  categoryName:
-                                      ctrl.observableCatagoryList[index],
-                                  isSelected: ctrl.selectedCategories.value
-                                      .contains(
-                                          ctrl.observableCatagoryList[index])),
-                            );
-                      }),
-                ),
-                SizedBox(
-                  height: HomePage.screenHeight * 0.3,
-                  child: Obx(() => ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      shrinkWrap: true,
-                      itemCount: ctrl.recommendedCoffeeList.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        int id = ctrl.getRecomendedCoffeeId(index).value;
-                        String images = ctrl.listofcoffee[id].image;
-                        String title = ctrl.listofcoffee[id].title;
-                        String subTitle = ctrl.listofcoffee[id].subTitle;
-                        int price = ctrl.listofcoffee[id].price;
-                        String rating = ctrl.listofcoffee[id].rating;
-                        return buildSingleItem(
-                          context: context,
-                          id: index,
-                          images: images,
-                          title: title,
-                          subTitle: subTitle,
-                          price: price,
-                          rating: rating,
-                          model: ctrl.listofcoffee[id]
-                        );
-                      })),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 5),
-                  child: ListTile(
-                    leading: Text(
-                      "Coffee's you must try once!...",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w400,
+                        ],
                       ),
                     ),
-                  ),
-                ),
-                FutureBuilder(
-                  builder: (context, sanapshot) {
-                    return ListView.separated(
+                    SizedBox(height: 20),
+                    SizedBox(
+                      height: 40,
+                      child: Builder(
+                        builder: (context) {
+                          List<String> catagories = ctrl.catagory;
+                          return ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: catagories.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    child: Obx(
+                                      () => buildCoffeeCategory(
+                                          categoryName: catagories[index],
+                                          isSelected: ctrl
+                                              .selectedCategories.value
+                                              .contains(catagories[index])),
+                                    ));
+                              });
+                        },
+                      ),
+                    ),
+                    // SizedBox(
+                    //   height: HomePage.screenHeight * 0.3,
+                    //   child: Obx(() => ListView.builder(
+                    //       scrollDirection: Axis.horizontal,
+                    //       shrinkWrap: true,
+                    //       itemCount: ctrl.recommendedCoffeeList.length,
+                    //       itemBuilder: (BuildContext context, int index) {
+                    //         int id = ctrl.getRecomendedCoffeeId(index).value;
+                    //         String images = ctrl.listofcoffee[id].image;
+                    //         String title = ctrl.listofcoffee[id].title;
+                    //         String subTitle = ctrl.listofcoffee[id].subTitle;
+                    //         int price = ctrl.listofcoffee[id].price;
+                    //         String rating = ctrl.listofcoffee[id].rating;
+                    //         return buildSingleItem(
+                    //           context: context,
+                    //           id: index,
+                    //           images: images,
+                    //           title: title,
+                    //           subTitle: subTitle,
+                    //           price: price,
+                    //           rating: rating,
+                    //           model: ctrl.listofcoffee[id]
+                    //         );
+                    //       })),
+                    // ),
+
+                    SizedBox(height: 20),
+                    // const Padding(
+                    //   padding: EdgeInsets.only(left: 5),
+                    //   child: ListTile(
+                    //     leading: Text(
+                    //       "Coffee's you must try once!...",
+                    //       style: TextStyle(
+                    //         color: Colors.white,
+                    //         fontSize: 20.0,
+                    //         fontWeight: FontWeight.w400,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    Obx(() => ListView.separated(
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: ctrl.allCoffeeList.length,
@@ -341,155 +352,151 @@ class HomePage extends StatelessWidget {
                             height: 20,
                           );
                         },
-                        itemBuilder: (context, index) {
-                          int id = ctrl.getCoffeeId(index).value;
+                        itemBuilder: (context, id) {
+                          // int id = ctrl.getCoffeeId(index).value;
                           String images = ctrl.listofcoffee[id].image;
-                          String title = ctrl.listofcoffee[id].title;
+                          String title = ctrl.listofcoffee[id].id;
                           String subTitle = ctrl.listofcoffee[id].subTitle;
                           int price = ctrl.listofcoffee[id].price;
                           String rating = ctrl.listofcoffee[id].rating;
+                          // print(ctrl.listofcoffee);
 
-                          return Container(
-                            padding: const EdgeInsets.all(12.0),
-                            margin: const EdgeInsets.symmetric(horizontal: 15),
-                            height: HomePage.screenHeight * 0.2 - 20,
-                            width: double.infinity,
-                            decoration: BoxDecoration(
-                              color: const Color(0xff171b22),
-                              borderRadius: BorderRadius.circular(25),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          blurRadius: 2.0,
-                                          spreadRadius: 1.0,
-                                          color: Color(0xff30221f),
-                                        ),
-                                      ],
-                                      image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: AssetImage(
-                                          images,
-                                        ),
+                          return GestureDetector(
+                            onTap: () {
+                              Get.to(DetailPage(
+                                  model: ctrl.listofcoffee[id],
+                                  id: id)); //todo modifying detail page
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(12.0),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 15),
+                              height: HomePage.screenHeight * 0.2 - 20,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: const Color(0xff171b22),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            blurRadius: 2.0,
+                                            spreadRadius: 1.0,
+                                            color: Color(0xff30221f),
+                                          ),
+                                        ],
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(
+                                                'https://coffee-app-systems.herokuapp.com$images/',
+                                                headers: {
+                                                  "Authorization":
+                                                      "Token ${UserBoxController().token}"
+                                                })),
+                                        borderRadius:
+                                            BorderRadius.circular(20.0),
                                       ),
-                                      borderRadius: BorderRadius.circular(20.0),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: 20.0,
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        title,
-                                        style: TextStyle(
-                                          fontSize: 17,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.w400,
-                                        ),
-                                      ),
-                                      Text(
-                                        subTitle,
-                                        style: TextStyle(
-                                          color: Color(0xffaeaeae),
-                                        ),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Text(
-                                                "\$\t",
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Color(0xffd17842),
-                                                ),
-                                              ),
-                                              Text(
-                                                '$price',
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              color: const Color(0xffd17842),
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
-                                            ),
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                ctrl.addCart(
-                                                  id: id,
-                                                  images: images,
-                                                  title: title,
-                                                  subTitle: subTitle,
-                                                  price: price,
-                                                  rating: rating,
-                                                );
-                                              },
-                                              child: const Icon(Icons.add,
-                                                  size: 30, color: Colors.white),
-                                            ),
-                                          )
-                                        ],
-                                      )
-                                    ],
+                                  const SizedBox(
+                                    width: 20.0,
                                   ),
-                                )
-                              ],
+                                  Expanded(
+                                    flex: 2,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          title,
+                                          style: TextStyle(
+                                            fontSize: 17,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                        Text(
+                                          subTitle,
+                                          style: TextStyle(
+                                            color: Color(0xffaeaeae),
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  "\$\t",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Color(0xffd17842),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  '$price',
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                color: const Color(0xffd17842),
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  ctrl.addCart(
+                                                    id: id,
+                                                    images: images,
+                                                    title: title,
+                                                    subTitle: subTitle,
+                                                    price: price,
+                                                    rating: rating,
+                                                  );
+                                                },
+                                                child: const Icon(Icons.add,
+                                                    size: 30,
+                                                    color: Colors.white),
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           );
-                        });
-                  },
-                  future: CoffeeDataLocal().catagoryList
-                ),
-                Container(
-                  margin: const EdgeInsets.only(right: 15),
-                  height: 25.0,
-                  width: 50.0,
-                  decoration: const BoxDecoration(
-                    color: Color(0xff231715),
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(20.0),
-                      bottomLeft: Radius.circular(20.0),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
-                      Icon(
-                        Icons.star,
-                        size: 15,
-                        color: Color(0xffd17842),
-                      ),
-                      Text(
-                        "4.5",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+                        })),
+                    Container(
+                      margin: const EdgeInsets.only(right: 15),
+                      height: 25.0,
+                      width: 50.0,
+                      decoration: const BoxDecoration(
+                        color: Color(0xff231715),
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(20.0),
+                          bottomLeft: Radius.circular(20.0),
                         ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
+                      ),
+                    ),
+                  ],
+                );
+              },
+              future: CoffeeDataLocal().create_list(),
             )),
       ),
     );
@@ -497,31 +504,23 @@ class HomePage extends StatelessWidget {
 }
 
 class SHomePageController extends GetxController {
-  static List<String> catagory = [];
+  List<String> catagory = [];
   List<CoffeeModel> listofcoffee = [];
   void onInit() async {
     var coffee = CoffeeDataLocal();
     super.onInit();
     listofcoffee = await coffee.create_list();
-    catagory = await coffee.catagoryList;
+    update();
   }
-
-  static List<String> getCatagoryList() {
-    List<String> list = catagory;
-    list.insertAll(0, ["All"]);
-    return list;
-  }
-
-  RxList<String> observableCatagoryList = getCatagoryList().obs;
 
   var selectedCategories = "All".obs;
-  RxList<CoffeeModel> get recommendedCoffeeList => listofcoffee
-      .where((coffee) => (coffee.isRecommended == true &&
-          (selectedCategories.value != "All"
-              ? coffee.catagory.contains(selectedCategories.value)
-              : true)))
-      .toList()
-      .obs;
+  // RxList<CoffeeModel> get recommendedCoffeeList => listofcoffee
+  //     .where((coffee) => (coffee.isRecommended == true &&
+  //         (selectedCategories.value != "All"
+  //             ? coffee.catagory.contains(selectedCategories.value)
+  //             : true)))
+  //     .toList()
+  //     .obs;
 
   RxList<CoffeeModel> get allCoffeeList => listofcoffee
       .where((coffee) => (selectedCategories.value != "All"
@@ -534,32 +533,38 @@ class SHomePageController extends GetxController {
     selectedCategories.value = catagory;
   }
 
-  void addCart({
-    required id,
-    required images,
-    required title,
-    required subTitle,
-    required price,
-    required rating,
-  }) {
+  void addCart(
+      {required id,
+      required images,
+      required title,
+      required subTitle,
+      required price,
+      required rating,
+      size}) {
+    print(id);
     final cart = CartModel(
       id: id,
       name: title,
       shopName: subTitle,
-      size: "M",
+      size: size ?? "M",
       price: price.toString(),
       ratings: rating.toString(),
       image: images,
     );
-    CartBoxController().addCart(cart);
+    CartBoxController().addCart(cart, cart.id);
   }
 
-  Rx<int> getRecomendedCoffeeId(int index) {
-    return recommendedCoffeeList[index].coffeeShopId.obs;
-  }
+  // Rx<int> getRecomendedCoffeeId(int index) {
+  //   return int.parse(recommendedCoffeeList[index].id).obs;
+  // }
 
   Rx<int> getCoffeeId(int index) {
-    return allCoffeeList[index].coffeeShopId.obs;
+    return int.parse(allCoffeeList[index].id).obs;
+  }
+
+  void setCoffeeData(Object? data) {
+    catagory = (data as List<CoffeeModel>).map((e) => e.catagory).toList();
+    catagory.insert(0, "All");
   }
 }
 

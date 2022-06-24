@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:versity_project_coffee/api_data_model/model.dart';
 import 'package:http/http.dart' as http;
 import 'package:versity_project_coffee/database/userBoxController.dart';

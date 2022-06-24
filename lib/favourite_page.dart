@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:versity_project_coffee/database/coffeeModel.dart';
+import 'package:versity_project_coffee/home_page.dart';
 
 class FavouritePage extends StatelessWidget {
   const FavouritePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    SHomePageController ctrl = Get.put(SHomePageController());
+    List<CoffeeModel> coffeeModel = ctrl.listofcoffee
+        .where((element) => element.isfavorite == true)
+        .toList();
+
     return Scaffold(
       backgroundColor: Colors.black54,
       appBar: AppBar(
@@ -19,17 +26,21 @@ class FavouritePage extends StatelessWidget {
         ),
       ),
       body: ListView.separated(
-        itemCount: 5,
+        itemCount: coffeeModel.length,
         separatorBuilder: (BuildContext context, int index) {
           return SizedBox(height: 20.0);
         },
         itemBuilder: (BuildContext context, int index) {
+          String image = coffeeModel[index].image;
+          String coffeeName = coffeeModel[index].title;
+          String coffeeShop= coffeeModel[index].subTitle;
+          int price = coffeeModel[index].price;
           return FavouriteWidget(
-            image : "images/coffee3.jpeg",
-            coffeeName: "Jamaican Mountain Coffee",
-            coffeeShop: "Marwa Cafe",
-            price: "4.25",
-            );
+            image: image,
+            coffeeName: coffeeName,
+            coffeeShop: coffeeShop,
+            price: price.toString(),
+          );
         },
       ),
     );
@@ -37,13 +48,18 @@ class FavouritePage extends StatelessWidget {
 }
 
 class FavouriteWidget extends StatelessWidget {
-
   final String image;
   final String coffeeName;
   final String coffeeShop;
   final String price;
 
-  const FavouriteWidget({Key? key, required this.image, required this.coffeeName, required this.coffeeShop, required this.price}) : super(key: key);
+  const FavouriteWidget(
+      {Key? key,
+      required this.image,
+      required this.coffeeName,
+      required this.coffeeShop,
+      required this.price})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +110,7 @@ class FavouriteWidget extends StatelessWidget {
 
   Row priceDisplay() {
     return Row(
-      children:[
+      children: [
         Text(
           "\$\t",
           style: TextStyle(
@@ -146,9 +162,7 @@ class FavouriteWidget extends StatelessWidget {
           ],
           image: DecorationImage(
             fit: BoxFit.cover,
-            image: AssetImage(
-              image
-            ),
+            image: AssetImage(image),
           ),
           borderRadius: BorderRadius.circular(20.0),
         ),

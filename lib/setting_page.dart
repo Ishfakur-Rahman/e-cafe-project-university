@@ -28,7 +28,7 @@ class SettingsScreen extends StatelessWidget {
                       color: Color(0xFF63554b),
                       child: ListTile(
                         onTap: () {
-                          Get.to(() => UserInfo());
+                          Get.to(() => const UserInfo());
                         },
                         title: const Text(
                           'Account',

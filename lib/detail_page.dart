@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:versity_project_coffee/bottom_page.dart';
+import 'database/cartBoxController.dart';
+import 'database/cartModel.dart';
 import 'database/coffeeModel.dart';
+import 'database/userBoxController.dart';
 import 'home_page.dart';
 import 'dart:ui';
 
 class DetailPage extends StatelessWidget {
   static var screenHeight;
   static var screenWidth;
+  SHomePageController ctrl = Get.put(SHomePageController());
   final CoffeeModel model;
-  DetailPage({required this.model});
+  final int id;
+  DetailPage({required this.model, required this.id});
   @override
   Widget build(BuildContext context) {
     screenHeight = MediaQuery.of(context).size.height;
     screenWidth = MediaQuery.of(context).size.width;
+    DetailPageController ctrl = Get.put(DetailPageController());
     return Scaffold(
       backgroundColor: const Color(0xff0c0f14),
       body: SafeArea(
@@ -29,11 +37,13 @@ class DetailPage extends StatelessWidget {
                       width: double.infinity,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage(
-                            model.image,
-                          ),
-                        ),
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                                "https://coffee-app-systems.herokuapp.com${model.image}/",
+                                headers: {
+                                  "Authorization":
+                                      "Token ${UserBoxController().token}"
+                                })),
                         borderRadius: BorderRadius.circular(30.0),
                       ),
                       child: Column(
@@ -71,7 +81,7 @@ class DetailPage extends StatelessWidget {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                   Text(
-                                                    model.catagory,
+                                                    model.title,
                                                     style: TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 20.0,
@@ -95,7 +105,7 @@ class DetailPage extends StatelessWidget {
                                                 height: 3,
                                               ),
                                               Row(
-                                                children:[
+                                                children: [
                                                   Icon(
                                                     Icons.star,
                                                     color: Color(
@@ -103,7 +113,8 @@ class DetailPage extends StatelessWidget {
                                                     ),
                                                   ),
                                                   Text(
-                                                    "\t"+model.price.toString()+"\t",
+                                                    model.rating.toString() +
+                                                        "\t",
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
                                                       color: Colors.white,
@@ -242,7 +253,9 @@ class DetailPage extends StatelessWidget {
                                 size: 20,
                                 color: Color(0xffaeaeae),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                
+                              },
                             ),
                           ),
                         ],
@@ -267,8 +280,8 @@ class DetailPage extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                          const Text(
-                            "A cappuccino is a coffee -based drink made",
+                          Text(
+                            model.description,
                             style: TextStyle(
                               color: Colors.white,
                             ),
@@ -301,52 +314,68 @@ class DetailPage extends StatelessWidget {
                           color: Color(0xffaeaeae),
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          MaterialButton(
-                            onPressed: () {},
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                              side: const BorderSide(
-                                color: Color(0xffb25e2b),
+                      Obx(() => Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              MaterialButton(
+                                onPressed: () {
+                                  ctrl.toggleSize("S");
+                                },
+                                color: ctrl.s.value
+                                    ? Color(0xffb25e2b)
+                                    : const Color(0xff141921),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Text(
+                                  "S",
+                                  style: TextStyle(
+                                    color: ctrl.s.isFalse
+                                        ? Color(0xffb86b3c)
+                                        : Color(0xff141921),
+                                  ),
+                                ),
                               ),
-                            ),
-                            child: const Text(
-                              "S",
-                              style: TextStyle(
-                                color: Color(0xffb86b3c),
+                              MaterialButton(
+                                onPressed: () {
+                                  ctrl.toggleSize("M");
+                                },
+                                color: ctrl.m.value
+                                    ? Color(0xffb25e2b)
+                                    : const Color(0xff141921),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Text(
+                                  "M",
+                                  style: TextStyle(
+                                    color: ctrl.m.isFalse
+                                        ? Color(0xffb86b3c)
+                                        : Color(0xff141921),
+                                  ),
+                                ),
                               ),
-                            ),
-                          ),
-                          MaterialButton(
-                            onPressed: () {},
-                            color: const Color(0xff141921),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: const Text(
-                              "M",
-                              style: TextStyle(
-                                color: Color(0xffb86b3c),
-                              ),
-                            ),
-                          ),
-                          MaterialButton(
-                            onPressed: () {},
-                            color: const Color(0xff141921),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: const Text(
-                              "L",
-                              style: TextStyle(
-                                color: Color(0xffb86b3c),
-                              ),
-                            ),
-                          )
-                        ],
-                      ),
+                              MaterialButton(
+                                onPressed: () {
+                                  ctrl.toggleSize("L");
+                                },
+                                color: ctrl.l.isTrue
+                                    ? Color(0xffb25e2b)
+                                    : const Color(0xff141921),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Text(
+                                  "L",
+                                  style: TextStyle(
+                                    color: ctrl.l.isFalse
+                                        ? Color(0xffb86b3c)
+                                        : Color(0xff141921),
+                                  ),
+                                ),
+                              )
+                            ],
+                          )),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -362,7 +391,7 @@ class DetailPage extends StatelessWidget {
                                 height: 3,
                               ),
                               Row(
-                                children: const [
+                                children: [
                                   Text(
                                     "\$\t",
                                     style: TextStyle(
@@ -370,19 +399,33 @@ class DetailPage extends StatelessWidget {
                                       color: Color(0xffd17842),
                                     ),
                                   ),
-                                  Text(
-                                    "4.20",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  )
+                                  Obx(() => Text(
+                                        (model.price *
+                                                (ctrl.s.isTrue
+                                                    ? 0.9
+                                                    : ctrl.m.isTrue
+                                                        ? 1
+                                                        : 1.05))
+                                            .toString(),
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ))
                                 ],
                               ),
                             ],
                           ),
                           MaterialButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              ctrl.addCart(
+                                  id: id,
+                                  images: model.image,
+                                  title: model.title,
+                                  subTitle: model.subTitle,
+                                  price: model.price,
+                                  rating: model.rating);
+                            },
                             height: 55,
                             minWidth: 200,
                             color: const Color(0xffd17842),
@@ -407,5 +450,49 @@ class DetailPage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class DetailPageController extends GetxController {
+  Rx<bool> s = false.obs;
+  Rx<bool> m = true.obs;
+  Rx<bool> l = false.obs;
+
+  toggleSize(String size) {
+    s.value = (size == 'S');
+    m.value = (size == 'M');
+    l.value = (size == 'L');
+  }
+
+  get size => s.value
+      ? 'S'
+      : m.value
+          ? 'M'
+          : 'L';
+
+  void addCart(
+      {required int id,
+      required String images,
+      required String title,
+      required String subTitle,
+      required int price,
+      required String rating,
+      size}) {
+    final cart = CartModel(
+      id: id,
+      name: title,
+      shopName: subTitle,
+      size: this.size,
+      price: (price *
+              (size == "S"
+                  ? 0.5
+                  : size == "M"
+                      ? 1
+                      : 2))
+          .toString(),
+      ratings: rating.toString(),
+      image: images,
+    );
+    CartBoxController().addCart(cart, cart.id);
   }
 }

@@ -27,6 +27,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   late String confirmedPassword = 'n';
   late String messages = 'n';
   Future<bool> registrationInAPI() async {
+    print("hola");
     try {
       var token = await RegistrationHelper().registrating(
         userName: user,
@@ -34,6 +35,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         userTypes: selectedUser,
         email: email,
       );
+      print(token);
       UserBoxController().addToken(token);
       UserBoxController().addUserName(user);
       UserBoxController().addRole(selectedUser);
@@ -42,8 +44,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
       } else if (selectedUser == 'seller') {
         var shopId =
             await Authentication().shop_id(token: token, shopName: user);
+        print(shopId);
         UserBoxController().addShopId(shopId as int);
-        print("Shop Id: " + shopId.toString());///TODO: ata thik ache?
+
+        ///TODO: ata thik ache?
       }
       return true;
     } catch (e) {

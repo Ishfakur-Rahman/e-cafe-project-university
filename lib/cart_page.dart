@@ -4,6 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'database/cartBoxController.dart';
 import 'database/cartModel.dart';
+import 'database/userBoxController.dart';
 
 class CartPage extends StatelessWidget {
   @override
@@ -79,9 +80,12 @@ class CartWidget extends StatelessWidget {
                 ],
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: AssetImage(
-                    image,
-                  ),
+                  image: NetworkImage(
+                        "https://coffee-app-systems.herokuapp.com${image}/",
+                        headers: {
+                          "Authorization":
+                              "Token ${UserBoxController().token}"
+                        }),
                 ),
                 borderRadius: BorderRadius.circular(20.0),
               ),

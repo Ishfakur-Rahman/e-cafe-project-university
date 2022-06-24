@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
+
 import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/Theme/mText.dart';
 import 'package:versity_project_coffee/api_data_model/get_coffee_model.dart';
@@ -12,39 +13,50 @@ import 'package:versity_project_coffee/database/coffeeModel.dart';
 import 'package:versity_project_coffee/database/userBoxController.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/addFormPage.dart';
 
+import '../../../../database/cartBoxController.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    HomePageController ctrl = Get.put(HomePageController());
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          EarnedMoney(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                MText("Your Products", color: MColors.yellow).heading1(),
-                Spacer(),
-                IconButton(
-                    onPressed: () {},
-                    icon: Icon(
-                      Iconsax.filter,
-                      color: MColors.yellow,
-                    ))
-              ],
-            ),
-          ),
-          ListView.separated(
-              shrinkWrap: true,
-              primary: false,
-              itemBuilder: (build, context) => ItemViewer(),
-              separatorBuilder: (build, context) => SizedBox(
-                    height: 7,
-                  ),
-              itemCount: 10),
-        ],
+      child: FutureBuilder(
+        builder: (context, snapshot) {
+          if (snapshot.hasData) ctrl.setData(snapshot.data);
+
+          return Column(
+            children: [
+              EarnedMoney(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    MText("Your Products", color: MColors.yellow).heading1(),
+                    Spacer(),
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          Iconsax.filter,
+                          color: MColors.yellow,
+                        ))
+                  ],
+                ),
+              ),
+              ListView.separated(
+                shrinkWrap: true,
+                primary: false,
+                itemBuilder: (build, id) => ItemViewer(id: id),
+                separatorBuilder: (build, id) => SizedBox(
+                  height: 7,
+                ),
+                itemCount: ctrl.listofcoffee.length,
+              ),
+            ],
+          );
+        },
+        future: CoffeeDataLocal().create_list(),
       ),
     );
   }
@@ -55,6 +67,7 @@ class EarnedMoney extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HomePageController ctrl = Get.put(HomePageController());
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Container(
@@ -78,19 +91,8 @@ class EarnedMoney extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      MText("Today").text2(),
-                      MText("\$0.00",
-                              color: MColors.yellow,
-                              fontWeight: FontWeight.w200)
-                          .heading1(),
-                    ],
-                  ),
-                  Spacer(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
                       MText("Total").text2(),
-                      MText("\$0.00",
+                      MText(ctrl.getTotalBalance().toString(),
                               color: MColors.yellow,
                               fontWeight: FontWeight.w200)
                           .heading1(),
@@ -115,26 +117,29 @@ class EarnedMoney extends StatelessWidget {
 class Ratings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    HomePageController ctrl = Get.put(HomePageController());
     return Row(
       children: [
-        Icon(Iconsax.star1, color: MColors.yellow, size: 30),
-        Icon(Iconsax.star1, color: MColors.primaryColorDark, size: 30),
-        Icon(Iconsax.star1, color: MColors.primaryColorDark, size: 30),
-        Icon(Iconsax.star1, color: MColors.primaryColorDark, size: 30),
-        Icon(Iconsax.star1, color: MColors.primaryColorDark, size: 30),
-        SizedBox(
-          width: 10,
-        ),
-        MText("1/5").text2(),
+        MText(ctrl.getTotalRating().toString()).text2(),
       ],
     );
   }
 }
 
 class ItemViewer extends StatelessWidget {
+  final int id;
+  ItemViewer({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     HomePageController ctrl = Get.put(HomePageController());
+    String name = ctrl.listofcoffee[id].id;
+    String subTitle = ctrl.listofcoffee[id].subTitle;
+    String image = ctrl.listofcoffee[id].image;
+    String price = ctrl.listofcoffee[id].price.toString();
+    String rating = ctrl.listofcoffee[id].rating;
     return GestureDetector(
       onTap: () async {
         var coffees = await CoffeeData().get_all_coffee();
@@ -164,11 +169,14 @@ class ItemViewer extends StatelessWidget {
                           color: Color(0xff30221f),
                         ),
                       ],
-                      image: const DecorationImage(
+                      image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage(
-                          "asset/coffee_bg.png",
-                        ),
+                        image: NetworkImage(
+                            'https://coffee-app-systems.herokuapp.com$image/',
+                            headers: {
+                              "Authorization":
+                                  "Token ${UserBoxController().token}"
+                            }),
                       ),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
@@ -183,16 +191,16 @@ class ItemViewer extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        "Jamaican Blue Mountain",
+                      Text(
+                        name,
                         style: TextStyle(
                           fontSize: 17,
                           color: Colors.white,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      const Text(
-                        "Blue Mountain coffee",
+                      Text(
+                        subTitle,
                         style: TextStyle(
                           color: Color(0xffaeaeae),
                         ),
@@ -201,7 +209,7 @@ class ItemViewer extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
-                            children: const [
+                            children: [
                               Text(
                                 "\$\t",
                                 style: TextStyle(
@@ -210,7 +218,7 @@ class ItemViewer extends StatelessWidget {
                                 ),
                               ),
                               Text(
-                                "4.20",
+                                price,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
@@ -239,14 +247,14 @@ class ItemViewer extends StatelessWidget {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: const [
+              children: [
                 Icon(
                   Icons.star,
                   size: 15,
                   color: Color(0xffd17842),
                 ),
                 Text(
-                  "4.5",
+                  rating,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Colors.white,
@@ -263,19 +271,33 @@ class ItemViewer extends StatelessWidget {
 }
 
 class HomePageController extends GetxController {
-  List<CoffeeModel> listofcoffee = [];
+  List<CoffeeModel> _listofcoffee = [];
+  @override
   void onInit() async {
-    var coffee = CoffeeDataLocal();
     super.onInit();
-    listofcoffee = await coffee.create_list();
+    update();
   }
 
-  RxList<CoffeeModel> get allCoffeeList => listofcoffee
+  List<CoffeeModel> get listofcoffee => _listofcoffee
       .where((coffee) => (coffee.coffeeShopId == UserBoxController().shopId))
-      .toList()
-      .obs;
+      .toList();
 
-  Rx<int> getCoffeeId(int index) {
-    return allCoffeeList[index].coffeeShopId.obs;
+  getTotalBalance() {
+    int sum = 0;
+    for (CoffeeModel coffee in _listofcoffee) {
+      sum += coffee.price;
+    }
+    return sum;
+  }
+  getTotalRating() {
+    int sum = 0;
+    for (CoffeeModel coffee in _listofcoffee) {
+      sum += int.parse(coffee.rating);
+    }
+    return sum;
+  }
+
+  void setData(Object? data) {
+    _listofcoffee = (data as List<CoffeeModel>);
   }
 }
