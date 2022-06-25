@@ -1,9 +1,8 @@
 import 'dart:convert';
-
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:versity_project_coffee/api_data_model/get_profile_model.dart';
-import 'dart:io';
 import 'package:versity_project_coffee/backend_api/addProfileInfo.dart';
 import 'package:versity_project_coffee/backend_api/imagepicker.dart';
 import 'package:versity_project_coffee/database/userBoxController.dart';
@@ -968,62 +967,89 @@ class _UserInfoState extends State<UserInfo> {
       backgroundColor: Color(0xffa68966),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 25,
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: NetworkImage(
+                    "https://coffee-app-systems.herokuapp.com${profileInfo!.profile!}/",
+                    headers: {
+                      "Authorization": "Token ${UserBoxController().token}"
+                    },
+                  ),
+                ),
+              ),
             ),
-            InfoCard(
-              text: 'Upload your profile picture',
-              icon: Icons.collections,
-              isEdit: true,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(profileInfo!.shopName! != "0" ? 'ShopName' : 'username'),
-            const SizedBox(
-              height: 5,
-            ),
-            InfoCard(
-                text: profileInfo!.user!, icon: Icons.person_pin, isEdit: true),
-            const SizedBox(
-              height: 10,
-            ),
-            const Text('Contact:'),
-            const SizedBox(
-              height: 5,
-            ),
-            InfoCard(
-              text: profileInfo!.contact!.toString(),
-              icon: Icons.phone,
-              isEdit: false,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const Text('Address:'),
-            const SizedBox(
-              height: 5,
-            ),
-            InfoCard(
-              text: profileInfo!.address!,
-              icon: Icons.location_on,
-              isEdit: true,
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(profileInfo!.shopName! != "0"?'ShopId':''),
-            const SizedBox(
-              height: 5,
-            ),
-            InfoCard(
-              text: profileInfo!.shopName! != "0"
-                  ? profileInfo!.shopName!.toString()
-                  : 'Hope you are enjoying our app!',
-              icon: Icons.store,
-              isEdit: true,
+            Expanded(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
+                  ),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(profileInfo!.shopName! != "0"
+                        ? 'ShopName'
+                        : 'username'),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    InfoCard(
+                        text: UserBoxController().userName,
+                        icon: Icons.person_pin,
+                        isEdit: true),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text('Contact:'),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    InfoCard(
+                      text: profileInfo!.contact!.toString(),
+                      icon: Icons.phone,
+                      isEdit: false,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Text('Address:'),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    InfoCard(
+                      text: profileInfo!.address!,
+                      icon: Icons.location_on,
+                      isEdit: true,
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(profileInfo!.shopName! != "0" ? 'ShopId' : ''),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    InfoCard(
+                      text: profileInfo!.shopName! != "0"
+                          ? profileInfo!.shopName!.toString()
+                          : 'Hope you are enjoying our app!',
+                      icon: Icons.store,
+                      isEdit: true,
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
@@ -1044,60 +1070,61 @@ class _UserInfoEditStateState extends State<UserInfoEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.brown,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {
+      appBar: AppBar(
+        backgroundColor: Colors.brown,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Get.back();
+          },
+        ),
+        title: const Text('Update Profile'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.done),
+            onPressed: () async {
+              await ProfileData().update_profile_data(
+                userName: UserBoxController().userName,
+                contact: contact,
+                image: imageFile,
+              );
               Get.back();
             },
-          ),
-          title: const Text('Update Profile'),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.done),
-              onPressed: () async {
-                await ProfileData().update_profile_data(
-                  userName: UserBoxController().userName,
-                  contact: contact,
-                  image: imageFile,
-                );
-                Get.back();
+          )
+        ],
+      ),
+      backgroundColor: Color(0xffa68966),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 80,
+            ),
+            InfoCard(
+                text: 'AddImage',
+                icon: Icons.collections,
+                isEdit: false,
+                onChange: (value) async {
+                  imageFile = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ImagePickerHelper(),
+                    ),
+                  );
+                }),
+            InfoCard(
+              text: 'Contact',
+              icon: Icons.phone,
+              onChange: (value) {
+                contact = value;
               },
-            )
+              isEdit: false,
+            ),
           ],
         ),
-        backgroundColor: Color(0xffa68966),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 80,
-              ),
-              InfoCard(
-                  text: 'AddImage',
-                  icon: Icons.collections,
-                  isEdit: false,
-                  onChange: (value) async {
-                    imageFile = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ImagePickerHelper(),
-                      ),
-                    );
-                  }),
-              InfoCard(
-                text: 'Contact',
-                icon: Icons.phone,
-                onChange: (value) {
-                  contact = value;
-                },
-                isEdit: false,
-              ),
-            ],
-          ),
-        ));
+      ),
+    );
   }
 }
 
