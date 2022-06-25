@@ -28,7 +28,7 @@ class SettingsScreen extends StatelessWidget {
                       color: Color(0xFF63554b),
                       child: ListTile(
                         onTap: () {
-                          Get.to(() => const UserInfo(edit: false,));
+                          Get.to(() => UserInfo());
                         },
                         title: const Text(
                           'Account',
@@ -926,15 +926,51 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
 }
 
 class UserInfo extends StatefulWidget {
-  const UserInfo({required edit});
-
-  final bool edit;
-  if(edit==true){
-    @override
-    _UserInfoEditState createState() => _UserInfoEditState();
-  }
   @override
   _UserInfoState createState() => _UserInfoState();
+}
+
+class _UserInfoState extends State<UserInfo> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          leading: const Icon(Icons.arrow_back),
+          title: const Text('Profile'),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Get.to(() => _UserInfoEditState());
+                },
+                icon: Icon(Icons.edit_sharp)),
+          ],
+        ),
+        backgroundColor: Color(0xffa68966),
+        body: SingleChildScrollView(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            SizedBox(
+              height: 80,
+            ),
+            InfoCard(
+                text: 'Upload your profile picture',
+                icon: Icons.collections,
+                onPressed: () async {}),
+            InfoCard(
+                text: 'Username',
+                icon: Icons.person_pin,
+                onPressed: () async {}),
+            InfoCard(
+                text: 'Contact', icon: Icons.phone, onPressed: () async {}),
+            InfoCard(
+                text: 'Address',
+                icon: Icons.location_on,
+                onPressed: () async {}),
+            InfoCard(
+                text: 'Shopname', icon: Icons.store, onPressed: () async {}),
+          ]),
+        ));
+  }
 }
 
 class _UserInfoEditState extends State<UserInfo> {
@@ -948,60 +984,26 @@ class _UserInfoEditState extends State<UserInfo> {
             SizedBox(
               height: 80,
             ),
-                InfoCard(
-                  text: 'Upload your profile picture',
-                  icon: Icons.collections,
-                  onPressed: () async {}),
-                InfoCard(
-                    text: 'Username',
-                    icon: Icons.person_pin,
-                    onPressed: () async {}),
-                InfoCard(
-                    text: 'Contact', icon: Icons.phone, onPressed: () async {}),
-                InfoCard(
-                    text: 'Address',
-                    icon: Icons.location_on,
-                    onPressed: () async {}),
-                InfoCard(
+            InfoCard(
+                text: 'Upload your profile picture',
+                icon: Icons.collections,
+                onPressed: () async {}),
+            InfoCard(
+                text: 'Username',
+                icon: Icons.person_pin,
+                onPressed: () async {}),
+            InfoCard(
+                text: 'Contact', icon: Icons.phone, onPressed: () async {}),
+            InfoCard(
+                text: 'Address',
+                icon: Icons.location_on,
+                onPressed: () async {}),
+            InfoCard(
                 text: 'Shopname', icon: Icons.store, onPressed: () async {}),
           ]),
         ));
   }
 }
-
-class _UserInfoState extends State<UserInfo> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Color(0xffa68966),
-        body: SingleChildScrollView(
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            SizedBox(
-              height: 80,
-            ),
-                InfoCard(
-                  text: 'Upload your profile picture',
-                  icon: Icons.collections,
-                  onPressed: () async {}),
-                InfoCard(
-                    text: 'Username',
-                    icon: Icons.person_pin,
-                    onPressed: () async {}),
-                InfoCard(
-                    text: 'Contact', icon: Icons.phone, onPressed: () async {}),
-                InfoCard(
-                    text: 'Address',
-                    icon: Icons.location_on,
-                    onPressed: () async {}),
-                InfoCard(
-                text: 'Shopname', icon: Icons.store, onPressed: () async {}),
-          ]),
-        ));
-  }
-}
-
-
 
 class InfoCard extends StatelessWidget {
   // the values we need
