@@ -28,7 +28,7 @@ class SettingsScreen extends StatelessWidget {
                       color: Color(0xFF63554b),
                       child: ListTile(
                         onTap: () {
-                          Get.to(() => const UserInfo());
+                          Get.to(() => const UserInfo(edit: false,));
                         },
                         title: const Text(
                           'Account',
@@ -925,14 +925,19 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
   }
 }
 
-class UserInfoEdit extends StatefulWidget {
-  const UserInfoEdit({Key? key}) : super(key: key);
+class UserInfo extends StatefulWidget {
+  const UserInfo({required edit});
 
+  final bool edit;
+  if(edit==true){
+    @override
+    _UserInfoEditState createState() => _UserInfoEditState();
+  }
   @override
-  _UserInfoEdit createState() => _UserInfoEdit();
+  _UserInfoState createState() => _UserInfoState();
 }
 
-class _UserInfoEdit extends State<UserInfoEdit> {
+class _UserInfoEditState extends State<UserInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -964,7 +969,7 @@ class _UserInfoEdit extends State<UserInfoEdit> {
   }
 }
 
-class _UserInfo extends StatelessWidget {
+class _UserInfoState extends State<UserInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
