@@ -103,9 +103,9 @@ class EarnedMoney extends StatelessWidget {
               ),
               Spacer(),
               MText("Overall Rating:").coffeeText(),
-              SizedBox(height: 10),
+              SizedBox(height: 0.5),
               Ratings(),
-              SizedBox(height: 10),
+              SizedBox(height: 0.5),
             ],
           ),
         ),
@@ -290,11 +290,12 @@ class HomePageController extends GetxController {
     return sum;
   }
   getTotalRating() {
-    int sum = 0;
+    double sum = 0.0;
     for (CoffeeModel coffee in _listofcoffee) {
-      sum += int.parse(coffee.rating);
+      print(double.parse(coffee.rating));
+      sum += double.parse(coffee.rating);
     }
-    return sum;
+    return (sum/(_listofcoffee.length)).round();
   }
 
   void setData(Object? data) {

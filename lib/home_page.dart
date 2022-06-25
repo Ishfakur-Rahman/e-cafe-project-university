@@ -584,7 +584,7 @@ class OfferPage extends StatelessWidget {
                 child: Stack(
                   children: [
                     Image.asset(
-                      'images/coffee.jpg',
+                      'asset/coffee.jpg',
                       height: 400,
                       width: double.infinity,
                       fit: BoxFit.cover,
@@ -655,7 +655,7 @@ class OfferPage extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               image: const DecorationImage(
-                                image: AssetImage('images/coffee22.jpg'),
+                                image: AssetImage('images/coffee22.png'),
                                 fit: BoxFit.fill,
                               ),
                             ),

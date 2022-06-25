@@ -939,11 +939,12 @@ class _UserInfoState extends State<UserInfo> {
         backgroundColor: Color(0xffa68966),
         body: SingleChildScrollView(
           child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
             SizedBox(
-              height: 20,
+              height: 80,
             ),
-            InfoCard(
+                InfoCard(
+
                 text: 'Upload your profile picture',
                 icon: Icons.collections,
                 onPressed: () async {}),
@@ -978,12 +979,12 @@ class InfoCard extends StatelessWidget {
     return GestureDetector(
         onTap: onPressed,
         child: Container(
-          height: 130,
+          height: 110,
           child: Card(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             color: Colors.white,
-            margin: EdgeInsets.symmetric(vertical: 30, horizontal: 50),
+            margin: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
             child: Center(
               child: ListTile(
                 leading: Icon(
