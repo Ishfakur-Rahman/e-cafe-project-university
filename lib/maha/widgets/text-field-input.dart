@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../pallete.dart';
 
 class TextInputField extends StatelessWidget {
@@ -55,3 +56,5 @@ class TextInputField extends StatelessWidget {
     );
   }
 }
+
+

@@ -469,6 +469,9 @@ class DetailPageController extends GetxController {
       : m.value
           ? 'M'
           : 'L';
+  makeFovoirite(String id){
+    
+  }
 
   void addCart(
       {required int id,
