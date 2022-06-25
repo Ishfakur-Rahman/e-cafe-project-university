@@ -925,14 +925,14 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
   }
 }
 
-class UserInfo extends StatefulWidget {
-  const UserInfo({Key? key}) : super(key: key);
+class UserInfoEdit extends StatefulWidget {
+  const UserInfoEdit({Key? key}) : super(key: key);
 
   @override
-  _UserInfoState createState() => _UserInfoState();
+  _UserInfoEdit createState() => _UserInfoEdit();
 }
 
-class _UserInfoState extends State<UserInfo> {
+class _UserInfoEdit extends State<UserInfoEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -944,26 +944,59 @@ class _UserInfoState extends State<UserInfo> {
               height: 80,
             ),
                 InfoCard(
-
-                text: 'Upload your profile picture',
-                icon: Icons.collections,
-                onPressed: () async {}),
-            InfoCard(
-                text: 'Username',
-                icon: Icons.person_pin,
-                onPressed: () async {}),
-            InfoCard(
-                text: 'Contact', icon: Icons.phone, onPressed: () async {}),
-            InfoCard(
-                text: 'Address',
-                icon: Icons.location_on,
-                onPressed: () async {}),
-            InfoCard(
+                  text: 'Upload your profile picture',
+                  icon: Icons.collections,
+                  onPressed: () async {}),
+                InfoCard(
+                    text: 'Username',
+                    icon: Icons.person_pin,
+                    onPressed: () async {}),
+                InfoCard(
+                    text: 'Contact', icon: Icons.phone, onPressed: () async {}),
+                InfoCard(
+                    text: 'Address',
+                    icon: Icons.location_on,
+                    onPressed: () async {}),
+                InfoCard(
                 text: 'Shopname', icon: Icons.store, onPressed: () async {}),
           ]),
         ));
   }
 }
+
+class _UserInfo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Color(0xffa68966),
+        body: SingleChildScrollView(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            SizedBox(
+              height: 80,
+            ),
+                InfoCard(
+                  text: 'Upload your profile picture',
+                  icon: Icons.collections,
+                  onPressed: () async {}),
+                InfoCard(
+                    text: 'Username',
+                    icon: Icons.person_pin,
+                    onPressed: () async {}),
+                InfoCard(
+                    text: 'Contact', icon: Icons.phone, onPressed: () async {}),
+                InfoCard(
+                    text: 'Address',
+                    icon: Icons.location_on,
+                    onPressed: () async {}),
+                InfoCard(
+                text: 'Shopname', icon: Icons.store, onPressed: () async {}),
+          ]),
+        ));
+  }
+}
+
+
 
 class InfoCard extends StatelessWidget {
   // the values we need

@@ -217,6 +217,9 @@ class HomePage extends StatelessWidget {
             physics: const BouncingScrollPhysics(),
             child: FutureBuilder(
               builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                }
                 if (snapshot.hasData) ctrl.setCoffeeData(snapshot.data);
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
