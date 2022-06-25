@@ -420,7 +420,7 @@ class _InviteFriendsState extends State<InviteFriends> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           image: const DecorationImage(
-                            image: const AssetImage('images/friends.jpg'),
+                            image: AssetImage('images/friends.jpg'),
                             fit: BoxFit.fill,
                           ),
                         ),
@@ -502,12 +502,12 @@ class _InviteFriendsState extends State<InviteFriends> {
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(
+                            children: const[
+                              Icon(
                                 Icons.card_giftcard,
                                 size: 90,
                               ),
-                              const Text(
+                              Text(
                                 '~ Delivery in 10% discount \n ~ Top 3 customers will get free \n delivery for 3 days',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
@@ -836,95 +836,102 @@ class _ChangeLanguageState extends State<ChangeLanguage> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-        backgroundColor: Color(0xFF212121),
-        body: SafeArea(
-            child: Container(
-                height: size.height,
+      backgroundColor: Color(0xFF212121),
+      body: SafeArea(
+        child: Container(
+          height: size.height,
+          width: size.width,
+          child: Column(
+            children: [
+              SizedBox(
+                height: size.height * 0.008,
+              ),
+              Container(
                 width: size.width,
-                child: Column(children: [
-                  SizedBox(
-                    height: size.height * 0.008,
-                  ),
-                  Container(
-                    width: size.width,
-                    margin: EdgeInsets.symmetric(
-                      horizontal: size.width * 0.035,
+                margin: EdgeInsets.symmetric(
+                  horizontal: size.width * 0.035,
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: size.width * 0.90,
+                      height: size.height * 0.10,
                     ),
-                  ),
-                  Expanded(
-                      child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                        SizedBox(
-                          width: size.width * 0.90,
-                          height: size.height * 0.10,
-                        ),
-                        Text(
-                          'Edit Language -',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: size.height * 0.024,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.height * 0.08,
-                        ),
-                        Text(
-                          'Bangla',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: size.height * 0.024,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.height * 0.02,
-                        ),
-                        Text(
-                          'English',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: size.height * 0.024,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.height * 0.02,
-                        ),
-                        Text(
-                          'India',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: size.height * 0.024,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.height * 0.02,
-                        ),
-                        Text(
-                          'German',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: size.height * 0.024,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.height * 0.02,
-                        ),
-                        Text(
-                          'Spanish',
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            fontSize: size.height * 0.024,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ]))
-                ]))));
+                    Text(
+                      'Edit Language -',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: size.height * 0.024,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * 0.08,
+                    ),
+                    Text(
+                      'Bangla',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: size.height * 0.024,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * 0.02,
+                    ),
+                    Text(
+                      'English',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: size.height * 0.024,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * 0.02,
+                    ),
+                    Text(
+                      'India',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: size.height * 0.024,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * 0.02,
+                    ),
+                    Text(
+                      'German',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: size.height * 0.024,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height * 0.02,
+                    ),
+                    Text(
+                      'Spanish',
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontSize: size.height * 0.024,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
 
@@ -937,50 +944,59 @@ class _UserInfoState extends State<UserInfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.brown,
-          leading: const Icon(Icons.arrow_back),
-          title: const Text('Profile'),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Get.to(() => UserInfoEdit());
-                },
-                icon: Icon(Icons.edit_sharp)),
-          ],
-        ),
-        backgroundColor: Color(0xffa68966),
-        body: SingleChildScrollView(
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+      appBar: AppBar(
+        backgroundColor: Colors.brown,
+        leading: const Icon(Icons.arrow_back),
+        title: const Text('Profile'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Get.to(() => UserInfoEdit());
+              },
+              icon: Icon(Icons.edit_sharp)),
+        ],
+      ),
+      backgroundColor: Color(0xffa68966),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
             SizedBox(
               height: 25,
             ),
             InfoCard(
-                text: 'Upload your profile picture',
-                icon: Icons.collections,
-                onChange: (_){},
-                isEdit: true,
-                ),
+              text: 'Upload your profile picture',
+              icon: Icons.collections,
+              onChange: (_) {},
+              isEdit: true,
+            ),
             InfoCard(
                 text: 'Username',
                 icon: Icons.person_pin,
-                onChange: (_){},
-                isEdit: true
-                ),
+                onChange: (_) {},
+                isEdit: true),
             InfoCard(
-                text: 'Contact', icon: Icons.phone, onChange:(_){},isEdit: false,),
+              text: 'Contact',
+              icon: Icons.phone,
+              onChange: (_) {},
+              isEdit: false,
+            ),
             InfoCard(
-                text: 'Address',
-                icon: Icons.location_on,
-                onChange: (_){},
-                isEdit: true,
-                ),
+              text: 'Address',
+              icon: Icons.location_on,
+              onChange: (_) {},
+              isEdit: true,
+            ),
             InfoCard(
-                text: 'Shopname', icon: Icons.store, onChange: (_){},
-                isEdit: true,),
-          ]),
-        ));
+              text: 'Shopname',
+              icon: Icons.store,
+              onChange: (_) {},
+              isEdit: true,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -991,6 +1007,8 @@ class UserInfoEdit extends StatefulWidget {
 
 class _UserInfoEditStateState extends State<UserInfoEdit> {
   File? imageFile;
+  String? contact;
+  String? address;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -1007,15 +1025,14 @@ class _UserInfoEditStateState extends State<UserInfoEdit> {
             IconButton(
               icon: const Icon(Icons.done),
               onPressed: () {
-                //TODO: upload data to backendAPI
                 ProfileData().update_profile_data(
                   userName: UserBoxController().userName,
                   contact:
-                      "contact", //TODO: this should return the contact can be nullable
+                      contact,
                   address:
-                      "addreess", //TODO: this should return the address can be nullable
+                      address,
                   image:
-                      imageFile, // TODO:this image will return the image file can be nullable
+                      imageFile,
                 );
                 Get.back();
               },
@@ -1024,32 +1041,42 @@ class _UserInfoEditStateState extends State<UserInfoEdit> {
         ),
         backgroundColor: Color(0xffa68966),
         body: SingleChildScrollView(
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            SizedBox(
-              height: 80,
-            ),
-            InfoCard(
-                text: 'AddImage',
-                icon: Icons.collections,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(
+                height: 80,
+              ),
+              InfoCard(
+                  text: 'AddImage',
+                  icon: Icons.collections,
+                  isEdit: false,
+                  onChange: (value) async{
+                    imageFile = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ImagePickerHelper(),
+                      ),
+                    );
+                  }),
+              InfoCard(
+                text: 'Contact',
+                icon: Icons.phone,
+                onChange: (value) {
+                  contact = value;
+                },
                 isEdit: false,
-                onChange: (_) async {
-                  imageFile = await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ImagePickerHelper(),
-                    ),
-                  );
-                }),
-            InfoCard(
-                text: 'Contact', icon: Icons.phone, onChange: (_) async {}, isEdit: false,),
-            InfoCard(
-              text: 'Address',
-              icon: Icons.location_on,
-              onChange: (_) async {},
-              isEdit: false,
-            )
-          ]),
+              ),
+              InfoCard(
+                text: 'Address',
+                icon: Icons.location_on,
+                onChange: (value) {
+                  address = value;
+                },
+                isEdit: false,
+              )
+            ],
+          ),
         ));
   }
 }
@@ -1061,58 +1088,68 @@ class InfoCard extends StatelessWidget {
   final bool isEdit;
   final Function(String) onChange;
 
-  InfoCard({required this.text, required this.icon, required this.onChange, required this.isEdit});
+  InfoCard(
+      {required this.text,
+      required this.icon,
+      required this.onChange,
+      required this.isEdit});
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    return isEdit? Container(
-          height: 110,
-          child: Card(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            color: Colors.white,
-            margin: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-            child: Center(
-              child: ListTile(
-                leading: Icon(
-                  icon,
-                  color: Colors.black54,
-                ),
-                title: Text(
-                  text,
-                  style: TextStyle(
+    return isEdit
+        ? Container(
+            height: 110,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              color: Colors.white,
+              margin: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+              child: Center(
+                child: ListTile(
+                  leading: Icon(
+                    icon,
                     color: Colors.black54,
-                    fontSize: 20,
+                  ),
+                  title: Text(
+                    text,
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ):Container(
-          height: 110,child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        color: Colors.white,
-        margin: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-        child: Center(
-          child: TextField(
-            decoration: InputDecoration(
-              focusedBorder: InputBorder.none,
-              border: InputBorder.none,
-              prefixIcon: Icon(
-                icon,
-                color: Colors.black54,
-              ),
-              label: Text(
-                text,
-                style: TextStyle(
-                  color: Colors.black54,
-                  fontSize: 18,
+          )
+        : Container(
+            height: 110,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10)),
+              color: Colors.white,
+              margin: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+              child: Center(
+                child: TextField(
+                  decoration: InputDecoration(
+                    focusedBorder: InputBorder.none,
+                    border: InputBorder.none,
+                    prefixIcon: Icon(
+                      icon,
+                      color: Colors.black54,
+                    ),
+                    label: Text(
+                      text,
+                      style: const TextStyle(
+                        color: Colors.black54,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                  onChanged: onChange,
                 ),
               ),
             ),
-            onChanged: onChange,
-          ),
-        )));
+          );
   }
 }

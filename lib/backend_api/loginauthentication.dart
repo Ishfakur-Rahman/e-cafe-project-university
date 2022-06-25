@@ -55,8 +55,7 @@ class Authentication {
     print("Hello, " + response.statusCode.toString());//TODO
 
     if (response.statusCode == 200) {
-      var users = ShopsDetails.fromJson(jsonDecode(response.body));
-      return users.coffeeShopId;
+      return response.body;
     } else {
       return null;
     }
