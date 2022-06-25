@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:io';
 import 'package:versity_project_coffee/backend_api/addProfileInfo.dart';
+import 'package:versity_project_coffee/backend_api/imagepicker.dart';
 import 'package:versity_project_coffee/database/userBoxController.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/pages/LogInPage.dart';
 
@@ -981,6 +983,7 @@ class UserInfoEdit extends StatefulWidget {
 }
 
 class _UserInfoEditStateState extends State<UserInfoEdit> {
+  File? imageFile;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -1001,7 +1004,7 @@ class _UserInfoEditStateState extends State<UserInfoEdit> {
                   userName: UserBoxController().userName,
                   contact: "contact",//TODO: this should return the contact can be nullable
                   address: "addreess", //TODO: this should return the address can be nullable
-                  //image: , TODO:this image will return the image file can be nullable
+                  image: imageFile,// TODO:this image will return the image file can be nullable
                 );
                 Get.back();
               },
@@ -1016,9 +1019,15 @@ class _UserInfoEditStateState extends State<UserInfoEdit> {
               height: 80,
             ),
             InfoCard(
-                text: 'Upload',
+                text: 'AddImage',
                 icon: Icons.collections,
                 onPressed: () async {
+                  imageFile = await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ImagePickerHelper(),
+                    ),
+                  );
                 }),
             InfoCard(
                 text: 'Contact', icon: Icons.phone, onPressed: () async {
