@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:versity_project_coffee/api_data_model/get_profile_model.dart';
 import 'dart:io';
 import 'package:versity_project_coffee/backend_api/addProfileInfo.dart';
 import 'package:versity_project_coffee/backend_api/imagepicker.dart';
@@ -502,7 +505,7 @@ class _InviteFriendsState extends State<InviteFriends> {
                         children: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const[
+                            children: const [
                               Icon(
                                 Icons.card_giftcard,
                                 size: 90,
@@ -941,6 +944,12 @@ class UserInfo extends StatefulWidget {
 }
 
 class _UserInfoState extends State<UserInfo> {
+  ProfileDataModel? profileInfo;
+  void get_profile_info() async {
+    var response = await ProfileData().get_profile();
+    profileInfo = ProfileDataModel.fromJson(jsonDecode(response));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -961,36 +970,59 @@ class _UserInfoState extends State<UserInfo> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             InfoCard(
               text: 'Upload your profile picture',
               icon: Icons.collections,
-              onChange: (_) {},
               isEdit: true,
             ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(profileInfo!.shopName! != "0" ? 'ShopName' : 'username'),
+            const SizedBox(
+              height: 5,
+            ),
             InfoCard(
-                text: 'Username',
-                icon: Icons.person_pin,
-                onChange: (_) {},
-                isEdit: true),
+                text: profileInfo!.user!, icon: Icons.person_pin, isEdit: true),
+            const SizedBox(
+              height: 10,
+            ),
+            const Text('Contact:'),
+            const SizedBox(
+              height: 5,
+            ),
             InfoCard(
-              text: 'Contact',
+              text: profileInfo!.contact!.toString(),
               icon: Icons.phone,
-              onChange: (_) {},
               isEdit: false,
             ),
-            InfoCard(
-              text: 'Address',
-              icon: Icons.location_on,
-              onChange: (_) {},
-              isEdit: true,
+            const SizedBox(
+              height: 10,
+            ),
+            const Text('Address:'),
+            const SizedBox(
+              height: 5,
             ),
             InfoCard(
-              text: 'Shopname',
+              text: profileInfo!.address!,
+              icon: Icons.location_on,
+              isEdit: true,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(profileInfo!.shopName! != "0"?'ShopId':''),
+            const SizedBox(
+              height: 5,
+            ),
+            InfoCard(
+              text: profileInfo!.shopName! != "0"
+                  ? profileInfo!.shopName!.toString()
+                  : 'Hope you are enjoying our app!',
               icon: Icons.store,
-              onChange: (_) {},
               isEdit: true,
             ),
           ],
@@ -1024,15 +1056,11 @@ class _UserInfoEditStateState extends State<UserInfoEdit> {
           actions: [
             IconButton(
               icon: const Icon(Icons.done),
-              onPressed: () {
-                ProfileData().update_profile_data(
+              onPressed: () async {
+                await ProfileData().update_profile_data(
                   userName: UserBoxController().userName,
-                  contact:
-                      contact,
-                  address:
-                      address,
-                  image:
-                      imageFile,
+                  contact: contact,
+                  image: imageFile,
                 );
                 Get.back();
               },
@@ -1051,7 +1079,7 @@ class _UserInfoEditStateState extends State<UserInfoEdit> {
                   text: 'AddImage',
                   icon: Icons.collections,
                   isEdit: false,
-                  onChange: (value) async{
+                  onChange: (value) async {
                     imageFile = await Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -1067,14 +1095,6 @@ class _UserInfoEditStateState extends State<UserInfoEdit> {
                 },
                 isEdit: false,
               ),
-              InfoCard(
-                text: 'Address',
-                icon: Icons.location_on,
-                onChange: (value) {
-                  address = value;
-                },
-                isEdit: false,
-              )
             ],
           ),
         ));
@@ -1086,12 +1106,12 @@ class InfoCard extends StatelessWidget {
   final String text;
   final IconData icon;
   final bool isEdit;
-  final Function(String) onChange;
+  Function(String)? onChange;
 
   InfoCard(
       {required this.text,
       required this.icon,
-      required this.onChange,
+      this.onChange,
       required this.isEdit});
 
   @override
