@@ -959,19 +959,26 @@ class _UserInfoState extends State<UserInfo> {
             InfoCard(
                 text: 'Upload your profile picture',
                 icon: Icons.collections,
-                onPressed: () async {}),
+                onChange: (_){},
+                isEdit: true,
+                ),
             InfoCard(
                 text: 'Username',
                 icon: Icons.person_pin,
-                onPressed: () async {}),
+                onChange: (_){},
+                isEdit: true
+                ),
             InfoCard(
-                text: 'Contact', icon: Icons.phone, onPressed: () async {}),
+                text: 'Contact', icon: Icons.phone, onChange:(_){},isEdit: false,),
             InfoCard(
                 text: 'Address',
                 icon: Icons.location_on,
-                onPressed: () async {}),
+                onChange: (_){},
+                isEdit: true,
+                ),
             InfoCard(
-                text: 'Shopname', icon: Icons.store, onPressed: () async {}),
+                text: 'Shopname', icon: Icons.store, onChange: (_){},
+                isEdit: true,),
           ]),
         ));
   }
@@ -988,6 +995,7 @@ class _UserInfoEditStateState extends State<UserInfoEdit> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.brown,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
@@ -1002,9 +1010,12 @@ class _UserInfoEditStateState extends State<UserInfoEdit> {
                 //TODO: upload data to backendAPI
                 ProfileData().update_profile_data(
                   userName: UserBoxController().userName,
-                  contact: "contact",//TODO: this should return the contact can be nullable
-                  address: "addreess", //TODO: this should return the address can be nullable
-                  image: imageFile,// TODO:this image will return the image file can be nullable
+                  contact:
+                      "contact", //TODO: this should return the contact can be nullable
+                  address:
+                      "addreess", //TODO: this should return the address can be nullable
+                  image:
+                      imageFile, // TODO:this image will return the image file can be nullable
                 );
                 Get.back();
               },
@@ -1021,7 +1032,8 @@ class _UserInfoEditStateState extends State<UserInfoEdit> {
             InfoCard(
                 text: 'AddImage',
                 icon: Icons.collections,
-                onPressed: () async {
+                isEdit: false,
+                onChange: (_) async {
                   imageFile = await Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -1030,13 +1042,13 @@ class _UserInfoEditStateState extends State<UserInfoEdit> {
                   );
                 }),
             InfoCard(
-                text: 'Contact', icon: Icons.phone, onPressed: () async {
-            }),
+                text: 'Contact', icon: Icons.phone, onChange: (_) async {}, isEdit: false,),
             InfoCard(
-                text: 'Address',
-                icon: Icons.location_on,
-                onPressed: () async {
-                }),
+              text: 'Address',
+              icon: Icons.location_on,
+              onChange: (_) async {},
+              isEdit: false,
+            )
           ]),
         ));
   }
@@ -1046,21 +1058,23 @@ class InfoCard extends StatelessWidget {
   // the values we need
   final String text;
   final IconData icon;
-  final VoidCallback onPressed;
+  final bool isEdit;
+  final Function(String) onChange;
 
-  InfoCard({required this.text, required this.icon, required this.onPressed});
+  InfoCard({required this.text, required this.icon, required this.onChange, required this.isEdit});
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    return Card(
+    return isEdit? Container(
+          height: 110,
+          child: Card(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             color: Colors.white,
             margin: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
             child: Center(
-              child: TextField(
-                decoration: OutlineInputBorder(),
+              child: ListTile(
                 leading: Icon(
                   icon,
                   color: Colors.black54,
@@ -1073,6 +1087,32 @@ class InfoCard extends StatelessWidget {
                   ),
                 ),
               ),
-            ));
+            ),
+          ),
+        ):Container(
+          height: 110,child: Card(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        color: Colors.white,
+        margin: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+        child: Center(
+          child: TextField(
+            decoration: InputDecoration(
+              focusedBorder: InputBorder.none,
+              border: InputBorder.none,
+              prefixIcon: Icon(
+                icon,
+                color: Colors.black54,
+              ),
+              label: Text(
+                text,
+                style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 18,
+                ),
+              ),
+            ),
+            onChanged: onChange,
+          ),
+        )));
   }
 }
