@@ -935,12 +935,14 @@ class _UserInfoState extends State<UserInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.brown,
           leading: const Icon(Icons.arrow_back),
           title: const Text('Profile'),
           actions: [
             IconButton(
                 onPressed: () {
-                  Get.to(() => _UserInfoEditState());
+                  @override
+                  _UserInfoEditState createState() => _UserInfoEditState();
                 },
                 icon: Icon(Icons.edit_sharp)),
           ],
@@ -950,7 +952,7 @@ class _UserInfoState extends State<UserInfo> {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
             SizedBox(
-              height: 80,
+              height: 25,
             ),
             InfoCard(
                 text: 'Upload your profile picture',
@@ -985,7 +987,7 @@ class _UserInfoEditState extends State<UserInfo> {
               height: 80,
             ),
             InfoCard(
-                text: 'Upload your profile picture',
+                text: 'Upload',
                 icon: Icons.collections,
                 onPressed: () async {}),
             InfoCard(
