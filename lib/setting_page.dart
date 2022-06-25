@@ -1044,17 +1044,14 @@ class InfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-    return GestureDetector(
-        onTap: onPressed,
-        child: Container(
-          height: 110,
-          child: Card(
+    return Card(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             color: Colors.white,
             margin: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
             child: Center(
-              child: ListTile(
+              child: TextField(
+                decoration: OutlineInputBorder(),
                 leading: Icon(
                   icon,
                   color: Colors.black54,
@@ -1067,8 +1064,6 @@ class InfoCard extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-          ),
-        ));
+            ));
   }
 }
