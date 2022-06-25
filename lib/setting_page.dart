@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:versity_project_coffee/backend_api/addProfileInfo.dart';
 import 'package:versity_project_coffee/database/userBoxController.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/pages/LogInPage.dart';
 
@@ -941,8 +942,7 @@ class _UserInfoState extends State<UserInfo> {
           actions: [
             IconButton(
                 onPressed: () {
-                  @override
-                  _UserInfoEditState createState() => _UserInfoEditState();
+                  Get.to(() => UserInfoEdit());
                 },
                 icon: Icon(Icons.edit_sharp)),
           ],
@@ -975,10 +975,39 @@ class _UserInfoState extends State<UserInfo> {
   }
 }
 
-class _UserInfoEditState extends State<UserInfo> {
+class UserInfoEdit extends StatefulWidget {
+  @override
+  State<UserInfoEdit> createState() => _UserInfoEditStateState();
+}
+
+class _UserInfoEditStateState extends State<UserInfoEdit> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Get.back();
+            },
+          ),
+          title: const Text('Update Profile'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.done),
+              onPressed: () {
+                //TODO: upload data to backendAPI
+                ProfileData().update_profile_data(
+                  userName: UserBoxController().userName,
+                  contact: "contact",//TODO: this should return the contact can be nullable
+                  address: "addreess", //TODO: this should return the address can be nullable
+                  //image: , TODO:this image will return the image file can be nullable
+                );
+                Get.back();
+              },
+            )
+          ],
+        ),
         backgroundColor: Color(0xffa68966),
         body: SingleChildScrollView(
           child:
@@ -989,19 +1018,16 @@ class _UserInfoEditState extends State<UserInfo> {
             InfoCard(
                 text: 'Upload',
                 icon: Icons.collections,
-                onPressed: () async {}),
+                onPressed: () async {
+                }),
             InfoCard(
-                text: 'Username',
-                icon: Icons.person_pin,
-                onPressed: () async {}),
-            InfoCard(
-                text: 'Contact', icon: Icons.phone, onPressed: () async {}),
+                text: 'Contact', icon: Icons.phone, onPressed: () async {
+            }),
             InfoCard(
                 text: 'Address',
                 icon: Icons.location_on,
-                onPressed: () async {}),
-            InfoCard(
-                text: 'Shopname', icon: Icons.store, onPressed: () async {}),
+                onPressed: () async {
+                }),
           ]),
         ));
   }
