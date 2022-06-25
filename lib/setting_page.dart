@@ -943,10 +943,11 @@ class UserInfo extends StatefulWidget {
 }
 
 class _UserInfoState extends State<UserInfo> {
-  ProfileDataModel? profileInfo;
-  void get_profile_info() async {
+  Future<ProfileDataModel> get_profile_info() async {
     var response = await ProfileData().get_profile();
-    profileInfo = ProfileDataModel.fromJson(jsonDecode(response));
+    ProfileDataModel profileInfo =
+        ProfileDataModel.fromJson(jsonDecode(response));
+    return profileInfo;
   }
 
   @override
@@ -966,92 +967,104 @@ class _UserInfoState extends State<UserInfo> {
       ),
       backgroundColor: Color(0xffa68966),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: NetworkImage(
-                    "https://coffee-app-systems.herokuapp.com${profileInfo!.profile!}/",
-                    headers: {
-                      "Authorization": "Token ${UserBoxController().token}"
-                    },
+        child: FutureBuilder(
+          future: get_profile_info(),
+          builder: (context, snapshot) {
+            ProfileDataModel profileInfo;
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasData){
+             //TODO: COmplete the future builder shamama I can't handle UI
+            }
+            return Column(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                        "https://coffee-app-systems.herokuapp.com${profileInfo.profile}/",
+                        headers: {
+                          "Authorization": "Token ${UserBoxController().token}"
+                        },
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20.0),
-                    topRight: Radius.circular(20.0),
+                Expanded(
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20.0),
+                        topRight: Radius.circular(20.0),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(profileInfo.shopName != "0"
+                            ? 'ShopName'
+                            : 'username'),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        InfoCard(
+                            text: UserBoxController().userName,
+                            icon: Icons.person_pin,
+                            isEdit: true),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text('Contact:'),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        InfoCard(
+                          text: profileInfo.contact.toString(),
+                          icon: Icons.phone,
+                          isEdit: false,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Text('Address:'),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        InfoCard(
+                          text: profileInfo.address!,
+                          icon: Icons.location_on,
+                          isEdit: true,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Text(profileInfo.shopName != "0" ? 'ShopId' : ''),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        InfoCard(
+                          text: profileInfo.shopName != "0"
+                              ? profileInfo.shopName.toString()
+                              : 'Hope you are enjoying our app!',
+                          icon: Icons.store,
+                          isEdit: true,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(profileInfo!.shopName! != "0"
-                        ? 'ShopName'
-                        : 'username'),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    InfoCard(
-                        text: UserBoxController().userName,
-                        icon: Icons.person_pin,
-                        isEdit: true),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text('Contact:'),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    InfoCard(
-                      text: profileInfo!.contact!.toString(),
-                      icon: Icons.phone,
-                      isEdit: false,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text('Address:'),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    InfoCard(
-                      text: profileInfo!.address!,
-                      icon: Icons.location_on,
-                      isEdit: true,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(profileInfo!.shopName! != "0" ? 'ShopId' : ''),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    InfoCard(
-                      text: profileInfo!.shopName! != "0"
-                          ? profileInfo!.shopName!.toString()
-                          : 'Hope you are enjoying our app!',
-                      icon: Icons.store,
-                      isEdit: true,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
+              ],
+            );
+          },
         ),
       ),
     );

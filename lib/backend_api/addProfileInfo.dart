@@ -18,7 +18,7 @@ class ProfileData {
     var length = await image.length();
 
     var uri =
-        Uri.parse('https://coffee-app-systems.herokuapp.com/profile-info/');
+        Uri.parse('https://coffee-app-systems.herokuapp.com/add-profile-info/');
 
     var request = http.MultipartRequest('POST', uri);
 

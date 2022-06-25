@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
+import 'package:versity_project_coffee/api_data_model/get_shops_model.dart';
 import 'package:versity_project_coffee/backend_api/coffeedata.dart';
 import 'package:versity_project_coffee/backend_api/loginauthentication.dart';
 
@@ -201,9 +204,10 @@ class LogInButton extends StatelessWidget {
                 if (role == 'buyer') {
                   Get.off(() => BottomPage());
                 } else if (role == 'seller') {
-                  var shopId = await Authentication()
+                  var shop = await Authentication()
                       .shop_id(token: token, shopName: username);
-                  UserBoxController().addShopId(shopId as int);
+                  ShopsDetails shopId = ShopsDetails.fromJson(jsonDecode(shop));
+                  UserBoxController().addShopId(shopId.coffeeShopId as int);
                   Get.off(() => HomePage());
                 }
               } else {
