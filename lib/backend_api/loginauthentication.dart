@@ -52,7 +52,6 @@ class Authentication {
           'https://coffee-app-systems.herokuapp.com/get-shop-name/$shopName/'),
       headers: {"Authorization": "Token $token"},
     );
-    print("Hello, " + response.statusCode.toString());//TODO
 
     if (response.statusCode == 200) {
       var users = ShopsDetails.fromJson(jsonDecode(response.body));

@@ -12,7 +12,6 @@ class UserBoxController {
   void addToken(String token) async {
     box = getBox();
     await box.put("token", token);
-    print("addToken");
   }
 
   String get token => getBox().get("token")!;
