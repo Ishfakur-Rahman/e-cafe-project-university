@@ -18,7 +18,7 @@ class ProfileData {
     var length = await image.length();
 
     var uri =
-        Uri.parse('https://coffee-app-systems.herokuapp.com/profile-info/');
+        Uri.parse('https://coffee-app-systems.herokuapp.com/add-profile-info/');
 
     var request = http.MultipartRequest('POST', uri);
 
@@ -26,7 +26,7 @@ class ProfileData {
 
     request.fields['user'] = userName!;
     request.fields['contact'] = contact ?? "00000000000";
-    request.fields['address'] = address ?? "add your address";
+    request.fields['address'] = address!;
     request.fields['shopName'] =
         role == 'seller' ? shopName.toString() : (role == 'buyer' ? "0" : "");
 
@@ -68,7 +68,6 @@ class ProfileData {
     String? address,
     File? image,
   }) async {
-
     var stream;
     var length;
 
@@ -85,8 +84,8 @@ class ProfileData {
 
     request.headers['Authorization'] = "Token $token";
 
-    contact!=null? (request.fields['contact'] = contact): "";
-    address!=null? (request.fields['address'] = address): "";
+    contact != null ? (request.fields['contact'] = contact) : "";
+    address != null ? (request.fields['address'] = address) : "";
 
     if (image != null) {
       var multiport = http.MultipartFile('image', stream, length);
@@ -117,6 +116,20 @@ class ProfileData {
       return "Updated";
     } else {
       return "Failed to update data";
+    }
+  }
+
+  Future<dynamic> get_profile() async {
+    String userName = UserBoxController().userName;
+    http.Response response = await http.get(
+      Uri.parse(
+          'https://coffee-app-systems.herokuapp.com/get-profile-info/$userName/'),
+      headers: {"Authorization": "Token $token"},
+    );
+    if(response.statusCode == 200){
+      return response.body;
+    }else{
+      return 'error';
     }
   }
 }

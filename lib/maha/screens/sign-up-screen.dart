@@ -1,7 +1,11 @@
+import 'dart:convert';
+import 'dart:io';
 import 'dart:ui';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:versity_project_coffee/api_data_model/get_shops_model.dart';
+import 'package:versity_project_coffee/backend_api/addProfileInfo.dart';
 import 'package:versity_project_coffee/maha/pallete.dart';
 import 'package:versity_project_coffee/maha/widgets/widgets.dart';
 
@@ -27,7 +31,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   late String confirmedPassword = 'n';
   late String messages = 'n';
   Future<bool> registrationInAPI() async {
-    print("hola");
     try {
       var token = await RegistrationHelper().registrating(
         userName: user,
@@ -35,23 +38,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
         userTypes: selectedUser,
         email: email,
       );
-      print(token);
+      var shopDetails;
+      var shop;
       UserBoxController().addToken(token);
       UserBoxController().addUserName(user);
       UserBoxController().addRole(selectedUser);
-      if (selectedUser == 'buyer') {
-        Get.off(() => BottomPage());
-      } else if (selectedUser == 'seller') {
-        var shopId =
+      if (selectedUser == 'seller') {
+        shop =
             await Authentication().shop_id(token: token, shopName: user);
-        print(shopId);
-        UserBoxController().addShopId(shopId as int);
-
-        ///TODO: ata thik ache?
+        shopDetails = ShopsDetails.fromJson(jsonDecode(shop));
+        UserBoxController().addShopId(shopDetails.coffeeShopId as int);
       }
+      await ProfileData().add_profile_data(
+        userName: user,
+        image: File('images/defaulprofile.jpg'),
+        address: shopDetails.location,
+      );
       return true;
     } catch (e) {
-      print(e.toString());
       messages = "Error";
       return false;
     }
