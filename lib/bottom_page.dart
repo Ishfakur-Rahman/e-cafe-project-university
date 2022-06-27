@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:versity_project_coffee/profile_page.dart';
 import 'package:versity_project_coffee/purchase_history_page.dart';
 import 'cart_page.dart';
-import 'favourite_page.dart';
 import 'home_page.dart';
 
 class BottomPage extends StatefulWidget {
@@ -20,7 +19,6 @@ class _BottomPageState extends State<BottomPage> {
     HomePage(),
     CartPage(),
     PurchaseHistoryPage(),
-    FavouritePage(),
     ProfilePage(),
   ];
 
@@ -67,13 +65,6 @@ class _BottomPageState extends State<BottomPage> {
                 size: 30,
               ),
               label: "History",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.favorite,
-                size: 30,
-              ),
-              label: "Favorite",
             ),
             BottomNavigationBarItem(
               icon: Icon(

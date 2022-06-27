@@ -240,24 +240,6 @@ class DetailPage extends StatelessWidget {
                               },
                             ),
                           ),
-                          Container(
-                            height: 40.0,
-                            width: 40.0,
-                            decoration: BoxDecoration(
-                              color: const Color(0xff141921),
-                              borderRadius: BorderRadius.circular(10.0),
-                            ),
-                            child: IconButton(
-                              icon: const Icon(
-                                Icons.favorite,
-                                size: 20,
-                                color: Color(0xffaeaeae),
-                              ),
-                              onPressed: () {
-                                
-                              },
-                            ),
-                          ),
                         ],
                       ),
                     )

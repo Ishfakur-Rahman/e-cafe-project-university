@@ -6,6 +6,7 @@ import 'package:versity_project_coffee/api_data_model/get_profile_model.dart';
 import 'package:versity_project_coffee/backend_api/addProfileInfo.dart';
 import 'package:versity_project_coffee/backend_api/imagepicker.dart';
 import 'package:versity_project_coffee/database/userBoxController.dart';
+import 'package:versity_project_coffee/features/homePage/presentation/pages/HomePageScreen.dart';
 import 'package:versity_project_coffee/features/userAccount/presentation/pages/LogInPage.dart';
 
 import 'notification.dart';
@@ -955,7 +956,11 @@ class _UserInfoState extends State<UserInfo> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.brown,
-        leading: const Icon(Icons.arrow_back),
+        leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Get.back();
+            }),
         title: const Text('Profile'),
         actions: [
           IconButton(
@@ -966,107 +971,121 @@ class _UserInfoState extends State<UserInfo> {
         ],
       ),
       backgroundColor: Color(0xffa68966),
-      body: SingleChildScrollView(
-        child: FutureBuilder(
+      body: FutureBuilder(
           future: get_profile_info(),
           builder: (context, snapshot) {
             ProfileDataModel profileInfo;
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(child: CircularProgressIndicator());
-            }
-            if (snapshot.hasData){
-             //TODO: COmplete the future builder shamama I can't handle UI
-            }
-            return Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: NetworkImage(
-                        "https://coffee-app-systems.herokuapp.com${profileInfo.profile}/",
-                        headers: {
-                          "Authorization": "Token ${UserBoxController().token}"
-                        },
+            } else if (snapshot.hasData) {
+              profileInfo = snapshot.data as ProfileDataModel;
+              return CustomScrollView(slivers: [
+                SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(height: 30),
+                      Container(
+                        height: 100,
+                        width: 100,
+                        // padding: const EdgeInsets.symmetric(vertical: 20.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50),
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(
+                              'https://coffee-app-systems.herokuapp.com${profileInfo.profile!}/',
+                              headers: {
+                                "Authorization":
+                                    "Token ${UserBoxController().token}"
+                              },
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      Expanded(
+                        child: Container(
+                          decoration: const BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20.0),
+                              topRight: Radius.circular(20.0),
+                            ),
+                          ),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const SizedBox(
+                                height: 25,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(profileInfo.shopName.toString() != "0"
+                                  ? 'ShopName'
+                                  : 'username'),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              InfoCard(
+                                  text: UserBoxController().userName,
+                                  icon: Icons.person_pin,
+                                  isEdit: true),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text('Contact:'),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              InfoCard(
+                                text: profileInfo.contact!.toString(),
+                                icon: Icons.phone,
+                                isEdit: false,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              const Text('Address:'),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              InfoCard(
+                                text: profileInfo.address!,
+                                icon: Icons.location_on,
+                                isEdit: true,
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(profileInfo.shopName.toString() != "0"
+                                  ? 'ShopId:'
+                                  : ''),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              InfoCard(
+                                text: profileInfo.shopName.toString() != "0"
+                                    ? profileInfo.shopName.toString()
+                                    : 'Hope you are enjoying our app!',
+                                icon: Icons.store,
+                                isEdit: true,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Expanded(
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20.0),
-                        topRight: Radius.circular(20.0),
-                      ),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const SizedBox(
-                          height: 25,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(profileInfo.shopName != "0"
-                            ? 'ShopName'
-                            : 'username'),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        InfoCard(
-                            text: UserBoxController().userName,
-                            icon: Icons.person_pin,
-                            isEdit: true),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Text('Contact:'),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        InfoCard(
-                          text: profileInfo.contact.toString(),
-                          icon: Icons.phone,
-                          isEdit: false,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        const Text('Address:'),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        InfoCard(
-                          text: profileInfo.address!,
-                          icon: Icons.location_on,
-                          isEdit: true,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(profileInfo.shopName != "0" ? 'ShopId' : ''),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        InfoCard(
-                          text: profileInfo.shopName != "0"
-                              ? profileInfo.shopName.toString()
-                              : 'Hope you are enjoying our app!',
-                          icon: Icons.store,
-                          isEdit: true,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
-      ),
+              ]);
+            } else {
+              return Container();
+            }
+            ;
+          }),
     );
   }
 }

@@ -9,13 +9,15 @@ import '../api_data_model/get_coffee_model.dart';
 import '../api_data_model/get_shops_model.dart';
 
 class CoffeeDataLocal {
-  Future<List<CoffeeModel>> create_list() async {
-    var getcoffees = await CoffeeData().get_all_coffee();
-    var getshops = await ShopDetail().get_all_shop_details();
-    List<CoffeeModel> coffeeList = [];
-    var getcoffeeList = GetAllCoffeeModel.fromJson(jsonDecode(getcoffees));
-    var getshopList = GetAllShopModel.fromJson(jsonDecode(getshops));
 
+    get getcoffees async => await CoffeeData().get_all_coffee();
+    get getshops async => await ShopDetail().get_all_shop_details();
+    List<CoffeeModel> coffeeList = [];
+    GetAllCoffeeModel get getcoffeeList => GetAllCoffeeModel.fromJson(jsonDecode(getcoffees));
+    get getshopList => GetAllShopModel.fromJson(jsonDecode(getshops));
+  
+  
+  Future<List<CoffeeModel>> create_list() async {
     for (var coffees in getcoffeeList.coffee!) {
       for (var shops in getshopList.shopsDetails!) {
         if (shops.coffeeShopId == coffees.shopName) {

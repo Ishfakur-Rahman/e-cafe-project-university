@@ -22,21 +22,38 @@ class CartPage extends StatelessWidget {
           ),
         ),
       ),
-      body: ValueListenableBuilder<Box<CartModel>>(
-          valueListenable: CartBoxController.getCart().listenable(),
-          builder: (context, box, _) {
-            List<CartModel> carts = box.values.toList();
-            // print();
-            return ListView.separated(
-              itemCount: carts.length,
-              separatorBuilder: (BuildContext context, int index) {
-                return SizedBox(height: 20);
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+            child: ValueListenableBuilder<Box<CartModel>>(
+                valueListenable: CartBoxController.getCart().listenable(),
+                builder: (context, box, _) {
+                  List<CartModel> carts = box.values.toList();
+                  // print();
+                  return ListView.separated(
+                    itemCount: carts.length,
+                    separatorBuilder: (BuildContext context, int index) {
+                      return SizedBox(height: 20);
+                    },
+                    itemBuilder: (BuildContext context, int index) {
+                      return CartWidget(index: index, carts: carts);
+                    },
+                  );
+                }),
+          ),
+          ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(primary: Colors.brown),
+              onPressed: () {
+                CartBoxController().delAllCart();
               },
-              itemBuilder: (BuildContext context, int index) {
-                return CartWidget(index: index, carts: carts);
-              },
-            );
-          }),
+              icon: Icon(Icons.coffee),
+              label: Text("Buy Now")),
+          SizedBox(
+            height: 20,
+          )
+        ],
+      ),
     );
   }
 }
@@ -81,11 +98,10 @@ class CartWidget extends StatelessWidget {
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: NetworkImage(
-                        "https://coffee-app-systems.herokuapp.com${image}/",
-                        headers: {
-                          "Authorization":
-                              "Token ${UserBoxController().token}"
-                        }),
+                      "https://coffee-app-systems.herokuapp.com${image}/",
+                      headers: {
+                        "Authorization": "Token ${UserBoxController().token}"
+                      }),
                 ),
                 borderRadius: BorderRadius.circular(20.0),
               ),

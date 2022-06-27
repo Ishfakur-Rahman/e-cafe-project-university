@@ -89,11 +89,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             backgroundColor: Colors.grey[400]!.withOpacity(
                               0.4,
                             ),
-                            child: Icon(
-                              FontAwesomeIcons.user,
-                              color: kBrown,
-                              size: size.width * 0.1,
-                            ),
+                            child: Image.asset("images/logo.jpeg"),
                           ),
                         ),
                       ),

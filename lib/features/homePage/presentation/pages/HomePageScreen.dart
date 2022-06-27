@@ -24,37 +24,41 @@ class HomeScreen extends StatelessWidget {
     return SingleChildScrollView(
       child: FutureBuilder(
         builder: (context, snapshot) {
-          if (snapshot.hasData) ctrl.setData(snapshot.data);
+          if (snapshot.hasData) {
+            ctrl.setData(snapshot.data);
 
-          return Column(
-            children: [
-              EarnedMoney(),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    MText("Your Products", color: MColors.yellow).heading1(),
-                    Spacer(),
-                    IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Iconsax.filter,
-                          color: MColors.yellow,
-                        ))
-                  ],
+            return Column(
+              children: [
+                EarnedMoney(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      MText("Your Products", color: MColors.yellow).heading1(),
+                      Spacer(),
+                      IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Iconsax.filter,
+                            color: MColors.yellow,
+                          ))
+                    ],
+                  ),
                 ),
-              ),
-              ListView.separated(
-                shrinkWrap: true,
-                primary: false,
-                itemBuilder: (build, id) => ItemViewer(id: id),
-                separatorBuilder: (build, id) => SizedBox(
-                  height: 7,
+                ListView.separated(
+                  shrinkWrap: true,
+                  primary: false,
+                  itemBuilder: (build, id) => ItemViewer(id: id),
+                  separatorBuilder: (build, id) => SizedBox(
+                    height: 7,
+                  ),
+                  itemCount: ctrl.listofcoffee.length,
                 ),
-                itemCount: ctrl.listofcoffee.length,
-              ),
-            ],
-          );
+              ],
+            );
+          }else{
+          return Container();
+        }
         },
         future: CoffeeDataLocal().create_list(),
       ),
@@ -95,7 +99,7 @@ class EarnedMoney extends StatelessWidget {
                       MText(ctrl.getTotalBalance().toString(),
                               color: MColors.yellow,
                               fontWeight: FontWeight.w200)
-                          .heading1(),
+                          .heading1()
                     ],
                   ),
                   Spacer(),
@@ -143,7 +147,6 @@ class ItemViewer extends StatelessWidget {
     return GestureDetector(
       onTap: () async {
         var coffees = await CoffeeData().get_all_coffee();
-        print(GetAllCoffeeModel.fromJson(jsonDecode(coffees)));
       },
       child: Stack(
         alignment: Alignment.topRight,
@@ -282,20 +285,20 @@ class HomePageController extends GetxController {
       .where((coffee) => (coffee.coffeeShopId == UserBoxController().shopId))
       .toList();
 
-  getTotalBalance() {
+  int getTotalBalance() {
     int sum = 0;
     for (CoffeeModel coffee in _listofcoffee) {
       sum += coffee.price;
     }
     return sum;
   }
+
   getTotalRating() {
     double sum = 0.0;
     for (CoffeeModel coffee in _listofcoffee) {
-      print(double.parse(coffee.rating));
       sum += double.parse(coffee.rating);
     }
-    return (sum/(_listofcoffee.length)).round();
+    return (sum / (_listofcoffee.length)).round();
   }
 
   void setData(Object? data) {

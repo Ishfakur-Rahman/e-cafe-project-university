@@ -24,6 +24,11 @@ class CartBoxController {
     await box.delete((model.id + 0.1 * getSizeNum(model.size)).toString());
   }
 
+  void delAllCart() async {
+    box = getCart();
+    await box.clear();
+  }
+
   int getSizeNum(String size) {
     if (size == "S") {
       return 0;
