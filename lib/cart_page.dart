@@ -2,11 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'backend_api/order_data.dart';
 import 'database/cartBoxController.dart';
 import 'database/cartModel.dart';
 import 'database/userBoxController.dart';
 
 class CartPage extends StatelessWidget {
+  //TODO: this function
+  void placeorder(List listoforderdata) async {
+    for (var item in listoforderdata) {
+      await Order().place_order(
+          "coffeeId", "coffeeName", "size", 21, "address", "contact", 122131);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -44,7 +53,9 @@ class CartPage extends StatelessWidget {
           ),
           ElevatedButton.icon(
               style: ElevatedButton.styleFrom(primary: Colors.brown),
-              onPressed: () {
+              onPressed: () async {
+                //TODO: this line
+                // await placeorder(Listofdata);
                 CartBoxController().delAllCart();
               },
               icon: Icon(Icons.coffee),
