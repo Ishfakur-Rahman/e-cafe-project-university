@@ -5,20 +5,23 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'backend_api/order_data.dart';
 import 'database/cartBoxController.dart';
 import 'database/cartModel.dart';
+import 'delivary_page.dart';
+// import 'database/coffeeModel.dart';
 import 'database/userBoxController.dart';
 
 class CartPage extends StatelessWidget {
   //TODO: this function
-  void placeorder(List listoforderdata) async {
+  void placeorder(List<CartModel> listoforderdata) async {
     for (var item in listoforderdata) {
-      await Order().place_order(
-          "coffeeId", "coffeeName", "size", 21, "address", "contact", 122131);
+      await Order().place_order(item.id.toString(), item.name, item.size, 1,
+          item.shopName, "contact", item.id);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    List<CartModel> carts = [];
     return Scaffold(
       backgroundColor: Colors.black54,
       appBar: AppBar(
@@ -38,7 +41,7 @@ class CartPage extends StatelessWidget {
             child: ValueListenableBuilder<Box<CartModel>>(
                 valueListenable: CartBoxController.getCart().listenable(),
                 builder: (context, box, _) {
-                  List<CartModel> carts = box.values.toList();
+                  carts = box.values.toList();
                   // print();
                   return ListView.separated(
                     itemCount: carts.length,
@@ -55,8 +58,9 @@ class CartPage extends StatelessWidget {
               style: ElevatedButton.styleFrom(primary: Colors.brown),
               onPressed: () async {
                 //TODO: this line
-                // await placeorder(Listofdata);
+                placeorder(carts);
                 CartBoxController().delAllCart();
+                Get.to(MyHomePage());
               },
               icon: Icon(Icons.coffee),
               label: Text("Buy Now")),
