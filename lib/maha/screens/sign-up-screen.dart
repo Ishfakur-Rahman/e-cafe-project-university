@@ -44,18 +44,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
       UserBoxController().addUserName(user);
       UserBoxController().addRole(selectedUser);
       if (selectedUser == 'seller') {
-        shop =
-            await Authentication().shop_id(token: token, shopName: user);
+        shop = await Authentication().shop_id(token: token, shopName: user);
         shopDetails = ShopsDetails.fromJson(jsonDecode(shop));
         UserBoxController().addShopId(shopDetails.coffeeShopId as int);
       }
+      print("ProfileData in");
       await ProfileData().add_profile_data(
         userName: user,
-        image: File('images/defaulprofile.jpg'),
-        address: shopDetails.location,
+        image: File('images/defaultprofile.jpg'),
+        address: "hola",
       );
+      print("ProfileData out");
       return true;
     } catch (e) {
+      print(e);
       messages = "Error";
       return false;
     }
