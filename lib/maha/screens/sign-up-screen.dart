@@ -50,13 +50,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
         UserBoxController().addShopId(shopDetails.coffeeShopId as int);
         await ProfileData().add_profile_data(
           userName: user,
-          image: File('images/defaulprofile.jpg'),
+          image: File('images/defaultprofile.jpg'),
           address: shopDetails.location,
         );
       }
       await ProfileData().add_profile_data(
         userName: user,
-        image: File('images/defaultprofile.jpg');
+        image: File('images/defaultprofile.jpg'),
         address: null,
       );
       return true;
