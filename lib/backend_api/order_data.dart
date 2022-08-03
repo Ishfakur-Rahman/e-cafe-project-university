@@ -8,13 +8,11 @@ class Order {
   var token = UserBoxController().token;
   var user_name = UserBoxController().userName;
   
-  Future<List<AllOrders>?> get_all_order() async {
+  Future<dynamic> get_all_order() async {
     http.Response response = await http.get(
         Uri.parse('https://coffee-app-systems.herokuapp.com/get-order/'),
         headers: {"Authorization": "Token $token"});
-
-    var order = GetAllOrderDataModel.fromJson(jsonDecode(response.body));
-    return order.allOrders;
+    return response.body;
   }
 
   Future<bool> place_order(String coffeeId, String coffeeName, String size,
