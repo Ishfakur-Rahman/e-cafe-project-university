@@ -28,7 +28,7 @@ class ProfileData {
 
     request.fields['user'] = userName!;
     request.fields['contact'] = contact ?? "00000000000";
-    request.fields['address'] = address!;
+    request.fields['address'] = address ?? "Add your email";
     request.fields['shopName'] =
         role == 'seller' ? shopName.toString() : (role == 'buyer' ? "0" : "");
 
