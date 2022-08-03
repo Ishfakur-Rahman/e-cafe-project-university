@@ -15,6 +15,7 @@ class OrderRequest extends StatelessWidget {
         orderdata?.add(singleorder);
       }
     }
+    return orderdata;
   }
 
   @override
@@ -26,7 +27,7 @@ class OrderRequest extends StatelessWidget {
       appBar: AppBar(title: const Text('Orders Requested'),),
       body: SafeArea(
         child: FutureBuilder(
-          //future: get_order(),
+          future: get_order(),
           builder: (context, snapshot) {
             return Container();
           }
