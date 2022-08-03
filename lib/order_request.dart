@@ -11,7 +11,7 @@ class OrderRequest extends StatelessWidget {
       backgroundColor: const Color(0xFF212121),
       appBar: AppBar(title: const Text('Orders Requested'),),
       body: SafeArea(
-        child: ,
+        child: Container(),
       ),
     );
   }
