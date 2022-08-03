@@ -6,6 +6,8 @@ import 'package:versity_project_coffee/Theme/mColors.dart';
 import 'package:versity_project_coffee/Theme/mText.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/HomePageScreen.dart';
 import 'package:versity_project_coffee/features/homePage/presentation/pages/addFormPage.dart';
+import 'package:versity_project_coffee/order_request.dart';
+import 'package:versity_project_coffee/seller_notification_page.dart';
 import 'package:versity_project_coffee/setting_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,12 +22,16 @@ class HomePage extends StatelessWidget {
             title: MText("").heading2(),
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(NotificationSellerPage());
+                },
                 icon: Icon(Iconsax.notification5),
                 splashRadius: 25,
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(UserInfo());
+                },
                 icon: Icon(Iconsax.user),
                 splashRadius: 25,
               ),
@@ -33,7 +39,7 @@ class HomePage extends StatelessWidget {
           ),
           body: Obx(() => IndexedStack(index: ctrl.tabIndex.value, children: [
                 HomeScreen(),
-                // ProfileUserScreen(),
+                OrderRequest(),
                 SettingsScreen(),
               ])),
           bottomNavigationBar: Obx(() => BottomNavigationBar(
@@ -42,7 +48,8 @@ class HomePage extends StatelessWidget {
                   items: const [
                     BottomNavigationBarItem(
                         icon: Icon(Iconsax.home), label: 'Home'),
-                // 
+                BottomNavigationBarItem(
+                    icon: Icon(Iconsax.cup), label: 'Orders'),
                 BottomNavigationBarItem(
                     icon: Icon(Iconsax.setting_2), label: 'Setting'),
               ])),
