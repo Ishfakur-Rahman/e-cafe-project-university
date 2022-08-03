@@ -56,7 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       }
       await ProfileData().add_profile_data(
         userName: user,
-        image: File('images/defaultprofile.jpg');
+        image: File('images/defaultprofile.jpg'),
         address: null,
       );
       return true;
