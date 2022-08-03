@@ -19,7 +19,8 @@ class OrderRequest extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    get_order();
+    //TODO: example: orderdata[0].shopId; you have all the data in the list
+    // List<AllOrders>? orderdata = await get_order();
     return Scaffold(
       backgroundColor: const Color(0xFF212121),
       appBar: AppBar(title: const Text('Orders Requested'),),
