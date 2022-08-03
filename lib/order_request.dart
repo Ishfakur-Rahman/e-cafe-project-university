@@ -5,11 +5,11 @@ import 'package:versity_project_coffee/backend_api/order_data.dart';
 import 'package:versity_project_coffee/database/userBoxController.dart';
 
 class OrderRequest extends StatelessWidget {
-  List<AllOrders>? orderdata;
-  void get_order() async{
+
+  Future<List<AllOrders>?> get_order() async{
     var order = await Order().get_all_order();
     var orders = GetAllOrderDataModel.fromJson(jsonDecode(order)).allOrders;
-
+    List<AllOrders>? orderdata;
     for(var singleorder in orders!){
       if(singleorder.shopName == UserBoxController().shopId){
         orderdata?.add(singleorder);
