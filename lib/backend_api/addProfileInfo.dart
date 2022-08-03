@@ -20,7 +20,7 @@ class ProfileData {
     var length = await image.length();
 
     var uri =
-        Uri.parse('https://coffee-app-systems.herokuapp.com/add-profile-info/');
+        Uri.parse('https://coffee-app-systems.herokuapp.com/profile-info/');
 
     var request = http.MultipartRequest('POST', uri);
 
@@ -28,7 +28,7 @@ class ProfileData {
 
     request.fields['user'] = userName!;
     request.fields['contact'] = contact ?? "00000000000";
-    request.fields['address'] = address ?? "Add your email";
+    request.fields['address'] = address!;
     request.fields['shopName'] =
         role == 'seller' ? shopName.toString() : (role == 'buyer' ? "0" : "");
 
