@@ -38,6 +38,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         userTypes: selectedUser,
         email: email,
       );
+      print('succeed registration');
       var shopDetails;
       var shop;
       UserBoxController().addToken(token);
@@ -49,7 +50,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         UserBoxController().addShopId(shopDetails.coffeeShopId as int);
       }
       print("ProfileData in");
-      await ProfileData().add_profile_data(
+      ProfileData().add_profile_data(
         userName: user,
         image: File('images/defaultprofile.jpg'),
         address: "hola",

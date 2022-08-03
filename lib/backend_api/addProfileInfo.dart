@@ -12,7 +12,9 @@ class ProfileData {
     String? address,
     File? image,
   }) async {
+    print('image in');
     var stream = http.ByteStream(image!.openRead());
+    print('image');
     stream.cast();
 
     var length = await image.length();
@@ -56,8 +58,10 @@ class ProfileData {
     //       "shopName": 0
     //     });
     if (response.statusCode == 200) {
+      print('added');
       return "Added";
     } else {
+      print('not');
       return "Failed to add data";
     }
   }
@@ -126,9 +130,9 @@ class ProfileData {
           'https://coffee-app-systems.herokuapp.com/get-profile-info/$userName/'),
       headers: {"Authorization": "Token $token"},
     );
-    if(response.statusCode == 200){
+    if (response.statusCode == 200) {
       return response.body;
-    }else{
+    } else {
       return 'error';
     }
   }
