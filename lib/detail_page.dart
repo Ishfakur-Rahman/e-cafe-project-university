@@ -271,22 +271,7 @@ class DetailPage extends StatelessWidget {
                           const SizedBox(
                             height: 10.0,
                           ),
-                          Row(
-                            children: const [
-                              Text(
-                                "primarily from espresso and milk",
-                                style: TextStyle(
-                                  color: Colors.white,
-                                ),
-                              ),
-                              Text(
-                                "...Read more",
-                                style: TextStyle(
-                                  color: Color(0xffb25e2b),
-                                ),
-                              ),
-                            ],
-                          )
+    
                         ],
                       ),
                       const Text(

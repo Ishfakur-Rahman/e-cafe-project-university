@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage>
         children: [
           Column(
             children: [
-           Lottie.asset("assets/90605-delivery-bike.json"),
+            Lottie.asset("asset/90605-delivery-bike.json"),
                 SizedBox(
                 height: 5,
             ),
@@ -79,11 +79,11 @@ class _MyHomePageState extends State<MyHomePage>
                   Row(
                     children: [
                       SizedBox(width: 30,),
-                      Icon(Icons.money),
+                      Icon(Icons.money, color: Colors.blueAccent),
                       SizedBox(width: 10,),
-                      const Text("Cash on Delivery",),
+                      const Text("Cash on Delivery",style: TextStyle(color: Colors.blueAccent)),
 
-                     SizedBox(width: 180,),
+                      SizedBox(width: 180,),
                       Radio(
                         value: 1,
                         groupValue: _radioSelected,
@@ -110,9 +110,9 @@ class _MyHomePageState extends State<MyHomePage>
                   Row(
                     children: [
                       SizedBox(width: 30,),
-                      Icon(Icons.mobile_friendly),
+                      Icon(Icons.mobile_friendly, color: Colors.blueAccent),
                       SizedBox(width: 10,),
-                      const Text("Bikash"),
+                      const Text("Bikash", style: TextStyle(color: Colors.blueAccent)),
                       SizedBox(width: 230,),
                       Radio(
                         value: 2,
@@ -153,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage>
       context: context,
       builder: (context) => Dialog(
             child: Column(mainAxisSize: MainAxisSize.min, children: [
-              Lottie.asset("assets/50465-done.json",
+              Lottie.asset("asset/50465-done.json",
                   repeat: false,
                   controller: controller, onLoaded: (composition) {
                 controller.forward();

@@ -565,8 +565,9 @@ class SHomePageController extends GetxController {
     return int.parse(allCoffeeList[index].id).obs;
   }
 
-  void setCoffeeData(Object? data) {
-    catagory = (data as List<CoffeeModel>).map((e) => e.catagory).toList();
+  void setCoffeeData(Object? data) async {
+    // catagory = (data as List<CoffeeModel>).map((e) => e.catagory).toList();
+    catagory = await CoffeeDataLocal().catagoryList;
     catagory.insert(0, "All");
   }
 }

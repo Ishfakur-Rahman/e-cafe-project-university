@@ -124,7 +124,9 @@ class Ratings extends StatelessWidget {
     HomePageController ctrl = Get.put(HomePageController());
     return Row(
       children: [
-        MText(ctrl.getTotalRating().toString()).text2(),
+        MText(ctrl.getTotalRating().toString(), color: MColors.yellow,
+                              fontWeight: FontWeight.w200).heading1(),
+        Icon(Iconsax.star1, color: Colors.amberAccent),
       ],
     );
   }

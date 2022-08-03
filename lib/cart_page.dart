@@ -60,7 +60,7 @@ class CartPage extends StatelessWidget {
                 //TODO: this line
                 placeorder(carts);
                 CartBoxController().delAllCart();
-                Get.to(MyHomePage());
+                Get.to(() => MyHomePage());
               },
               icon: Icon(Icons.coffee),
               label: Text("Buy Now")),

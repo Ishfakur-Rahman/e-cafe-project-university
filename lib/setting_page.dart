@@ -1019,26 +1019,21 @@ class _UserInfoState extends State<UserInfo> {
                             children: [
                               const SizedBox(
                                 height: 25,
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                              ),                      
                               Text(profileInfo.shopName.toString() != "0"
                                   ? 'ShopName'
                                   : 'username'),
                               const SizedBox(
-                                height: 5,
+                                height: 2,
                               ),
                               InfoCard(
                                   text: UserBoxController().userName,
                                   icon: Icons.person_pin,
                                   isEdit: true),
-                              const SizedBox(
-                                height: 10,
-                              ),
+                            
                               const Text('Contact:'),
                               const SizedBox(
-                                height: 5,
+                                height: 2,
                               ),
                               InfoCard(
                                 text: profileInfo.contact!.toString(),
@@ -1058,13 +1053,13 @@ class _UserInfoState extends State<UserInfo> {
                                 isEdit: true,
                               ),
                               const SizedBox(
-                                height: 10,
+                                height: 5,
                               ),
                               Text(profileInfo.shopName.toString() != "0"
                                   ? 'ShopId:'
                                   : ''),
                               const SizedBox(
-                                height: 5,
+                                height: 2,
                               ),
                               InfoCard(
                                 text: profileInfo.shopName.toString() != "0"
@@ -1179,30 +1174,32 @@ class InfoCard extends StatelessWidget {
     return isEdit
         ? Container(
             height: 110,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10)),
-              color: Colors.white,
-              margin: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-              child: Center(
-                child: ListTile(
-                  leading: Icon(
-                    icon,
-                    color: Colors.black54,
-                  ),
-                  title: Text(
-                    text,
-                    style: TextStyle(
+            child: SingleChildScrollView(
+              child: Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                color: Colors.white,
+                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+                child: Center(
+                  child: ListTile(
+                    leading: Icon(
+                      icon,
                       color: Colors.black54,
-                      fontSize: 20,
+                    ),
+                    title: Text(
+                      text,
+                      style: TextStyle(
+                        color: Colors.black54,
+                        fontSize: 20,
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
           )
-        : Container(
-            height: 110,
+        : Expanded(
+            // height: 110,
             child: Card(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
