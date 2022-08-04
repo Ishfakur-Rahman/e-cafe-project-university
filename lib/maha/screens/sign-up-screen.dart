@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
+import 'dart:async';
+import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -30,6 +33,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
   late String password = 'n';
   late String confirmedPassword = 'n';
   late String messages = 'n';
+
+  static Future<File> imageToFile({String imageName, String ext}) async {
+    var bytes = await rootBundle.load('assets/$imageName.$ext');
+    String tempPath = (await getTemporaryDirectory()).path;
+    File file = File('$tempPath/profile.png');
+    await file.writeAsBytes(
+        bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes));
+    return file;
+  }
+
+  File? imagePlaceHolder;
+  _setPlaceHolder() async {
+    this.imagePlaceHolder = await imageToFile(
+        imageName: "defaultprofile", ext: "jpg");
+  }
+
   Future<bool> registrationInAPI() async {
     try {
       var token = await RegistrationHelper().registrating(
@@ -44,19 +63,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
       UserBoxController().addToken(token);
       UserBoxController().addUserName(user);
       UserBoxController().addRole(selectedUser);
+
       if (selectedUser == 'seller') {
         shop = await Authentication().shop_id(token: token, shopName: user);
         shopDetails = ShopsDetails.fromJson(jsonDecode(shop));
         UserBoxController().addShopId(shopDetails.coffeeShopId as int);
         await ProfileData().add_profile_data(
           userName: user,
-          image: File('images/defaultprofile.jpg'),
+          image: imagePlaceHolder,
           address: shopDetails.location,
         );
       }
       await ProfileData().add_profile_data(
         userName: user,
-        image: File('images/defaultprofile.jpg'),
+        image: imagePlaceHolder,
         address: null,
       );
       return true;
