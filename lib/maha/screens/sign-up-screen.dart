@@ -62,23 +62,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
       UserBoxController().addToken(token);
       UserBoxController().addUserName(user);
       UserBoxController().addRole(selectedUser);
-      await _setPlaceHolder();
+      // await _setPlaceHolder();
       if (selectedUser == 'seller') {
         shop = await Authentication().shop_id(token: token, shopName: user);
         shopDetails = ShopsDetails.fromJson(jsonDecode(shop));
         UserBoxController().addShopId(shopDetails.coffeeShopId as int);
-        await ProfileData().add_profile_data(
-          userName: user,
-          image: imagePlaceHolder!,
-          address: shopDetails.location,
-        );
+        // await ProfileData().add_profile_data(
+        //   userName: user,
+        //   image: imagePlaceHolder!,
+        //   address: shopDetails.location,
+        // );
       }
-      print("going pf");
-      await ProfileData().add_profile_data(
-        userName: user,
-        image: imagePlaceHolder!,
-        address: " ",
-      );
+      // await ProfileData().add_profile_data(
+      //   userName: user,
+      //   image: imagePlaceHolder!,
+      //   address: " ",
+      // );
       return true;
     } catch (e) {
       print(e);
