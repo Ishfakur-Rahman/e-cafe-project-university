@@ -37,7 +37,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Future<File> imageToFile() async {
     var bytes = await rootBundle.load('images/defaultprofile.jpg');
     String tempPath = (await getTemporaryDirectory()).path;
-    File file = File('$tempPath/profile.png');
+    File file = File('$tempPath/images/defaultprofile.jpg');
+    print(file);
     return await file.writeAsBytes(
         bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes));
   }
