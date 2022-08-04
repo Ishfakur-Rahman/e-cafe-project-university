@@ -1,9 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
+// import 'dart:io';
 import 'dart:ui';
-import 'dart:async';
+// import 'dart:async';
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
+// import 'package:path_provider/path_provider.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -34,19 +34,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
   late String confirmedPassword = 'n';
   late String messages = 'n';
 
-  Future<File> imageToFile() async {
-    var bytes = await rootBundle.load('images/defaultprofile.jpg');
-    String tempPath = (await getTemporaryDirectory()).path;
-    File file = File('$tempPath/images/defaultprofile.jpg');
-    print(file);
-    return await file.writeAsBytes(
-        bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes));
-  }
-
-  File? imagePlaceHolder;
-  _setPlaceHolder() async {
-    this.imagePlaceHolder = await imageToFile();
-  }
+  // Future<File> imageToFile() async {
+  //   var bytes = await rootBundle.load('images/defaultprofile.jpg');
+  //   String tempPath = (await getTemporaryDirectory()).path;
+  //   File file = File('$tempPath/images/defaultprofile.jpg');
+  //   print(file);
+  //   return await file.writeAsBytes(
+  //       bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes));
+  // }
+  //
+  // File? imagePlaceHolder;
+  // _setPlaceHolder() async {
+  //   this.imagePlaceHolder = await imageToFile();
+  // }
 
   Future<bool> registrationInAPI() async {
     try {
