@@ -484,18 +484,6 @@ class HomePage extends StatelessWidget {
                             ),
                           );
                         })),
-                    Container(
-                      margin: const EdgeInsets.only(right: 15),
-                      height: 25.0,
-                      width: 50.0,
-                      decoration: const BoxDecoration(
-                        color: Color(0xff231715),
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(20.0),
-                          bottomLeft: Radius.circular(20.0),
-                        ),
-                      ),
-                    ),
                   ],
                 );
               },

@@ -208,7 +208,7 @@ class LogInButton extends StatelessWidget {
                       .shop_id(token: token, shopName: username);
                   ShopsDetails shopId = ShopsDetails.fromJson(jsonDecode(shop));
                   UserBoxController().addShopId(shopId.coffeeShopId as int);
-                  Get.off(() => HomePage());
+                  Get.offAll(() => HomePage());
                 }
               } else {
                 Navigator.pop(dialogContext!);
