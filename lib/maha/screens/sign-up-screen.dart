@@ -34,19 +34,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
   late String confirmedPassword = 'n';
   late String messages = 'n';
 
-  static Future<File> imageToFile({String imageName, String ext}) async {
-    var bytes = await rootBundle.load('assets/$imageName.$ext');
+  Future<File> imageToFile() async {
+    var bytes = await rootBundle.load('images/defaultprofile.jpg');
     String tempPath = (await getTemporaryDirectory()).path;
     File file = File('$tempPath/profile.png');
-    await file.writeAsBytes(
+    return await file.writeAsBytes(
         bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes));
-    return file;
   }
 
   File? imagePlaceHolder;
   _setPlaceHolder() async {
-    this.imagePlaceHolder = await imageToFile(
-        imageName: "defaultprofile", ext: "jpg");
+    this.imagePlaceHolder = await imageToFile();
   }
 
   Future<bool> registrationInAPI() async {
@@ -63,21 +61,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
       UserBoxController().addToken(token);
       UserBoxController().addUserName(user);
       UserBoxController().addRole(selectedUser);
-
+      await _setPlaceHolder();
       if (selectedUser == 'seller') {
         shop = await Authentication().shop_id(token: token, shopName: user);
         shopDetails = ShopsDetails.fromJson(jsonDecode(shop));
         UserBoxController().addShopId(shopDetails.coffeeShopId as int);
         await ProfileData().add_profile_data(
           userName: user,
-          image: imagePlaceHolder,
+          image: imagePlaceHolder!,
           address: shopDetails.location,
         );
       }
+      print("going pf");
       await ProfileData().add_profile_data(
         userName: user,
-        image: imagePlaceHolder,
-        address: null,
+        image: imagePlaceHolder!,
+        address: " ",
       );
       return true;
     } catch (e) {

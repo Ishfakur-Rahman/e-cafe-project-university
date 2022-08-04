@@ -10,10 +10,10 @@ class ProfileData {
     String? userName,
     String? contact,
     String? address,
-    File? image,
+    required File image,
   }) async {
     print('image in');
-    var stream = http.ByteStream(image!.openRead());
+    var stream = http.ByteStream(image.openRead());
     print('image');
     stream.cast();
 
@@ -26,9 +26,9 @@ class ProfileData {
 
     request.headers['Authorization'] = "Token $token";
 
-    request.fields['user'] = userName!;
+    request.fields['user'] = userName ?? "User";
     request.fields['contact'] = contact ?? "00000000000";
-    request.fields['address'] = address!;
+    request.fields['address'] = address ?? "put your address";
     request.fields['shopName'] =
         role == 'seller' ? shopName.toString() : (role == 'buyer' ? "0" : "");
 
