@@ -39,7 +39,7 @@ class OrderRequest extends StatelessWidget {
                     separatorBuilder: (build, id) => SizedBox(
                       height: 7,
                     ),
-                    itemCount: 5,
+                    itemCount: 1,
                   )
                 : Container();
           }),
@@ -56,11 +56,11 @@ class ItemViewer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     OrderRequestController ctrl = Get.put(OrderRequestController());
-    String name = ctrl.listofcoffee[id].id;
-    String subTitle = ctrl.listofcoffee[id].subTitle;
-    String image = ctrl.listofcoffee[id].image;
-    String price = ctrl.listofcoffee[id].price.toString();
-    String rating = ctrl.listofcoffee[id].rating;
+    String name = "Chocolate Expresso";
+    String subTitle = "Saints Cafe";
+    String image = "/images/expresso_with_chocolate";
+    String price = "280";
+    String rating = "4.50";
     return Stack(
       alignment: Alignment.topRight,
       children: [
